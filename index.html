@@ -9,22 +9,25 @@
   <link rel="stylesheet" href="css/design-system.css">
   <link rel="stylesheet" href="css/components.css">
   <script src="js/theme.js" defer></script>
+  <script src="js/sidebar.js" defer></script>
   <script src="js/gamification.js" defer></script>
   <script src="js/catalog.js" defer></script>
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar glass-panel" id="sidebar">
-      <a class="brand" href="index.html" aria-label="Навчальна лабораторія — головна">
+      <div class="sidebar-header">
+        <a class="brand" href="index.html" aria-label="Навчальна лабораторія — головна">
         <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="4" width="32" height="32" rx="11" fill="currentColor" opacity=".13"/><path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span><strong>Навчальна</strong><small>лабораторія</small></span>
-      </a>
+        </a>
+      </div>
       <div class="side-label">ПРОСТІР НАВЧАННЯ</div>
       <nav class="main-nav" aria-label="Основна навігація">
         <a class="nav-item active" href="index.html"><span>⌂</span> Головна</a>
         <a class="nav-item" href="subjects/mathematics.html"><span>∑</span> Математика</a>
         <a class="nav-item" href="subjects/informatics.html"><span>⌘</span> Інформатика</a>
-        <a class="nav-item" href="#progress"><span>◷</span> Мій прогрес</a>
+        <!-- <a class="nav-item" href="#progress"><span>◷</span> Мій прогрес</a> -->
       </nav>
       <div class="sidebar-bottom">
         <div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong><p>Досліджуй, пробуй і відкривай нове щодня.</p></div>
@@ -34,13 +37,13 @@
 
     <main class="main-content">
       <header class="topbar">
-        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню">☰</button>
+        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню" aria-expanded="true"><span></span><span></span><span></span></button>
         <div class="breadcrumb"><span>Твій простір</span><span class="crumb-dot">/</span><strong>Головна</strong></div>
         <div class="top-actions">
           <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Знайти урок..." aria-label="Знайти урок"></label>
           <label class="grade-filter"><span class="sr-only">Клас</span><select id="gradeFilter" aria-label="Фільтр за класом"><option value="all">Усі класи</option><option value="1">1 клас</option><option value="2">2 клас</option><option value="3">3 клас</option><option value="4">4 клас</option><option value="5">5 клас</option><option value="6">6 клас</option><option value="7">7 клас</option><option value="8">8 клас</option><option value="9">9 клас</option><option value="10">10 клас</option><option value="11">11 клас</option></select></label>
           <button class="icon-button top-theme" data-theme-toggle aria-label="Перемкнути тему">◐</button>
-          <div class="avatar" title="Учень">✦</div>
+          <div class="avatar" title="Учень"><a href="#progress">✦</a></div>
         </div>
       </header>
 

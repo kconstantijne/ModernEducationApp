@@ -11,6 +11,8 @@
       button.setAttribute("aria-label", actual === "dark" ? "Увімкнути світлу тему" : "Увімкнути темну тему");
       const track = button.querySelector(".toggle-track");
       if (track) track.style.background = actual === "dark" ? "rgba(139,114,223,.25)" : "";
+      const icon = button.querySelector(".theme-icon");
+      if (icon) icon.textContent = actual === "dark" ? "☀" : "☾";
     });
   }
   apply(saved || "system");

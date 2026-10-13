@@ -78,3 +78,214 @@
 :root[data-theme="dark"] .subject-card,:root[data-theme="dark"] .math-card,:root[data-theme="dark"] .code-card{background:linear-gradient(125deg,#293957 0%,#34304f 52%,#41304f 100%);color:#f0f2fb;border-color:var(--line)}
 :root[data-theme="dark"] .lesson-visual{background:linear-gradient(120deg,#293957 0%,#34304f 52%,#41304f 100%)!important;border-color:var(--line)}
 @media(max-width:760px){.subject-card{border-radius:16px}.lesson-card{border-radius:14px}}
+
+
+/* === Sidebar refinement: flush-left layout, instant collapse, theme control === */
+.app-shell {
+  max-width: none;
+  grid-template-columns: 242px minmax(0, 1fr);
+  gap: 0;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  border-radius: 0;
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
+  transition: none !important;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.sidebar-header .brand {
+  min-width: 0;
+  flex: 1;
+  padding: 0 0 8px 2px;
+}
+
+.sidebar-collapse {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  font-size: 25px;
+  line-height: 1;
+  transition: none !important;
+}
+
+.sidebar-theme-toggle {
+  margin-bottom: 14px;
+  min-height: 42px;
+  text-align: left;
+  transition: none !important;
+}
+
+.sidebar-theme-toggle:hover,
+.sidebar-collapse:hover,
+.mobile-menu:hover {
+  transform: none !important;
+}
+
+.sidebar-theme-toggle .theme-label {
+  flex: 1;
+}
+
+.mobile-menu {
+  display: grid;
+  flex: 0 0 38px;
+  transition: none !important;
+}
+
+.top-theme {
+  display: none;
+}
+
+/* Desktop: collapsing the sidebar gives all remaining width to the content. */
+@media (min-width: 761px) {
+  .app-shell.sidebar-collapsed {
+    grid-template-columns: 0 minmax(0, 1fr);
+  }
+
+  .app-shell.sidebar-collapsed > .sidebar {
+    display: none;
+  }
+
+  .app-shell.sidebar-collapsed .main-content {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+/* Mobile: the panel opens instantly and stays flush against the left edge. */
+@media (max-width: 760px) {
+  .app-shell {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(290px, 88vw);
+    height: 100vh;
+    height: 100dvh;
+    margin: 0;
+    border-radius: 0;
+    transform: translateX(-105%);
+    transition: none !important;
+    z-index: 50;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu {
+    display: grid;
+  }
+
+  .top-theme {
+    display: none;
+  }
+
+  .sidebar-header {
+    margin-bottom: 18px;
+  }
+}
+
+/* Respect the requested no-animation behavior for sidebar controls and theme changes. */
+.sidebar *,
+.sidebar *::before,
+.sidebar *::after,
+.mobile-menu,
+.mobile-scrim {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Theme changes are immediate as requested. */
+body { transition: none !important; }
+
+
+/* Sidebar toggle: one control, smooth layout transition, no content overlap. */
+@media (min-width: 761px) {
+  .app-shell {
+    grid-template-columns: 242px minmax(0, 1fr);
+    transition: grid-template-columns .32s cubic-bezier(.22,.8,.25,1);
+  }
+  .app-shell.sidebar-collapsed {
+    grid-template-columns: 0 minmax(0, 1fr);
+  }
+  .app-shell > .sidebar {
+    min-width: 0;
+    width: auto;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity .18s ease, padding .32s ease, border-color .32s ease;
+  }
+  .app-shell.sidebar-collapsed > .sidebar {
+    display: flex !important;
+    padding-left: 0;
+    padding-right: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .app-shell .main-content {
+    min-width: 0;
+    width: 100%;
+    max-width: none;
+  }
+  .mobile-menu {
+    display: grid !important;
+    flex: 0 0 38px;
+  }
+}
+@media (max-width: 760px) {
+  .app-shell { display: block; }
+  .sidebar {
+    transition: transform .28s cubic-bezier(.22,.8,.25,1) !important;
+  }
+  .mobile-menu { display: grid; }
+}
+
+
+/* Shared sidebar system: same brand, spacing and motion on every catalog page. */
+.sidebar .brand-mark { width: 40px; height: 40px; display: grid; place-items: center; flex: 0 0 40px; }
+.sidebar .brand-mark svg { width: 40px; height: 40px; display: block; }
+.sidebar .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.sidebar .brand strong { display: block; }
+.sidebar .brand small { display: block; }
+.sidebar .sidebar-header { margin-bottom: 18px; }
+.sidebar .mini-tip { margin-top: auto; }
+.mobile-menu { display: grid !important; place-items: center; gap: 0; position: relative; }
+.mobile-menu span { display: block; width: 17px; height: 2px; border-radius: 2px; background: currentColor; position: absolute; transition: transform .26s cubic-bezier(.2,.8,.2,1), opacity .16s ease, width .26s ease !important; }
+.mobile-menu span:nth-child(1) { transform: translateY(-5px); }
+.mobile-menu span:nth-child(2) { transform: translateY(0); }
+.mobile-menu span:nth-child(3) { transform: translateY(5px); }
+.mobile-menu.is-open span:nth-child(1) { width: 12px; transform: translate(2px,-3px) rotate(45deg); }
+.mobile-menu.is-open span:nth-child(2) { transform: translateX(-1px); }
+.mobile-menu.is-open span:nth-child(3) { width: 12px; transform: translate(2px,3px) rotate(-45deg); }
+/* Override old blanket transition suppression so the panel and icon animate. */
+@media (min-width: 761px) {
+ .app-shell { grid-template-columns: 242px minmax(0,1fr); transition: grid-template-columns .32s cubic-bezier(.22,.8,.25,1) !important; }
+ .app-shell.sidebar-collapsed { grid-template-columns: 0 minmax(0,1fr); }
+ .app-shell > .sidebar { min-width: 0; width: auto; overflow: hidden; opacity: 1; transition: opacity .18s ease, padding .32s ease !important; }
+ .app-shell.sidebar-collapsed > .sidebar { display: flex !important; padding-left: 0; padding-right: 0; border-right-width: 0; opacity: 0; pointer-events: none; }
+ .app-shell .main-content { min-width: 0; width: 100%; max-width: none; }
+}
+@media (max-width: 760px) {
+ .sidebar { transition: transform .28s cubic-bezier(.22,.8,.25,1) !important; }
+ .mobile-menu { display: grid !important; }
+}
+.mobile-menu, .mobile-menu span { animation: none !important; }

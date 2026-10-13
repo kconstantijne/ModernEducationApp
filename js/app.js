@@ -29,9 +29,5 @@ function updateProgress(){
 document.addEventListener("DOMContentLoaded",()=>{
  renderLessons();updateProgress();
  document.getElementById("searchInput")?.addEventListener("input",e=>renderLessons(e.target.value));
- const sidebar=document.getElementById("sidebar"),scrim=document.getElementById("mobileScrim");
- const close=()=>{sidebar?.classList.remove("open");scrim?.classList.remove("show")};
- document.getElementById("mobileMenu")?.addEventListener("click",()=>{sidebar?.classList.toggle("open");scrim?.classList.toggle("show")});
- scrim?.addEventListener("click",close);
- sidebar?.querySelectorAll("a").forEach(a=>a.addEventListener("click",close));
+
 });
