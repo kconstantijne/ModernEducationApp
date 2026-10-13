@@ -19,3 +19,62 @@
 .achievement.locked{opacity:.65}.achievement.earned{border-color:rgba(95,170,135,.55)}.achievement-icon{font-size:1.8rem}.achievement strong{display:block}.achievement p{margin:4px 0 0;font-size:.84rem;color:var(--muted,#687084)}.achievement-state{margin-left:auto;white-space:nowrap;font-size:.72rem;color:var(--muted,#687084)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:700px){.top-actions .grade-filter{display:none}.achievement-state{display:none}.coin-purse{min-width:76px;padding:10px}}
+
+
+/* Єдиний стиль плашок уроків: м'який градієнт без зображень та SVG */
+.lesson-visual{
+  height:112px;
+  min-height:112px;
+  border-radius:15px;
+  display:block;
+  position:relative;
+  overflow:hidden;
+  margin-bottom:15px;
+  background:linear-gradient(120deg,#e6efff 0%,#ecebff 48%,#f4eaff 100%) !important;
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
+}
+.lesson-visual::before{
+  content:"";
+  position:absolute;
+  width:58%;
+  height:160%;
+  right:-8%;
+  top:-40%;
+  border-radius:50%;
+  background:linear-gradient(135deg,rgba(255,255,255,.42),rgba(255,255,255,0));
+  transform:rotate(-24deg);
+  pointer-events:none;
+}
+.lesson-visual::after{
+  content:"";
+  position:absolute;
+  width:34%;
+  height:120%;
+  left:-12%;
+  bottom:-70%;
+  border-radius:50%;
+  background:rgba(255,255,255,.22);
+  filter:blur(2px);
+  pointer-events:none;
+}
+.lesson-visual svg,
+.lesson-visual img,
+.lesson-visual picture{display:none!important}
+:root[data-theme="dark"] .lesson-visual{
+  background:linear-gradient(120deg,#293957 0%,#34304f 52%,#41304f 100%) !important;
+  border-color:rgba(255,255,255,.08);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+/* Єдиний вигляд карток предметів та уроків: м'який градієнт, без ілюстрацій */
+.subject-card{background:linear-gradient(125deg,#e7efff 0%,#ecebff 52%,#f4eaff 100%);color:#303b63;border:1px solid rgba(255,255,255,.88);box-shadow:0 10px 28px rgba(72,88,150,.07)}
+.math-card,.code-card{background:linear-gradient(125deg,#e7efff 0%,#ecebff 52%,#f4eaff 100%);color:#303b63}
+.subject-art{display:none!important}
+.subject-symbol,.round-arrow{background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.72)}
+.lesson-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 8px 26px rgba(40,50,90,.045)}
+.lesson-visual{background:linear-gradient(120deg,#e6efff 0%,#ecebff 48%,#f4eaff 100%)!important;border:1px solid rgba(255,255,255,.7);border-radius:13px}
+.lesson-visual svg,.lesson-visual img,.lesson-visual picture{display:none!important}
+:root[data-theme="dark"] .subject-card,:root[data-theme="dark"] .math-card,:root[data-theme="dark"] .code-card{background:linear-gradient(125deg,#293957 0%,#34304f 52%,#41304f 100%);color:#f0f2fb;border-color:var(--line)}
+:root[data-theme="dark"] .lesson-visual{background:linear-gradient(120deg,#293957 0%,#34304f 52%,#41304f 100%)!important;border-color:var(--line)}
+@media(max-width:760px){.subject-card{border-radius:16px}.lesson-card{border-radius:14px}}
