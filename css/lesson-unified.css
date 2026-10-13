@@ -1,0 +1,21 @@
+/* Єдиний стиль уроків для всіх предметів */
+.lesson-meta { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:16px; }
+.lesson-meta > span, .model-pill, .quiz-counter, .lesson-badge { display:inline-flex; align-items:center; gap:7px; padding:8px 12px; border:1px solid var(--line, rgba(120,130,160,.22)); border-radius:999px; background:var(--surface, rgba(255,255,255,.55)); color:var(--muted, #68738e); font-size:.88rem; font-weight:600; }
+.explorer, .quiz-card, .lesson-panel, .cheatsheet-card { border:1px solid var(--line, rgba(120,130,160,.2)); border-radius:22px; background:var(--panel, rgba(255,255,255,.65)); box-shadow:0 10px 35px rgba(40,50,90,.045); }
+.explorer { padding:clamp(18px,3vw,28px); }
+.explorer-header, .section-heading { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.model-pill { white-space:nowrap; }
+.cheatsheet { margin:28px 0; }
+.cheatsheet-heading { margin-bottom:14px; }
+.cheatsheet-heading h2 { margin:4px 0 6px; }
+.cheatsheet-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.cheatsheet-card { padding:17px; min-width:0; }
+.cheatsheet-card h3 { display:flex; align-items:center; gap:9px; margin:0 0 9px; font-size:1.02rem; }
+.cheatsheet-icon { display:grid; place-items:center; width:32px; height:32px; flex:0 0 32px; border-radius:10px; background:linear-gradient(135deg,rgba(91,119,230,.15),rgba(163,111,222,.15)); font-size:1.05rem; }
+.cheatsheet-card p { margin:0 0 8px; color:var(--muted, #68738e); line-height:1.55; }
+.cheatsheet-card p:last-child { margin-bottom:0; }
+.cheatsheet-formula { display:inline-block; margin:5px 0; padding:8px 12px; border:1px solid var(--line, rgba(120,130,160,.25)); border-radius:12px; font-weight:750; background:var(--surface,rgba(255,255,255,.5)); }
+.cheatsheet-tip { border-style:dashed; }
+@media(max-width:680px){.cheatsheet-grid{grid-template-columns:1fr}.lesson-meta>span{font-size:.8rem;padding:7px 10px}.cheatsheet-card{padding:15px}}
+
+.lesson-balance{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--border-color,rgba(120,130,170,.25));border-radius:999px;background:var(--surface-glass,rgba(255,255,255,.45));font-size:.9rem;font-variant-numeric:tabular-nums}.lesson-top{display:flex;align-items:center;gap:12px}.lesson-top .back-link{margin-right:auto}

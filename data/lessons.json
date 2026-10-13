@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 2,
+  "gradesSupported": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "lessons": [
+    {
+      "id": "point-line-ray",
+      "title": "Точка, пряма та промінь",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Досліджуй геометричні фігури та навчися розрізняти їхні властивості.",
+      "tag": "ГЕОМЕТРІЯ",
+      "duration": "10–15 хв",
+      "url": "lessons/math/point-line-ray/index.html",
+      "visual": "geometry",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "coordinate-ray",
+      "title": "Координатний промінь",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Розміщуй числа на промені та відкривай, як працюють координати.",
+      "tag": "ЧИСЛА",
+      "duration": "10 хв",
+      "url": "lessons/math/coordinate-ray/index.html",
+      "visual": "numberline",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "algorithms",
+      "title": "Алгоритми та виконавці",
+      "subject": "Інформатика",
+      "category": "informatics",
+      "description": "Складай послідовності команд і допомагай виконавцю досягти мети.",
+      "tag": "АЛГОРИТМИ",
+      "duration": "10–15 хв",
+      "url": "lessons/informatics/algorithms/index.html",
+      "visual": "code",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "numerical-expressions",
+      "title": "Числові вирази. Порівняння числових виразів",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Досліджуй числові вирази, обчислюй їх значення та порівнюй результати за допомогою інтерактивної моделі.",
+      "tag": "АРИФМЕТИКА",
+      "duration": "15 хв",
+      "url": "lessons/math/numerical-expressions/index.html",
+      "visual": "calculator",
+      "grades": [
+        5
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "angles-measurement",
+      "title": "Кути та їх вимірювання",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Навчися розпізнавати кути, вимірювати їх транспортиром і порівнювати величини.",
+      "tag": "ГЕОМЕТРІЯ",
+      "duration": "15 хв",
+      "url": "lessons/math/angles-measurement/index.html",
+      "visual": "geometry",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "letter-expressions-formulas",
+      "title": "Буквені вирази. Формули",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Підставляй значення змінних, обчислюй буквені вирази та застосовуй формули.",
+      "tag": "АЛГЕБРА",
+      "duration": "15 хв",
+      "url": "lessons/math/letter-expressions-formulas/index.html",
+      "visual": "geometry",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "addition-natural-numbers",
+      "title": "Додавання натуральних чисел",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Тренуй усне й письмове додавання, використовуй властивості суми та перевіряй результат.",
+      "tag": "АРИФМЕТИКА",
+      "duration": "15 хв",
+      "url": "lessons/math/addition-natural-numbers/index.html",
+      "visual": "geometry",
+      "grades": [
+        5
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "subtraction-natural-numbers",
+      "title": "Віднімання натуральних чисел",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Знаходь різницю натуральних чисел і перевіряй віднімання додаванням.",
+      "tag": "АРИФМЕТИКА",
+      "duration": "15 хв",
+      "url": "lessons/math/subtraction-natural-numbers/index.html",
+      "visual": "geometry",
+      "grades": [
+        5
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "rectangle-square",
+      "title": "Прямокутник. Квадрат",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Досліджуй сторони, периметр і площу прямокутника та квадрата.",
+      "tag": "ГЕОМЕТРІЯ",
+      "duration": "15 хв",
+      "url": "lessons/math/rectangle-square/index.html",
+      "visual": "geometry",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "computer-components",
+      "title": "Складові комп’ютера",
+      "subject": "Інформатика",
+      "category": "informatics",
+      "description": "Розрізняй основні пристрої комп’ютера та їхні функції.",
+      "tag": "КОМП’ЮТЕР",
+      "duration": "15 хв",
+      "url": "lessons/informatics/computer-components/index.html",
+      "visual": "code",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "computer-presentations",
+      "title": "Комп’ютерні презентації",
+      "subject": "Інформатика",
+      "category": "informatics",
+      "description": "Створюй логічні слайди, добирай читабельний дизайн і використовуй мультимедіа доречно.",
+      "tag": "ПРЕЗЕНТАЦІЇ",
+      "duration": "15 хв",
+      "url": "lessons/informatics/computer-presentations/index.html",
+      "visual": "code",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "text-documents",
+      "title": "Текстові документи та правила роботи з ними",
+      "subject": "Інформатика",
+      "category": "informatics",
+      "description": "Навчися створювати, форматувати й зберігати текстові документи охайно та безпечно.",
+      "tag": "ТЕКСТОВІ ДОКУМЕНТИ",
+      "duration": "15 хв",
+      "url": "lessons/informatics/text-documents/index.html",
+      "visual": "code",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "algorithm-properties",
+      "title": "Алгоритм та його властивості",
+      "subject": "Інформатика",
+      "category": "informatics",
+      "description": "Визначай алгоритми, знаходь їхні властивості та впорядковуй команди для досягнення мети.",
+      "tag": "АЛГОРИТМИ",
+      "duration": "15 хв",
+      "url": "lessons/informatics/algorithm-properties/index.html",
+      "visual": "code",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    },
+    {
+      "id": "programming-languages-history",
+      "title": "Програмування та історія мов програмування",
+      "subject": "Інформатика",
+      "category": "informatics",
+      "description": "Дізнайся, як розвивалися мови програмування та чим відрізняються мови різних поколінь.",
+      "tag": "ПРОГРАМУВАННЯ",
+      "duration": "15 хв",
+      "url": "lessons/informatics/programming-languages-history/index.html",
+      "visual": "code",
+      "grades": [
+        6,
+        7
+      ],
+      "coins": 20,
+      "difficulty": "Початковий"
+    }
+  ]
+}

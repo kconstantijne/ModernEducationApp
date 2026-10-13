@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6fb">
+  <meta name="description" content="Навчальна лабораторія — інтерактивні уроки з математики та інформатики.">
+  <title>Навчальна лабораторія</title>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <script src="js/theme.js" defer></script>
+  <script src="js/gamification.js" defer></script>
+  <script src="js/catalog.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar glass-panel" id="sidebar">
+      <a class="brand" href="index.html" aria-label="Навчальна лабораторія — головна">
+        <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="4" width="32" height="32" rx="11" fill="currentColor" opacity=".13"/><path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>Навчальна</strong><small>лабораторія</small></span>
+      </a>
+      <div class="side-label">ПРОСТІР НАВЧАННЯ</div>
+      <nav class="main-nav" aria-label="Основна навігація">
+        <a class="nav-item active" href="index.html"><span>⌂</span> Головна</a>
+        <a class="nav-item" href="subjects/mathematics.html"><span>∑</span> Математика</a>
+        <a class="nav-item" href="subjects/informatics.html"><span>⌘</span> Інформатика</a>
+        <a class="nav-item" href="#progress"><span>◷</span> Мій прогрес</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong><p>Досліджуй, пробуй і відкривай нове щодня.</p></div>
+        <div class="sidebar-foot">Створено для допитливих ✦</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню">☰</button>
+        <div class="breadcrumb"><span>Твій простір</span><span class="crumb-dot">/</span><strong>Головна</strong></div>
+        <div class="top-actions">
+          <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Знайти урок..." aria-label="Знайти урок"></label>
+          <label class="grade-filter"><span class="sr-only">Клас</span><select id="gradeFilter" aria-label="Фільтр за класом"><option value="all">Усі класи</option><option value="1">1 клас</option><option value="2">2 клас</option><option value="3">3 клас</option><option value="4">4 клас</option><option value="5">5 клас</option><option value="6">6 клас</option><option value="7">7 клас</option><option value="8">8 клас</option><option value="9">9 клас</option><option value="10">10 клас</option><option value="11">11 клас</option></select></label>
+          <button class="icon-button top-theme" data-theme-toggle aria-label="Перемкнути тему">◐</button>
+          <div class="avatar" title="Учень">✦</div>
+        </div>
+      </header>
+
+      <section class="welcome-banner">
+        <div class="welcome-copy">
+          <span class="eyebrow"><span class="live-dot"></span> ТВОЯ НАВЧАЛЬНА ПРИГОДА ПОЧИНАЄТЬСЯ ТУТ</span>
+          <h1>Привіт, досліднику! <span class="wave">✦</span><br><em>Що відкриємо сьогодні?</em></h1>
+          <p>Навчайся через гру, досліджуй ідеї та перетворюй складне на зрозуміле.</p>
+          <a class="button button-primary" href="#subjects">Обрати предмет <span>↗</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="floating-shape shape-cube">◇</div><div class="floating-shape shape-circle">●</div>
+          <div class="hero-glass-card"><span class="hero-card-icon">✳</span><strong>Ідеї стають<br>відкриттями</strong><small>Крок за кроком</small></div>
+          <div class="floating-shape shape-spark">✦</div><div class="floating-shape shape-ring"></div>
+        </div>
+      </section>
+
+      <section class="section-block" id="subjects">
+        <div class="section-heading"><div><span class="eyebrow">ОБИРАЙ СВІЙ НАПРЯМ</span><h2>Досліджуй предмети</h2></div><span class="section-note">Знання без нудьги ✦</span></div>
+        <div class="subject-grid">
+          <a class="subject-card math-card" href="subjects/mathematics.html">
+            <div class="subject-top"><span class="subject-symbol">∑</span><span class="round-arrow">↗</span></div>
+            <div><h3>Математика</h3><p>Числа, форми та закономірності</p></div>
+            <div class="subject-art math-art" aria-hidden="true"><span class="math-circle"></span><span class="math-line"></span><span class="math-point"></span><span class="math-number">123</span></div>
+            <span class="subject-bottom">Відкрити теми <span>→</span></span>
+          </a>
+          <a class="subject-card code-card" href="subjects/informatics.html">
+            <div class="subject-top"><span class="subject-symbol">⌘</span><span class="round-arrow">↗</span></div>
+            <div><h3>Інформатика</h3><p>Код, алгоритми та цифрова творчість</p></div>
+            <div class="subject-art code-art" aria-hidden="true"><span class="code-bracket">{ }</span><span class="code-cursor"></span><span class="code-dots">•••</span></div>
+            <span class="subject-bottom">Відкрити теми <span>→</span></span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section-block" id="lessons">
+        <div class="section-heading"><div><span class="eyebrow">МАЛЕНЬКІ КРОКИ — ВЕЛИКІ ВІДКРИТТЯ</span><h2>Уроки для дослідження</h2></div><span class="lesson-count" id="lessonCount">3 уроки</span></div>
+        <div class="lesson-grid" id="lessonGrid" aria-live="polite"></div>
+        <p class="empty-state hidden" id="emptyState">Нічого не знайшлося. Спробуй інший пошуковий запит.</p>
+      </section>
+
+      <section class="progress-section glass-panel" id="progress">
+        <div class="progress-copy"><span class="eyebrow">ТВОЇ ДОСЯГНЕННЯ</span><h2>Кожен крок має значення</h2><p>Завершуй уроки, щоб бачити свій поступ. Результати зберігаються в цьому браузері.</p></div>
+        <div class="progress-stats"><div class="coin-purse"><span>🪙</span><strong data-coins>0</strong><small>комп’юшок</small></div><div class="progress-ring"><div><strong id="completedCount">0</strong><small>уроків</small></div></div><div><strong id="progressLabel">Твоя подорож тільки починається</strong><div class="progress-track"><i id="progressBar"></i></div><small id="progressDetail">Пройди перший урок, щоб почати</small></div></div>
+      </section>
+      <section class="section-block" id="achievements"><div class="section-heading"><div><span class="eyebrow">ГРАЙ І РОЗВИВАЙСЯ</span><h2>Нагороди й досягнення</h2></div></div><div class="achievement-grid" id="achievementList"></div></section>
+      <footer class="page-footer"><span>Навчальна лабораторія</span><span>Створюй. Досліджуй. Навчайся. <b>✦</b></span></footer>
+    </main>
+  </div>
+  <div class="mobile-scrim" id="mobileScrim"></div>
+</body>
+</html>
