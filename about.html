@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Про Навчальну лабораторію — інтерактивну освітню платформу для учнів.">
+    <title>Про застосунок — Навчальна лабораторія</title>
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <script src="js/theme.js" defer></script>
+    <script src="js/sidebar.js" defer></script>
+    <style>
+        .about-page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding-bottom: 34px
+        }
+
+        .about-hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 27px;
+            padding: clamp(28px, 5vw, 58px);
+            background: linear-gradient(115deg, rgba(116, 145, 239, .18), rgba(166, 132, 225, .16), rgba(234, 188, 220, .13));
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow)
+        }
+
+        .about-hero:after {
+            content: "";
+            position: absolute;
+            width: 290px;
+            height: 290px;
+            border-radius: 50%;
+            right: -100px;
+            top: -130px;
+            background: radial-gradient(circle, rgba(139, 114, 223, .2), transparent 70%);
+            pointer-events: none
+        }
+
+        .about-hero h1 {
+            font-size: clamp(32px, 4.4vw, 52px);
+            letter-spacing: -.065em;
+            line-height: 1.08;
+            margin: 13px 0
+        }
+
+        .about-hero h1 em {
+            font-style: normal;
+            color: var(--blue-dark)
+        }
+
+        .about-hero p {
+            max-width: 700px;
+            color: var(--muted);
+            font-size: 15px;
+            margin: 0;
+            line-height: 1.8
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 18px
+        }
+
+        .about-card {
+            border: 1px solid var(--line);
+            border-radius: 21px;
+            padding: 22px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            min-width: 0
+        }
+
+        .about-card .about-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 15px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, rgba(104, 133, 234, .18), rgba(146, 125, 226, .18));
+            font-size: 22px;
+            margin-bottom: 15px
+        }
+
+        .about-card h2 {
+            font-size: 17px;
+            letter-spacing: -.035em;
+            margin: 0 0 8px
+        }
+
+        .about-card p,
+        .about-card li {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8
+        }
+
+        .about-card p {
+            margin: 0
+        }
+
+        .about-card ul {
+            padding-left: 18px;
+            margin: 9px 0 0
+        }
+
+        .author-card {
+            display: grid;
+            grid-template-columns: minmax(220px, .72fr) 1.28fr;
+            align-items: center;
+            gap: clamp(20px, 4vw, 48px);
+            margin-top: 20px;
+            padding: clamp(20px, 4vw, 38px);
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            overflow: hidden
+        }
+
+        .author-portrait {
+            align-self: end;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            min-height: 260px;
+            max-height: 430px;
+            background: radial-gradient(ellipse at 50% 70%, rgba(139, 114, 223, .19), transparent 68%);
+            border-radius: 20px 20px 8px 8px;
+            overflow: hidden
+        }
+
+        .author-portrait img {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            max-height: 430px;
+            object-fit: contain;
+            object-position: center bottom;
+            filter: drop-shadow(0 16px 24px rgba(25, 32, 56, .18))
+        }
+
+        .author-copy h2 {
+            font-size: clamp(25px, 3vw, 35px);
+            letter-spacing: -.055em;
+            margin: 8px 0
+        }
+
+        .author-role {
+            color: var(--blue-dark);
+            font-weight: 800;
+            font-size: 12px
+        }
+
+        .author-copy p {
+            color: var(--muted);
+            line-height: 1.85;
+            font-size: 13px
+        }
+
+        .author-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0
+        }
+
+        .author-tags span {
+            border: 1px solid var(--line);
+            background: var(--surface-2);
+            border-radius: 999px;
+            padding: 7px 11px;
+            font-size: 11px;
+            font-weight: 700
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            padding: 11px 14px;
+            font-size: 12px;
+            font-weight: 800;
+            background: var(--surface);
+            transition: transform .2s, border-color .2s
+        }
+
+        .social-link:hover {
+            transform: translateY(-2px);
+            border-color: var(--blue)
+        }
+
+        .about-note {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 12px
+        }
+
+        .about-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--muted);
+            font-size: 11px;
+            padding: 24px 3px 0
+        }
+
+        @media(max-width:850px) {
+            .about-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+
+            .author-card {
+                grid-template-columns: minmax(160px, .7fr) 1.3fr
+            }
+
+            .author-portrait {
+                min-height: 240px
+            }
+        }
+
+        @media(max-width:600px) {
+            .about-grid {
+                grid-template-columns: 1fr
+            }
+
+            .author-card {
+                grid-template-columns: 1fr
+            }
+
+            .author-portrait {
+                max-height: 300px;
+                min-height: 220px
+            }
+
+            .author-portrait img {
+                max-height: 300px;
+                max-width: 260px
+            }
+
+            .about-hero {
+                padding: 27px 23px
+            }
+
+            .about-footer {
+                flex-direction: column
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="css/banner-system.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="sidebar-header"><a class="brand" href="index.html"
+                    aria-label="Навчальна лабораторія — головна"><span class="brand-mark"><svg viewBox="0 0 40 40"
+                            aria-hidden="true">
+                            <rect x="4" y="4" width="32" height="32" rx="11" fill="currentColor" opacity=".13" />
+                            <path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor"
+                                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></span><span><strong>Навчальна</strong><small>лабораторія</small></span></a></div>
+            <div class="side-label">ПРОСТІР НАВЧАННЯ</div>
+            <nav class="main-nav" aria-label="Основна навігація">
+                <a class="nav-item" href="index.html"><span>⌂</span> Головна</a>
+                <details class="nav-dropdown">
+                    <summary class="nav-item dropdown-summary"><span>▦</span><span
+                            class="dropdown-title">Предмети</span><span class="dropdown-chevron"
+                            aria-hidden="true">⌄</span></summary>
+                    <div class="nav-submenu"><a class="nav-item" href="subjects/mathematics.html"><span>∑</span>
+                            Математика</a><a class="nav-item" href="subjects/informatics.html"><span>⌘</span>
+                            Інформатика</a><a class="nav-item" href="subjects/stem.html"><span>⚙︎</span> STEM</a></div>
+                </details>
+                <a class="nav-item" href="faq.html"><span>?</span> Часті питання</a><a class="nav-item active"
+                    href="about.html" aria-current="page"><span>ⓘ</span> Про застосунок</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Перемкнути тему"><span class="theme-icon" aria-hidden="true">☾</span><span>Змінити тему</span><span class="toggle-track theme-switch-track" aria-hidden="true"><i></i></span></button>
+                <div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong>
+                    <p>Досліджуй, пробуй і відкривай нове щодня.</p>
+                </div>
+                <div class="sidebar-foot">Створено для допитливих ✦</div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="topbar"><button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню"
+                    aria-expanded="false"><span></span><span></span><span></span></button>
+                <div class="breadcrumb"><a href="index.html">Головна</a><span>/</span><strong>Про застосунок</strong>
+                </div>
+                <div class="top-actions"><button class="icon-button top-theme" data-theme-toggle
+                        aria-label="Перемкнути тему">◐</button></div>
+            </header>
+            <div class="about-page">
+                <section class="about-hero"><span class="eyebrow">ПРО НАВЧАЛЬНУ ЛАБОРАТОРІЮ</span>
+                    <h1>Навчання, яке<br><em>відкриває можливості.</em></h1>
+                    <p>Навчальна лабораторія — інтерактивний освітній простір, у якому складні теми стають зрозумілішими
+                        завдяки практиці, дослідженню та навчанню через гру. Платформа об’єднує уроки, завдання й
+                        інструменти для відстеження власного прогресу.</p>
+                </section>
+                <section class="about-grid" aria-label="Переваги платформи">
+                    <article class="about-card">
+                        <div class="about-icon">✦</div>
+                        <h2>Навчання через дію</h2>
+                        <p>Не лише читай теорію — виконуй інтерактивні вправи, перевіряй відповіді та закріплюй знання
+                            на практиці.</p>
+                    </article>
+                    <article class="about-card">
+                        <div class="about-icon">⌘</div>
+                        <h2>Різні напрями</h2>
+                        <p>Математика, інформатика та STEM зібрані в одному просторі. Каталог можна розширювати новими
+                            предметами й темами.</p>
+                    </article>
+                    <article class="about-card">
+                        <div class="about-icon">◎</div>
+                        <h2>Власний темп</h2>
+                        <p>Обирай доступні уроки, повертайся до матеріалів і поступово проходь шлях від простих понять
+                            до складніших завдань.</p>
+                    </article>
+                    <article class="about-card">
+                        <div class="about-icon">🏆</div>
+                        <h2>Ігрова мотивація</h2>
+                        <p>Комп’юшки, досягнення та прогрес допомагають помічати власні успіхи й підтримують інтерес до
+                            навчання.</p>
+                    </article>
+                    <article class="about-card">
+                        <div class="about-icon">◐</div>
+                        <h2>Комфортний інтерфейс</h2>
+                        <p>Лаконічний дизайн у стилі glassmorphism, адаптація до різних екранів і світла або темна тема.
+                        </p>
+                    </article>
+                    <article class="about-card">
+                        <div class="about-icon">↗</div>
+                        <h2>Постійний розвиток</h2>
+                        <p>Платформа створюється як гнучкий проєкт: до неї можна додавати уроки, навчальні активності та
+                            нові можливості.</p>
+                    </article>
+                </section>
+                <section class="author-card" aria-labelledby="author-title">
+                    <div class="author-portrait"><img src="assets/developer-portrait.png"
+                            alt="Портрет автора та розробника Навчальної лабораторії" loading="lazy"></div>
+                    <div class="author-copy"><span class="eyebrow">АВТОР ПРОЄКТУ</span>
+                        <h2 id="author-title">Костянтин Кабанов</h2>
+                        <div class="author-role">Викладач інформатики та програмування</div>
+                        <p>Створюю цифрові навчальні матеріали й інтерактивні інструменти, які допомагають учням
+                            досліджувати технології, розвивати алгоритмічне мислення та вчитися через практику.</p>
+                        <p>Мої професійні інтереси охоплюють програмування, веброзробку, комп’ютерну графіку,
+                            3D-моделювання та дизайн.</p>
+                        <div class="author-tags"><span>Python та програмування</span><span>Веброзробка</span><span>3D і
+                                графічний дизайн</span><span>Освітні технології</span></div>
+                        <div class="social-links"><a class="social-link" href="https://github.com/kconstantijne" target="_blank"
+                                rel="noopener noreferrer"><span aria-hidden="true">⌘</span> GitHub <span
+                                    aria-hidden="true">↗</span></a><a class="social-link"
+                                href="https://www.instagram.com/kconstantijne/" target="_blank" rel="noopener noreferrer"><span
+                                    aria-hidden="true">◎</span> Instagram <span aria-hidden="true">↗</span></a></div>
+                        
+                    </div>
+                </section>
+                <footer class="about-footer"><a href="index.html">← Повернутися на головну</a><span>Навчальна
+                        лабораторія ✦</span></footer>
+            </div>
+        </main>
+    </div>
+    <div class="mobile-scrim" id="mobileScrim"></div>
+</body>
+
+</html>

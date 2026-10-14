@@ -11,6 +11,7 @@
   <script src="../js/sidebar.js" defer></script>
   <script src="../js/gamification.js" defer></script>
   <script src="../js/catalog.js" defer></script>
+  <link rel="stylesheet" href="../css/banner-system.css">
 </head>
 
 <body data-subject="math">
@@ -24,12 +25,24 @@
             </svg></span>
           <span><strong>Навчальна</strong><small>лабораторія</small></span></a></div>
       <div class="side-label">ПРОСТІР НАВЧАННЯ</div>
-      <nav class="main-nav" aria-label="Основна навігація"><a class="nav-item" href="../index.html"><span>⌂</span>
-          Головна</a>
-        <a class="nav-item active" href="../subjects/mathematics.html"><span>∑</span> Математика</a>
-        <a class="nav-item" href="../subjects/informatics.html"><span>⌘</span> Інформатика</a>
+      <nav class="main-nav" aria-label="Основна навігація">
+        <a class="nav-item" href="../index.html"><span>⌂</span> Головна</a>
+        <details class="nav-dropdown" open>
+          <summary class="nav-item dropdown-summary"><span>▦</span><span class="dropdown-title">Предмети</span><span class="dropdown-chevron" aria-hidden="true">⌄</span></summary>
+          <div class="nav-submenu">
+            <a class="nav-item active" href="../subjects/mathematics.html" aria-current="page"><span>∑</span> Математика</a>
+            <a class="nav-item" href="../subjects/informatics.html"><span>⌘</span> Інформатика</a>
+            <a class="nav-item" href="../subjects/stem.html"><span>⚙︎</span> STEM</a>
+          </div>
+        </details>
+      
+        <a class="nav-item achievements-nav-item" href="../achievements.html"><span>✧</span> Досягнення</a>
+        <a class="nav-item faq-nav-item" href="../faq.html"><span>?</span> Часті питання</a>
+        <a class="nav-item about-nav-item" href="../about.html"><span>ⓘ</span> Про застосунок</a>
+        
       </nav>
       <div class="sidebar-bottom">
+                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Перемкнути тему"><span class="theme-icon" aria-hidden="true">☾</span><span>Змінити тему</span><span class="toggle-track theme-switch-track" aria-hidden="true"><i></i></span></button>
         <div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong>
           <p>Досліджуй, пробуй і відкривай нове щодня.</p>
         </div>

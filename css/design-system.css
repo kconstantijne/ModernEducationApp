@@ -155,3 +155,131 @@ button {
     outline: 3px solid var(--blue);
     outline-offset: 3px
 }
+
+/* ==========================================================
+   Unified Apple Liquid Glass banners — adaptive light/dark
+   ========================================================== */
+:root {
+  --banner-bg:
+    radial-gradient(ellipse at 88% 8%, rgba(164, 146, 255, .22), transparent 38%),
+    radial-gradient(ellipse at 4% 100%, rgba(104, 176, 255, .17), transparent 42%),
+    linear-gradient(135deg, rgba(255,255,255,.86), rgba(239,240,255,.76) 54%, rgba(233,245,255,.78));
+  --banner-border: rgba(255,255,255,.82);
+  --banner-text: #25283b;
+  --banner-muted: #656d83;
+  --banner-accent: #655bd4;
+  --banner-shadow: 0 18px 48px rgba(62,72,125,.10), inset 0 1px 0 rgba(255,255,255,.82);
+  --banner-chip-bg: rgba(255,255,255,.52);
+  --banner-chip-border: rgba(255,255,255,.72);
+}
+:root[data-theme="dark"] {
+  --banner-bg:
+    radial-gradient(ellipse at 88% 8%, rgba(139, 117, 255, .22), transparent 38%),
+    radial-gradient(ellipse at 4% 100%, rgba(69, 153, 255, .14), transparent 42%),
+    linear-gradient(135deg, rgba(35,39,59,.91), rgba(31,33,54,.88) 54%, rgba(25,43,61,.88));
+  --banner-border: rgba(255,255,255,.13);
+  --banner-text: #f4f5ff;
+  --banner-muted: #b7bfd4;
+  --banner-accent: #b9adff;
+  --banner-shadow: 0 18px 48px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.09);
+  --banner-chip-bg: rgba(255,255,255,.065);
+  --banner-chip-border: rgba(255,255,255,.14);
+}
+
+/* Shared visual language across hero, welcome, tip and lesson banners */
+.welcome-banner,
+.faq-hero,
+.about-hero,
+.mini-tip,
+.cheatsheet-tip {
+  color: var(--banner-text);
+  background: var(--banner-bg) !important;
+  border: 1px solid var(--banner-border) !important;
+  box-shadow: var(--banner-shadow) !important;
+  backdrop-filter: blur(26px) saturate(145%);
+  -webkit-backdrop-filter: blur(26px) saturate(145%);
+  transition: background .35s ease, color .3s ease, border-color .3s ease, box-shadow .35s ease;
+}
+.welcome-banner,
+.faq-hero,
+.about-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 30px !important;
+}
+.welcome-banner::before,
+.faq-hero::before,
+.about-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(140px, 24vw, 280px);
+  aspect-ratio: 1;
+  right: -5%;
+  top: -48%;
+  border-radius: 50%;
+  background: rgba(160,145,255,.16);
+  filter: blur(14px);
+  pointer-events: none;
+}
+.welcome-copy,
+.faq-hero > *,
+.about-hero > * { position: relative; z-index: 1; }
+.welcome-copy .eyebrow,
+.faq-hero .eyebrow,
+.about-hero .eyebrow { color: var(--banner-accent) !important; }
+.welcome-copy h1,
+.faq-hero h1,
+.about-hero h1 { color: var(--banner-text) !important; }
+.welcome-copy p,
+.faq-hero p,
+.about-hero p { color: var(--banner-muted) !important; }
+.faq-hero h1 em,
+.about-hero h1 em { color: var(--banner-accent) !important; }
+.mini-tip,
+.cheatsheet-tip {
+  border-radius: 20px !important;
+}
+.mini-tip p,
+.cheatsheet-tip p { color: var(--banner-muted) !important; }
+.faq-hero .eyebrow,
+.about-hero .eyebrow {
+  background: var(--banner-chip-bg) !important;
+  border: 1px solid var(--banner-chip-border) !important;
+  border-radius: 999px;
+}
+@media (max-width: 760px) {
+  .welcome-banner,
+  .faq-hero,
+  .about-hero {
+    border-radius: 23px !important;
+    padding: clamp(22px, 6vw, 30px) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-banner, .faq-hero, .about-hero, .mini-tip, .cheatsheet-tip {
+    transition: none !important;
+  }
+}
+
+
+/* Higher-specificity tokens keep page-specific styles aligned with the system. */
+html:root .welcome-banner,
+html:root .faq-hero,
+html:root .about-hero,
+html:root .mini-tip,
+html:root .cheatsheet-tip {
+  color: var(--banner-text) !important;
+  background: var(--banner-bg) !important;
+  border-color: var(--banner-border) !important;
+  box-shadow: var(--banner-shadow) !important;
+}
+html:root .welcome-copy h1,
+html:root .faq-hero h1,
+html:root .about-hero h1 { color: var(--banner-text) !important; }
+html:root .welcome-copy p,
+html:root .faq-hero p,
+html:root .about-hero p,
+html:root .mini-tip p,
+html:root .cheatsheet-tip p { color: var(--banner-muted) !important; }
