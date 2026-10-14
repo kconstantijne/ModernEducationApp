@@ -4,10 +4,15 @@
   const sidebar = document.getElementById("sidebar");
   const toggle = document.getElementById("mobileMenu");
   const scrim = document.getElementById("mobileScrim");
+  if (!shell || !sidebar || !toggle) return;
+
   const desktopQuery = window.matchMedia("(min-width: 761px)");
   const storageKey = "learning-lab-sidebar-collapsed";
-  if (!shell || !sidebar || !toggle) return;
   const isDesktop = () => desktopQuery.matches;
+  const readCollapsed = () => {
+    try { return localStorage.getItem(storageKey) === "true"; }
+    catch (_) { return false; }
+  };
 
   function setOpen(open, persist = true) {
     if (isDesktop()) {
@@ -15,29 +20,25 @@
       sidebar.classList.remove("open");
       scrim?.classList.remove("show");
       if (persist) {
-        try { localStorage.setItem(storageKey, open ? "false" : "true"); } catch (_) {}
+        try { localStorage.setItem(storageKey, open ? "false" : "true"); } catch (_) { }
       }
     } else {
+      shell.classList.remove("sidebar-collapsed");
       sidebar.classList.toggle("open", open);
       scrim?.classList.toggle("show", open);
-      shell.classList.remove("sidebar-collapsed");
     }
-    toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Згорнути бічну панель" : "Відкрити бічну панель");
-    toggle.title = open ? "Згорнути бічну панель" : "Відкрити бічну панель";
     toggle.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Закрити меню" : (isDesktop() ? "Розгорнути бічну панель" : "Відкрити меню"));
+    toggle.title = open ? "Закрити меню" : (isDesktop() ? "Розгорнути бічну панель" : "Відкрити меню");
   }
 
-  let collapsed = false;
-  try { collapsed = localStorage.getItem(storageKey) === "true"; } catch (_) {}
-  if (isDesktop()) setOpen(!collapsed, false);
-  else setOpen(false, false);
-
+  setOpen(isDesktop() ? !readCollapsed() : false, false);
   toggle.addEventListener("click", () => {
-    const open = isDesktop()
+    const currentlyOpen = isDesktop()
       ? !shell.classList.contains("sidebar-collapsed")
       : sidebar.classList.contains("open");
-    setOpen(!open);
+    setOpen(!currentlyOpen);
   });
   scrim?.addEventListener("click", () => setOpen(false));
   sidebar.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
@@ -48,13 +49,7 @@
       setOpen(false, false); toggle.focus();
     }
   });
-  const viewportChanged = () => {
-    if (isDesktop()) {
-      let isCollapsed = false;
-      try { isCollapsed = localStorage.getItem(storageKey) === "true"; } catch (_) {}
-      setOpen(!isCollapsed, false);
-    } else setOpen(false, false);
-  };
-  if (desktopQuery.addEventListener) desktopQuery.addEventListener("change", viewportChanged);
-  else window.addEventListener("resize", viewportChanged);
+  const onViewportChange = () => setOpen(isDesktop() ? !readCollapsed() : false, false);
+  if (desktopQuery.addEventListener) desktopQuery.addEventListener("change", onViewportChange);
+  else window.addEventListener("resize", onViewportChange);
 })();

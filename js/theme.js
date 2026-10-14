@@ -2,7 +2,7 @@
   const root = document.documentElement;
   const key = "learning-lab-theme";
   let saved = null;
-  try { saved = localStorage.getItem(key); } catch (_) {}
+  try { saved = localStorage.getItem(key); } catch (_) { }
   const media = window.matchMedia("(prefers-color-scheme: dark)");
   function apply(theme) {
     const actual = theme === "system" ? (media.matches ? "dark" : "light") : theme;
@@ -17,14 +17,14 @@
   }
   apply(saved || "system");
   media.addEventListener?.("change", () => {
-    let current = null; try { current = localStorage.getItem(key); } catch (_) {}
+    let current = null; try { current = localStorage.getItem(key); } catch (_) { }
     if (!current || current === "system") apply("system");
   });
   document.addEventListener("click", event => {
     const button = event.target.closest("[data-theme-toggle]");
     if (!button) return;
     const next = root.dataset.theme === "dark" ? "light" : "dark";
-    try { localStorage.setItem(key, next); } catch (_) {}
+    try { localStorage.setItem(key, next); } catch (_) { }
     apply(next);
   });
 })();

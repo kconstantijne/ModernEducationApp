@@ -27,6 +27,7 @@
         <a class="nav-item active" href="index.html"><span>⌂</span> Головна</a>
         <a class="nav-item" href="subjects/mathematics.html"><span>∑</span> Математика</a>
         <a class="nav-item" href="subjects/informatics.html"><span>⌘</span> Інформатика</a>
+        <a class="nav-item" href="subjects/stem.html"><span>⚙︎</span> STEM</a>
         <!-- <a class="nav-item" href="#progress"><span>◷</span> Мій прогрес</a> -->
       </nav>
       <div class="sidebar-bottom">
@@ -37,7 +38,7 @@
 
     <main class="main-content">
       <header class="topbar">
-        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню" aria-expanded="true"><span></span><span></span><span></span></button>
+        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню" aria-expanded="false"><span></span><span></span><span></span></button>
         <div class="breadcrumb"><span>Твій простір</span><span class="crumb-dot">/</span><strong>Головна</strong></div>
         <div class="top-actions">
           <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Знайти урок..." aria-label="Знайти урок"></label>
@@ -64,17 +65,33 @@
 
       <section class="section-block" id="subjects">
         <div class="section-heading"><div><span class="eyebrow">ОБИРАЙ СВІЙ НАПРЯМ</span><h2>Досліджуй предмети</h2></div><span class="section-note">Знання без нудьги ✦</span></div>
-        <div class="subject-grid">
+        <div class="subject-slider-controls" aria-label="Керування слайдером предметів">
+          <span class="subject-slider-hint">Гортай, щоб побачити всі предмети</span>
+          <div class="subject-slider-buttons">
+            <button class="icon-button subject-slider-prev" type="button" aria-label="Попередні предмети">←</button>
+            <button class="icon-button subject-slider-next" type="button" aria-label="Наступні предмети">→</button>
+          </div>
+        </div>
+        <div class="subject-grid subject-slider" id="subjectSlider" tabindex="0" aria-label="Предмети для навчання">
+
           <a class="subject-card math-card" href="subjects/mathematics.html">
             <div class="subject-top"><span class="subject-symbol">∑</span><span class="round-arrow">↗</span></div>
             <div><h3>Математика</h3><p>Числа, форми та закономірності</p></div>
             <div class="subject-art math-art" aria-hidden="true"><span class="math-circle"></span><span class="math-line"></span><span class="math-point"></span><span class="math-number">123</span></div>
             <span class="subject-bottom">Відкрити теми <span>→</span></span>
           </a>
+
           <a class="subject-card code-card" href="subjects/informatics.html">
             <div class="subject-top"><span class="subject-symbol">⌘</span><span class="round-arrow">↗</span></div>
             <div><h3>Інформатика</h3><p>Код, алгоритми та цифрова творчість</p></div>
             <div class="subject-art code-art" aria-hidden="true"><span class="code-bracket">{ }</span><span class="code-cursor"></span><span class="code-dots">•••</span></div>
+            <span class="subject-bottom">Відкрити теми <span>→</span></span>
+          </a>
+
+          <a class="subject-card stem-card" href="subjects/stem.html">
+            <div class="subject-top"><span class="subject-symbol">⚙︎</span><span class="round-arrow">↗</span></div>
+            <div><h3>STEM</h3><p>Наука, технології, інженерія та математика</p></div>
+            <div class="subject-art stem-art" aria-hidden="true"><span class="stem-atom"></span><span class="stem-gear"></span><span class="stem-molecule"></span></div>
             <span class="subject-bottom">Відкрити теми <span>→</span></span>
           </a>
         </div>
@@ -95,5 +112,6 @@
     </main>
   </div>
   <div class="mobile-scrim" id="mobileScrim"></div>
+  <script src="js/subject-slider.js" defer></script>
 </body>
 </html>
