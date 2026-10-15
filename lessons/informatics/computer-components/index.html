@@ -1,10 +1,340 @@
 <!doctype html>
-<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Розрізняй основні пристрої комп’ютера та їхні функції."><title>Складові комп’ютера — Навчальна лабораторія</title>
-<link rel="stylesheet" href="../../../css/design-system.css"><link rel="stylesheet" href="../../../css/components.css"><link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="../../../css/lesson-unified.css"><script src="../../../js/theme.js" defer></script><script src="../../../js/gamification.js" defer></script><script src="script.js" defer></script>  <link rel="stylesheet" href="../../../css/banner-system.css">
+<html lang="uk">
+
+<head>
+    <meta name="color-scheme" content="light dark">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7fc">
+  <meta name="description"
+    content="Інтерактивний урок інформатики для 5–6 класів: складові комп’ютера, дослідницька модель, шпаргалка та мінітест.">
+  <title>Складові комп’ютера — Навчальна лабораторія</title>
+  <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../../../css/lesson-standard.css">
+  <script src="../../../js/theme.js" defer></script>
+  <script src="./script.js" defer></script>
 </head>
-<body><div class="lesson-shell"><header class="lesson-top"><a class="back-link" href="../../../subjects/informatics.html">← До предмета</a><span class="lesson-balance" aria-label="Баланс комп’юшок">🪙 <strong data-coins>0</strong></span></header><main class="lesson-page">
-<header class="lesson-intro"><p class="eyebrow">ІНФОРМАТИКА · 5, 6 КЛАС</p><h1>Складові комп’ютера</h1><p>Розрізняй основні пристрої комп’ютера та їхні функції.</p><div class="lesson-meta"><span>◷ 15 хвилин</span><span>✦ Інтерактивний урок</span><span>🪙 20 комп’юшок</span></div></header>
-<section class="explorer glass-panel"><div class="explorer-header"><div><span class="eyebrow">ІНТЕРАКТИВНА ЛАБОРАТОРІЯ</span><h2>Складові комп’ютера</h2></div><span class="model-pill">Спробуй самостійно</span></div><p class="model-description">Обери пристрій і визнач, до якої групи він належить.</p><div class="activity-box"><div class="device-picks"><button data-device="monitor">🖥️ Монітор</button><button data-device="mouse">🖱️ Миша</button><button data-device="printer">🖨️ Принтер</button><button data-device="mic">🎙️ Мікрофон</button></div><p id="deviceInfo" class="activity-result">Обери пристрій, щоб дізнатися його призначення.</p></div><p class="feedback" id="activityFeedback" aria-live="polite">Зміни значення або обери варіант, щоб дослідити тему.</p></section>
-<section class="cheatsheet" aria-labelledby="cheatsheetTitle"><div class="cheatsheet-heading"><span class="eyebrow">ШВИДКЕ ПОВТОРЕННЯ</span><h2 id="cheatsheetTitle">Шпаргалка: Складові комп’ютера</h2><p>Коротко про найважливіше — збережи ці правила перед тестом.</p></div><div class="cheatsheet-grid"><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">💡</span>Введення</h3><p>Клавіатура, миша, мікрофон — допомагають вводити дані.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">📌</span>Виведення</h3><p>Монітор, принтер, колонки — подають інформацію користувачу.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">🧠</span>Опрацювання</h3><p>Процесор виконує команди та обробляє дані.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">✅</span>Зберігання</h3><p>SSD/HDD зберігає файли навіть після вимкнення.</p></article></div></section>
-<section class="quiz-section"><div class="section-heading"><div><span class="eyebrow">ПЕРЕВІР СЕБЕ</span><h2>Мінітест</h2></div><span class="quiz-counter" id="quizCounter">Запитання 1 із 5</span></div><div class="lesson-panel quiz-card"><h3 id="questionText"></h3><div class="answer-list" id="answerList"></div><p class="feedback" id="feedback" aria-live="polite"></p><div class="quiz-actions"><span id="scoreText">Правильних відповідей: 0</span><button class="button button-primary" id="nextQuestion" disabled>Наступне запитання →</button></div></div></section>
-<section class="finish-card hidden" id="finishCard"><span class="finish-star">✦</span><h2>Тест завершено!</h2><p id="finishText"></p><button class="button button-primary" id="completeLesson">Зарахувати результат і отримати комп’юшки</button><p id="result" aria-live="polite"></p><a class="button button-secondary" href="../../../index.html">На головну</a></section><footer class="page-footer"><a href="../../../index.html">Навчальна лабораторія</a><span>Навчайся, досліджуй, зростай ✦</span></footer></main></div></body></html>
+
+<body>
+  <a class="skip-link" href="#main">Перейти до уроку</a>
+  <header class="topbar">
+    <a class="back-link" href="../../../subjects/informatics.html" aria-label="Повернутися до предмета Інформатика">
+      <span class="back-arrow" aria-hidden="true">←</span>
+      <span>Інформатика</span>
+    </a>
+    <div class="topbar-meta"><span class="topbar-dot" aria-hidden="true"></span><span>Навчальна лабораторія</span></div>
+  <button class="lesson-theme-button" type="button" data-theme-toggle aria-label="Увімкнути темну тему" title="Змінити тему"><span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Тема</span></button>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="hero" aria-labelledby="lesson-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-icon" aria-hidden="true">⌘</span> ІНФОРМАТИКА <span
+            class="eyebrow-separator">/</span> КОМП’ЮТЕР І ЙОГО СКЛАДОВІ</div>
+        <h1 id="lesson-title">Складові <span>комп’ютера</span></h1>
+        <p class="hero-description">Дізнайся, які пристрої допомагають комп’ютеру отримувати, опрацьовувати, зберігати
+          та передавати інформацію. Досліджуй модель і перевір свої знання!</p>
+        <div class="hero-meta">
+          <span class="meta-pill"><span aria-hidden="true">◷</span> 15–20 хвилин</span>
+          <span class="meta-pill interactive-pill"><span class="pulse-dot" aria-hidden="true"></span> Інтерактивний
+            урок</span>
+          <span class="meta-pill">5–6 клас</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <svg viewBox="0 0 340 250" role="img" aria-label="Ілюстрація настільного комп’ютера">
+          <defs>
+            <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#dce8ff" />
+              <stop offset="1" stop-color="#b8c9ff" />
+            </linearGradient>
+            <linearGradient id="case" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="1" stop-color="#e8ebf7" />
+            </linearGradient>
+          </defs>
+          <rect x="57" y="28" width="178" height="125" rx="13" fill="#303c61" opacity=".12" />
+          <rect x="51" y="22" width="178" height="125" rx="13" fill="#fff" stroke="#d8def1" stroke-width="2" />
+          <rect x="61" y="32" width="158" height="105" rx="7" fill="url(#screen)" />
+          <circle cx="140" cy="83" r="29" fill="#7b8de9" opacity=".24" />
+          <path d="M112 91c12-29 35-33 55-8" fill="none" stroke="#6379d8" stroke-width="8" stroke-linecap="round" />
+          <rect x="132" y="147" width="16" height="25" rx="3" fill="#c8cee3" />
+          <path d="M110 175h60" stroke="#b6bfdc" stroke-width="8" stroke-linecap="round" />
+          <rect x="244" y="50" width="43" height="119" rx="8" fill="url(#case)" stroke="#d8def1" stroke-width="2" />
+          <rect x="252" y="60" width="27" height="62" rx="4" fill="#dfe6fb" />
+          <circle cx="265" cy="138" r="4" fill="#8d9df0" />
+          <circle cx="265" cy="151" r="3" fill="#9ba7c8" />
+          <rect x="65" y="190" width="145" height="12" rx="6" fill="#c5cce2" />
+          <rect x="76" y="184" width="125" height="9" rx="4" fill="#edf0fa" stroke="#d9deef" />
+          <path d="M86 187h14m7 0h14m7 0h14m7 0h14m7 0h14m7 0h14" stroke="#b9c2dc" stroke-width="2"
+            stroke-linecap="round" />
+          <rect x="219" y="181" width="30" height="43" rx="13" fill="#e7eafa" stroke="#d4daed" />
+          <path d="M234 188v10" stroke="#9ca9d1" stroke-width="2" stroke-linecap="round" />
+          <circle cx="48" cy="54" r="7" fill="#b8a9f7" />
+          <circle cx="292" cy="32" r="5" fill="#f2c7dc" />
+          <circle cx="45" cy="158" r="4" fill="#b6dcd4" />
+        </svg>
+        <span class="floating-label label-input">Введення</span><span
+          class="floating-label label-process">Опрацювання</span><span
+          class="floating-label label-output">Виведення</span>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="concepts-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">КРОК 1 · ПОЗНАЙОМСЯ</p>
+          <h2 id="concepts-title">З чого складається комп’ютер?</h2>
+        </div>
+        <p class="section-note">Обери картку — і досліди пристрій у моделі нижче.</p>
+      </div>
+      <div class="concept-grid" id="concept-grid">
+        <button class="concept-card is-active" type="button" data-concept="system" aria-pressed="true">
+          <span class="concept-illustration"><svg viewBox="0 0 80 66" aria-hidden="true">
+              <rect x="23" y="5" width="36" height="53" rx="5" fill="#e3e8ff" stroke="#8b9be5" stroke-width="2" />
+              <rect x="29" y="12" width="24" height="27" rx="2" fill="#aab9fa" />
+              <circle cx="41" cy="48" r="3" fill="#7183d8" />
+              <path d="M33 58v4m16-4v4" stroke="#8b9be5" stroke-width="2" stroke-linecap="round" />
+            </svg></span>
+          <span class="concept-title">Системний блок</span><span class="concept-caption">Опрацьовує дані</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="input" aria-pressed="false">
+          <span class="concept-illustration"><svg viewBox="0 0 80 66" aria-hidden="true">
+              <rect x="6" y="16" width="46" height="31" rx="5" fill="#dff3ee" stroke="#6bb8a8" stroke-width="2" />
+              <path d="M13 24h32M13 30h32M13 36h32" stroke="#70b9a9" stroke-width="2" stroke-linecap="round" />
+              <path d="M59 15v24m-7-7 7 7 7-7" fill="none" stroke="#6bb8a8" stroke-width="3" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></span>
+          <span class="concept-title">Пристрої введення</span><span class="concept-caption">Передають команди</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="output" aria-pressed="false">
+          <span class="concept-illustration"><svg viewBox="0 0 80 66" aria-hidden="true">
+              <rect x="9" y="6" width="49" height="36" rx="5" fill="#f0e8ff" stroke="#a28ad9" stroke-width="2" />
+              <rect x="15" y="12" width="37" height="24" rx="2" fill="#cbb8f5" />
+              <path d="M33 42v8m-12 4h24" stroke="#a28ad9" stroke-width="3" stroke-linecap="round" />
+              <path d="M64 22h8m-4-4 4 4-4 4" fill="none" stroke="#a28ad9" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></span>
+          <span class="concept-title">Пристрої виведення</span><span class="concept-caption">Показують результат</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="storage" aria-pressed="false">
+          <span class="concept-illustration"><svg viewBox="0 0 80 66" aria-hidden="true">
+              <rect x="14" y="9" width="52" height="47" rx="8" fill="#fff0e2" stroke="#e4a66f" stroke-width="2" />
+              <rect x="22" y="17" width="36" height="26" rx="4" fill="#f6c89f" />
+              <circle cx="40" cy="30" r="7" fill="#fff0e2" stroke="#d99a60" stroke-width="2" />
+              <path d="M25 49h30" stroke="#d99a60" stroke-width="2" stroke-linecap="round" />
+            </svg></span>
+          <span class="concept-title">Пристрої зберігання</span><span class="concept-caption">Зберігають файли</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="network" aria-pressed="false">
+          <span class="concept-illustration"><svg viewBox="0 0 80 66" aria-hidden="true">
+              <circle cx="40" cy="17" r="5" fill="#8c9de9" />
+              <circle cx="18" cy="48" r="5" fill="#8c9de9" />
+              <circle cx="62" cy="48" r="5" fill="#8c9de9" />
+              <path d="M37 22 21 43m22-21 16 21M23 48h34" stroke="#8c9de9" stroke-width="3" stroke-linecap="round" />
+              <circle cx="40" cy="35" r="6" fill="#e1e7ff" stroke="#8c9de9" stroke-width="2" />
+            </svg></span>
+          <span class="concept-title">Мережеві пристрої</span><span class="concept-caption">Обмінюються даними</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section explore-section" aria-labelledby="explore-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">КРОК 2 · ДОСЛІДИ</p>
+          <h2 id="explore-title">Інтерактивна лабораторія</h2>
+        </div>
+        <span class="section-tag"><span class="live-dot"></span> Модель працює</span>
+      </div>
+      <div class="explorer-card">
+        <div class="explorer-top">
+          <div><span class="model-label">ІНТЕРАКТИВНА МОДЕЛЬ</span>
+            <h3 id="model-title">Системний блок</h3>
+            <p id="model-intro">Усередині системного блока розташовані компоненти, які виконують обчислення та керують
+              роботою комп’ютера.</p>
+          </div>
+          <button class="reset-button" id="reset-model" type="button"><span aria-hidden="true">↻</span> Скинути
+            модель</button>
+        </div>
+        <div class="model-layout">
+          <div class="model-stage" id="model-stage" aria-live="polite">
+            <svg id="model-svg" viewBox="0 0 520 310" role="img" aria-label="Модель системного блока">
+              <defs>
+                <linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fdfdff" />
+                  <stop offset="1" stop-color="#dfe5f5" />
+                </linearGradient>
+              </defs>
+              <rect x="164" y="20" width="192" height="270" rx="18" fill="url(#towerGrad)" stroke="#b9c4e2"
+                stroke-width="3" />
+              <rect x="181" y="38" width="158" height="76" rx="10" fill="#e9edfb" stroke="#c6d0ee" stroke-width="2" />
+              <rect x="197" y="53" width="56" height="45" rx="6" fill="#aebcf4" stroke="#788bdc" stroke-width="2" />
+              <text x="225" y="80" text-anchor="middle" font-size="12" fill="#344a9c" font-weight="700">CPU</text>
+              <path d="M263 58h56m-56 12h56m-56 12h42m-42 12h50" stroke="#a3b1dc" stroke-width="4"
+                stroke-linecap="round" />
+              <rect x="181" y="128" width="158" height="69" rx="10" fill="#e3f3ef" stroke="#acd9cf" stroke-width="2" />
+              <circle cx="218" cy="162" r="23" fill="#b9e4d9" stroke="#68b5a5" stroke-width="2" />
+              <circle cx="218" cy="162" r="6" fill="#68b5a5" />
+              <path d="M218 139v17m23 6h-17m-6 23v-17m-23-6h17" stroke="#68b5a5" stroke-width="5"
+                stroke-linecap="round" />
+              <rect x="254" y="143" width="69" height="38" rx="5" fill="#c2e8de" />
+              <path d="M262 153h52m-52 9h42m-42 9h48" stroke="#68b5a5" stroke-width="3" stroke-linecap="round" />
+              <rect x="181" y="211" width="158" height="59" rx="10" fill="#fff0e2" stroke="#f0c49d" stroke-width="2" />
+              <rect x="198" y="223" width="124" height="34" rx="5" fill="#f8d7b7" />
+              <circle cx="214" cy="240" r="8" fill="#e8ad79" />
+              <path d="M233 233h76m-76 8h63m-63 8h71" stroke="#e8ad79" stroke-width="3" stroke-linecap="round" />
+              <path d="M145 75h-47v40h47m230 31h44v-34h-44m-230 113H86v-28h59" fill="none" stroke="#8d9de5"
+                stroke-width="2" stroke-dasharray="5 5" />
+              <text x="77" y="69" font-size="12" fill="#65739e" text-anchor="middle">Процесор</text><text x="436" y="91"
+                font-size="12" fill="#65739e" text-anchor="middle">Оперативна</text><text x="436" y="106" font-size="12"
+                fill="#65739e" text-anchor="middle">пам’ять</text><text x="77" y="176" font-size="12" fill="#65739e"
+                text-anchor="middle">Накопичувач</text>
+            </svg>
+            <div class="stage-caption" id="stage-caption">Вибери елемент або змінюй параметри, щоб дослідити його
+              роботу.</div>
+          </div>
+          <aside class="model-controls">
+            <h4>Керування моделлю</h4>
+            <div id="model-controls-content">
+              <label class="control-label" for="detail-level">Рівень деталізації <output
+                  id="detail-output">2</output></label>
+              <input id="detail-level" type="range" min="1" max="3" value="2">
+              <div class="range-ends"><span>Огляд</span><span>Докладно</span></div>
+              <div class="toggle-row">
+                <div><strong>Показати підписи</strong><small>Назви компонентів</small></div><label class="switch"><input
+                    id="show-labels" type="checkbox" checked><span class="switch-track"></span><span
+                    class="sr-only">Показати підписи</span></label>
+              </div>
+            </div>
+            <div class="fact-box"><span class="fact-icon" aria-hidden="true">✦</span>
+              <div><strong>Запам’ятай</strong>
+                <p id="model-fact">Процесор виконує команди програм, а оперативна пам’ять тимчасово зберігає дані, з
+                  якими працює комп’ютер.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cheatsheet-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">КРОК 3 · ЗАПАМ’ЯТАЙ</p>
+          <h2 id="cheatsheet-title">Шпаргалка</h2>
+        </div>
+        <p class="section-note">Коротко про найважливіше.</p>
+      </div>
+      <div class="cheat-grid">
+        <article class="cheat-card"><span class="cheat-icon icon-blue">↗</span>
+          <h3>Введення</h3>
+          <p>Допомагає передати комп’ютеру команди або дані.</p>
+          <div class="example-chip">Клавіатура · миша · мікрофон</div>
+        </article>
+        <article class="cheat-card"><span class="cheat-icon icon-purple">▣</span>
+          <h3>Опрацювання</h3>
+          <p>Процесор виконує команди, а пам’ять допомагає працювати з даними.</p>
+          <div class="example-chip">Процесор · оперативна пам’ять</div>
+        </article>
+        <article class="cheat-card"><span class="cheat-icon icon-green">◉</span>
+          <h3>Виведення</h3>
+          <p>Показує або відтворює результат роботи комп’ютера.</p>
+          <div class="example-chip">Монітор · колонки · принтер</div>
+        </article>
+        <article class="cheat-card"><span class="cheat-icon icon-orange">▤</span>
+          <h3>Зберігання</h3>
+          <p>Залишає файли для подальшого використання.</p>
+          <div class="example-chip">SSD · флешнакопичувач</div>
+        </article>
+      </div>
+      <div class="remember-banner"><span class="remember-star" aria-hidden="true">✦</span>
+        <p><strong>Важливо:</strong> монітор, клавіатура та миша — це периферійні пристрої. Процесор, оперативна пам’ять
+          і накопичувач зазвичай розміщені всередині системного блока або корпусу ноутбука.</p>
+      </div>
+    </section>
+
+    <section class="section quiz-section" aria-labelledby="quiz-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">КРОК 4 · ПЕРЕВІР СЕБЕ</p>
+          <h2 id="quiz-title">Час для мінітесту!</h2>
+        </div>
+        <p class="section-note">Обери рівень, який тобі підходить.</p>
+      </div>
+      <div class="level-grid" role="group" aria-label="Рівень складності">
+        <button class="level-card is-selected" type="button" data-level="easy" aria-pressed="true"><span
+            class="level-number">01</span><span class="level-name">Простий</span><span
+            class="level-description">Пригадай назви та призначення пристроїв.</span><span class="level-reward">4
+            запитання · тренування</span></button>
+        <button class="level-card" type="button" data-level="medium" aria-pressed="false"><span
+            class="level-number">02</span><span class="level-name">Середній</span><span
+            class="level-description">Застосуй знання в повсякденних ситуаціях.</span><span class="level-reward">6
+            запитань · практика</span></button>
+        <button class="level-card" type="button" data-level="hard" aria-pressed="false"><span
+            class="level-number">03</span><span class="level-name">Складний</span><span
+            class="level-description">Проаналізуй роботу пристроїв і зв’язки між ними.</span><span
+            class="level-reward">8 запитань · виклик</span></button>
+      </div>
+      <div class="quiz-card" id="quiz-card">
+        <div class="quiz-progress-head"><span id="question-counter">Запитання 1 із 4</span><span
+            class="score-label">Правильних: <strong id="score-count">0</strong></span></div>
+        <div class="progress-track" role="progressbar" aria-label="Прогрес тесту" aria-valuemin="0" aria-valuemax="100"
+          aria-valuenow="0" id="quiz-progress"><span id="progress-fill"></span></div>
+        <div id="question-view">
+          <h3 id="question-text">Який пристрій зазвичай використовують для введення тексту?</h3>
+          <div class="answer-list" id="answer-list"></div>
+          <div class="feedback" id="answer-feedback" hidden aria-live="polite"></div>
+          <div class="quiz-actions"><span class="hint-text">Не поспішай — прочитай усі варіанти.</span><button
+              class="primary-button" id="next-question" type="button" disabled>Перевірити далі <span
+                aria-hidden="true">→</span></button></div>
+        </div>
+        <div id="result-view" class="result-view" hidden aria-live="polite">
+          <div class="result-symbol" id="result-symbol" aria-hidden="true">✦</div>
+          <p class="section-kicker">ТЕСТ ЗАВЕРШЕНО</p>
+          <h3 id="result-title">Чудова робота!</h3>
+          <p class="result-copy" id="result-copy"></p>
+          <div class="result-stats">
+            <div><strong id="final-score">0/4</strong><span>Правильних відповідей</span></div>
+            <div><strong id="final-percent">0%</strong><span>Твій результат</span></div>
+          </div>
+          <div class="result-actions"><button class="primary-button" id="retry-quiz" type="button">Пройти ще раз <span
+                aria-hidden="true">↻</span></button><a class="secondary-button" href="../../../index.html">На головну
+              <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section class="finish-note" aria-label="Підсумок уроку">
+      <div class="finish-icon" aria-hidden="true">✓</div>
+      <div>
+        <h2>Ти вже знаєш більше!</h2>
+        <p>Комп’ютер працює як команда пристроїв: кожен має свою роль, а разом вони допомагають нам навчатися, творити й
+          спілкуватися.</p>
+      </div><a href="#main" class="text-link">На початок ↑</a>
+    </section> -->
+    <br><br>
+    <section class="finish-banner" aria-labelledby="finish-title">
+      <div class="finish-sparkle">✦</div>
+      <div>
+        <p class="section-kicker">ТИ ВЖЕ ЗНАЄШ БІЛЬШЕ</p>
+        <h2 id="finish-title">Комп’ютер працює як команда пристроїв</h2>
+        <p>Кожен має свою роль, а разом вони допомагають нам навчатися, творити й
+          спілкуватися.</p>
+      </div><a class="button button-light" href="../../../index.html">На головну <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer" aria-label="Підвал навчальної сторінки">
+    <div class="footer-brand">
+      <span class="footer-mark" aria-hidden="true">✦</span>
+      <span class="footer-brand-copy"><strong>Навчальна лабораторія</strong><small>Інформатика · 5–6 клас</small></span>
+    </div>
+    <p class="footer-motto">Досліджуй. Практикуйся. Відкривай нове.</p>
+    <span class="footer-status"><span class="footer-status-dot" aria-hidden="true"></span> Навчайся досліджуючи</span>
+  </footer>
+</body>
+
+</html>

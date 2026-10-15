@@ -1,10 +1,132 @@
 <!doctype html>
-<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Навчися розпізнавати кути, вимірювати їх транспортиром і порівнювати величини."><title>Кути та їх вимірювання — Навчальна лабораторія</title>
-<link rel="stylesheet" href="../../../css/design-system.css"><link rel="stylesheet" href="../../../css/components.css"><link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="../../../css/lesson-unified.css"><script src="../../../js/theme.js" defer></script><script src="../../../js/gamification.js" defer></script><script src="script.js" defer></script>  <link rel="stylesheet" href="../../../css/banner-system.css">
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="Інтерактивний урок математики для 5–6 класів: кути та їх вимірювання.">
+  <title>Кути та їх вимірювання — Навчальна лабораторія</title>
+  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../../css/lesson-standard.css">
+  <script src="script.js" defer></script>
+  <script src="../../../js/theme.js" defer></script>
 </head>
-<body><div class="lesson-shell"><header class="lesson-top"><a class="back-link" href="../../../subjects/mathematics.html">← До предмета</a><span class="lesson-balance" aria-label="Баланс комп’юшок">🪙 <strong data-coins>0</strong></span></header><main class="lesson-page">
-<header class="lesson-intro"><p class="eyebrow">МАТЕМАТИКА · 5, 6 КЛАС</p><h1>Кути та їх вимірювання</h1><p>Навчися розпізнавати кути, вимірювати їх транспортиром і порівнювати величини.</p><div class="lesson-meta"><span>◷ 15 хвилин</span><span>✦ Інтерактивний урок</span><span>🪙 20 комп’юшок</span></div></header>
-<section class="explorer glass-panel"><div class="explorer-header"><div><span class="eyebrow">ІНТЕРАКТИВНА ЛАБОРАТОРІЯ</span><h2>Кути та їх вимірювання</h2></div><span class="model-pill">Спробуй самостійно</span></div><p class="model-description">Встанови величину кута й перевір, як змінюється його тип.</p><div class="activity-box"><label for="angleRange">Кут: <output id="angleValue">45°</output></label><input id="angleRange" type="range" min="0" max="180" value="45"><div class="angle-demo" id="angleDemo"><span class="angle-ray"></span><span class="angle-ray second"></span></div><strong id="angleType">Гострий кут</strong></div><p class="feedback" id="activityFeedback" aria-live="polite">Зміни значення або обери варіант, щоб дослідити тему.</p></section>
-<section class="cheatsheet" aria-labelledby="cheatsheetTitle"><div class="cheatsheet-heading"><span class="eyebrow">ШВИДКЕ ПОВТОРЕННЯ</span><h2 id="cheatsheetTitle">Шпаргалка: Кути та їх вимірювання</h2><p>Коротко про найважливіше — збережи ці правила перед тестом.</p></div><div class="cheatsheet-grid"><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">💡</span>Кут</h3><p>Кут утворюють два промені зі спільним початком — вершиною.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">📌</span>Одиниця вимірювання — градус (°).</h3><p>Гострий &lt; 90°; прямий = 90°; тупий між 90° і 180°; розгорнутий = 180°.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">🧠</span>Транспортир</h3><p>Сумісти центр транспортира з вершиною кута, а нульову лінію — з однією стороною.</p></article></div></section>
-<section class="quiz-section"><div class="section-heading"><div><span class="eyebrow">ПЕРЕВІР СЕБЕ</span><h2>Мінітест</h2></div><span class="quiz-counter" id="quizCounter">Запитання 1 із 5</span></div><div class="lesson-panel quiz-card"><h3 id="questionText"></h3><div class="answer-list" id="answerList"></div><p class="feedback" id="feedback" aria-live="polite"></p><div class="quiz-actions"><span id="scoreText">Правильних відповідей: 0</span><button class="button button-primary" id="nextQuestion" disabled>Наступне запитання →</button></div></div></section>
-<section class="finish-card hidden" id="finishCard"><span class="finish-star">✦</span><h2>Тест завершено!</h2><p id="finishText"></p><button class="button button-primary" id="completeLesson">Зарахувати результат і отримати комп’юшки</button><p id="result" aria-live="polite"></p><a class="button button-secondary" href="../../../index.html">На головну</a></section><footer class="page-footer"><a href="../../../index.html">Навчальна лабораторія</a><span>Навчайся, досліджуй, зростай ✦</span></footer></main></div></body></html>
+<body>
+  <a class="skip-link" href="#main">Перейти до уроку</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="back-link" href="../../../index.html" aria-label="Повернутися до каталогу уроків"><span aria-hidden="true">←</span><span>До математики</span></a>
+      <a class="brand" href="../../../index.html" aria-label="Навчальна лабораторія — головна"><span class="brand-mark" aria-hidden="true">∠</span><span>Навчальна <strong>лабораторія</strong></span></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Увімкнути темну тему" title="Змінити тему"><span aria-hidden="true">◐</span><span class="theme-label">Тема</span></button>
+    </div>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="hero" aria-labelledby="lesson-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> МАТЕМАТИКА <span class="eyebrow-separator">/</span> ГЕОМЕТРІЯ</div>
+        <h1 id="lesson-title">Кути та їх <span>вимірювання</span></h1>
+        <p class="hero-description">Навчися розпізнавати кути, досліджувати їхню величину та правильно користуватися транспортиром.</p>
+        <div class="hero-meta"><span class="meta-chip"><span aria-hidden="true">◷</span> 15–20 хв</span><span class="meta-chip"><span aria-hidden="true">✦</span> Інтерактивний урок</span><span class="meta-chip">5–6 клас</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <svg viewBox="0 0 280 230" role="img" aria-label="Декоративна схема кута">
+          <defs><linearGradient id="heroFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8c8ff" stop-opacity=".65"/><stop offset="1" stop-color="#d9c6ff" stop-opacity=".35"/></linearGradient></defs>
+          <path d="M54 180 L226 180 L166 64 Z" fill="url(#heroFill)"/>
+          <path d="M54 180 L236 180 M54 180 L166 64" stroke="#6965d8" stroke-width="4" stroke-linecap="round"/>
+          <path d="M99 180 A45 45 0 0 0 77 141" fill="none" stroke="#a18bf0" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="54" cy="180" r="6" fill="#6965d8"/><circle cx="166" cy="64" r="5" fill="#a18bf0"/>
+          <rect x="87" y="128" width="76" height="31" rx="15" fill="#fff" stroke="#e4e4fb"/><text x="125" y="149" text-anchor="middle" font-size="15" font-weight="700" fill="#5c58c9">∠ 60°</text>
+          <circle cx="221" cy="67" r="4" fill="#a8d9d0"/><circle cx="242" cy="95" r="6" fill="#f3c4a6"/>
+        </svg>
+        <div class="floating-tag">α = 60°</div>
+      </div>
+    </section>
+
+    <section class="concept-section section-block" aria-labelledby="concept-title">
+      <div class="section-heading"><div><p class="section-kicker">КРОК 01 · ОЗНАЙОМСЯ</p><h2 id="concept-title">З чого почнемо?</h2></div><p class="section-note">Обери поняття — модель нижче зміниться.</p></div>
+      <div class="concept-grid" role="group" aria-label="Основні поняття уроку">
+        <button class="concept-card is-active" type="button" data-concept="types" aria-pressed="true">
+          <span class="concept-icon icon-lilac"><svg viewBox="0 0 64 54" aria-hidden="true"><path d="M8 45H55M8 45L37 9"/><path class="mini-arc" d="M26 45A18 18 0 0 0 22 29"/></svg></span><span class="concept-title">Види кутів</span><span class="concept-caption">Гострий, прямий, тупий</span><span class="concept-arrow" aria-hidden="true">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="parts" aria-pressed="false">
+          <span class="concept-icon icon-blue"><svg viewBox="0 0 64 54" aria-hidden="true"><path d="M8 45H55M8 45L39 8"/><circle cx="8" cy="45" r="3"/><circle cx="39" cy="8" r="3"/></svg></span><span class="concept-title">Будова кута</span><span class="concept-caption">Вершина та сторони</span><span class="concept-arrow" aria-hidden="true">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="measure" aria-pressed="false">
+          <span class="concept-icon icon-mint"><svg viewBox="0 0 64 54" aria-hidden="true"><path d="M8 45H55M8 45L39 8"/><path class="mini-arc" d="M29 45A21 21 0 0 0 24 27"/><text x="30" y="29">°</text></svg></span><span class="concept-title">Градусна міра</span><span class="concept-caption">Що означають градуси</span><span class="concept-arrow" aria-hidden="true">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="protractor" aria-pressed="false">
+          <span class="concept-icon icon-peach"><svg viewBox="0 0 64 54" aria-hidden="true"><path d="M7 45H57M10 45A22 22 0 0 1 54 45"/><path d="M15 34l-3-2M22 27l-2-3M32 23v-4M42 27l2-3M49 34l3-2"/><circle cx="32" cy="45" r="2.5"/></svg></span><span class="concept-title">Транспортир</span><span class="concept-caption">Як виміряти кут</span><span class="concept-arrow" aria-hidden="true">↗</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="lab-section section-block" aria-labelledby="modelHeading">
+      <div class="section-heading"><div><p class="section-kicker">КРОК 02 · ДОСЛІДИ</p><h2>Інтерактивна лабораторія</h2></div><span class="live-pill"><span></span> Модель активна</span></div>
+      <div class="lab-card">
+        <div class="lab-topline"><div><span class="model-badge">ІНТЕРАКТИВНА МОДЕЛЬ</span><h3 id="modelHeading">Види кутів</h3><p id="modelDescription" class="model-description">Змінюй величину кута та спостерігай, як змінюється його назва.</p></div><button id="resetModel" class="button button-quiet" type="button"><span aria-hidden="true">↺</span> Скинути</button></div>
+        <div class="lab-layout">
+          <div class="model-stage">
+            <svg id="angleSvg" class="angle-svg" viewBox="0 0 440 300" role="img" aria-labelledby="angleSvgTitle angleSvgDesc">
+              <title id="angleSvgTitle">Інтерактивна модель кута</title><desc id="angleSvgDesc">Кут із рухомим променем. Поточна величина — 60 градусів.</desc>
+              <defs><pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="currentColor" opacity=".13"/></pattern></defs>
+              <rect x="0" y="0" width="440" height="300" rx="16" fill="url(#dotGrid)"/>
+              <path id="angleFill" d="" class="angle-fill"/><path id="baseRay" d="" class="angle-ray"/><path id="movingRay" d="" class="angle-ray angle-ray-active"/><path id="angleArc" d="" class="angle-arc"/>
+              <path id="rightMarker" d="" class="right-marker"/>
+              <circle id="vertexDot" cx="90" cy="230" r="5" class="vertex-dot"/>
+              <text id="vertexLabel" x="73" y="251" class="svg-label">O</text><text id="baseLabel" x="390" y="251" class="svg-label">A</text><text id="rayLabel" x="0" y="0" class="svg-label">B</text>
+              <text id="angleLabel" x="0" y="0" class="svg-angle-label">60°</text>
+              <g id="protractorMarks" class="protractor-marks"></g>
+            </svg>
+            <div class="stage-legend"><span><i class="legend-dot legend-blue"></i> Сторони кута</span><span><i class="legend-dot legend-lilac"></i> Градусна міра</span></div>
+          </div>
+          <div class="model-controls">
+            <div class="angle-readout"><span class="readout-label">Градусна міра</span><div class="readout-value"><strong id="angleValue">60</strong><span>°</span></div><span id="angleType" class="angle-type-chip">Гострий кут</span></div>
+            <div class="control-group" id="angleControlGroup"><div class="control-heading"><label for="angleSlider">Зміни величину кута</label><output id="angleOutput" for="angleSlider">60°</output></div><input id="angleSlider" type="range" min="1" max="180" step="1" value="60" aria-describedby="sliderHint"><div class="range-labels"><span>1°</span><span>90°</span><span>180°</span></div><p id="sliderHint" class="control-hint">Перетягни повзунок або скористайся клавішами зі стрілками.</p></div>
+            <div class="quick-angles" aria-label="Швидкий вибір кута"><span>Швидкий вибір</span><div><button type="button" data-angle="30">30°</button><button type="button" data-angle="45">45°</button><button type="button" data-angle="90">90°</button><button type="button" data-angle="120">120°</button><button type="button" data-angle="180">180°</button></div></div>
+            <div class="model-insight" role="status" aria-live="polite"><span class="insight-icon" aria-hidden="true">✦</span><p id="modelInsight">60° менше за 90°, тому це гострий кут.</p></div>
+          </div>
+        </div>
+        <div class="lab-bottom-note"><span aria-hidden="true">💡</span><p id="modelFooterNote">Порівняй кут із прямим: якщо він менший за 90°, то гострий.</p></div>
+      </div>
+    </section>
+
+    <section class="cheatsheet-section section-block" aria-labelledby="cheatsheet-title">
+      <div class="section-heading"><div><p class="section-kicker">КРОК 03 · ЗАПАМ’ЯТАЙ</p><h2 id="cheatsheet-title">Шпаргалка</h2></div><p class="section-note">Коротко про найважливіше.</p></div>
+      <div class="cheat-grid">
+        <article class="cheat-card"><span class="cheat-symbol symbol-blue">∠</span><h3>Що таке кут?</h3><p>Кут утворюють два промені зі спільним початком.</p><div class="cheat-example">Спільний початок — <strong>вершина</strong></div></article>
+        <article class="cheat-card"><span class="cheat-symbol symbol-purple">90°</span><h3>Види кутів</h3><p>Гострий — менше 90°. Прямий — 90°. Тупий — більше 90°, але менше 180°.</p><div class="cheat-example">45° · 90° · 135°</div></article>
+        <article class="cheat-card"><span class="cheat-symbol symbol-mint">°</span><h3>Градуси</h3><p>Градус — одиниця вимірювання кута. Розгорнутий кут дорівнює 180°.</p><div class="cheat-example">Половина розгорнутого — 90°</div></article>
+        <article class="cheat-card"><span class="cheat-symbol symbol-peach">⌒</span><h3>Як користуватися транспортиром</h3><p>Центр постав на вершину, нульову лінію сумісти зі стороною та прочитай шкалу.</p><div class="cheat-example">Починай від 0° на потрібній шкалі</div></article>
+      </div>
+    </section>
+
+    <section class="quiz-section section-block" aria-labelledby="quiz-title">
+      <div class="section-heading"><div><p class="section-kicker">КРОК 04 · ПЕРЕВІР СЕБЕ</p><h2 id="quiz-title">Мінітест</h2></div><p class="section-note">Обери рівень, який тобі підходить.</p></div>
+      <div class="level-grid" role="group" aria-label="Рівень складності">
+        <button type="button" class="level-card" data-level="easy" aria-pressed="false"><span class="level-number">01</span><span class="level-name">Простий</span><span class="level-desc">Визначення та впізнавання</span><span class="level-reward">4 запитання</span></button>
+        <button type="button" class="level-card is-active" data-level="medium" aria-pressed="true"><span class="level-number">02</span><span class="level-name">Середній</span><span class="level-desc">Застосуй знання на практиці</span><span class="level-reward">6 запитань</span></button>
+        <button type="button" class="level-card" data-level="hard" aria-pressed="false"><span class="level-number">03</span><span class="level-name">Складний</span><span class="level-desc">Обчислення та логіка</span><span class="level-reward">8 запитань</span></button>
+      </div>
+      <div id="quizPanel" class="quiz-panel">
+        <div class="quiz-topline"><span id="quizLevelLabel" class="quiz-level-label">Середній рівень</span><span id="questionCounter" class="question-counter">Запитання 1 із 6</span></div>
+        <div class="progress-track" role="progressbar" aria-label="Прогрес тесту" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" id="quizProgress"><div id="quizProgressFill" class="progress-fill"></div></div>
+        <form id="quizForm" novalidate>
+          <fieldset id="answerFieldset" class="question-fieldset"><legend id="questionText" class="question-text">Який кут має величину 45°?</legend><div id="answerList" class="answer-list"></div></fieldset>
+          <div id="quizFeedback" class="quiz-feedback" role="status" aria-live="polite" hidden></div>
+          <div class="quiz-actions"><span class="score-counter">Правильних: <strong id="quizScore">0</strong></span><button id="checkAnswer" class="button button-primary" type="submit">Перевірити відповідь <span aria-hidden="true">→</span></button><button id="nextQuestion" class="button button-primary" type="button" hidden>Наступне запитання <span aria-hidden="true">→</span></button></div>
+        </form>
+      </div>
+      <section id="resultPanel" class="result-panel" aria-labelledby="resultTitle" hidden>
+        <div class="result-icon" aria-hidden="true">✦</div><p class="section-kicker">ТЕСТ ЗАВЕРШЕНО</p><h3 id="resultTitle">Чудова робота!</h3><p id="resultMessage">Ти завершив тест.</p>
+        <div class="result-stats"><div><strong id="finalScore">0/6</strong><span>Правильних відповідей</span></div><div><strong id="finalPercent">0%</strong><span>Підсумковий результат</span></div></div>
+        <div class="result-actions"><button id="retryQuiz" class="button button-primary" type="button">Пройти ще раз <span aria-hidden="true">↻</span></button><a class="button button-secondary" href="../../../index.html">На головну</a></div>
+      </section>
+    </section>
+
+    <section class="completion-card" aria-label="Завершення уроку"><div class="completion-icon" aria-hidden="true">✓</div><div><p class="completion-kicker">ТИ ВЖЕ НА КРОК БЛИЖЧЕ</p><h2>Кожен новий кут — нове відкриття</h2><p>Досліджуй, порівнюй і не бійся помилятися: так математика стає зрозумілішою.</p></div><a href="#concept-title" class="completion-link">Повернутися до початку ↑</a></section>
+  </main>
+  <footer class="footer"><div class="footer-inner"><a class="footer-brand" href="../../../index.html">Навчальна лабораторія</a><span>Досліджуй. Практикуйся. Відкривай.</span><span>Математика · 5–6 клас</span></div></footer>
+</body>
+</html>

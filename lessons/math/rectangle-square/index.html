@@ -1,10 +1,377 @@
-<!doctype html>
-<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Досліджуй сторони, периметр і площу прямокутника та квадрата."><title>Прямокутник. Квадрат — Навчальна лабораторія</title>
-<link rel="stylesheet" href="../../../css/design-system.css"><link rel="stylesheet" href="../../../css/components.css"><link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="../../../css/lesson-unified.css"><script src="../../../js/theme.js" defer></script><script src="../../../js/gamification.js" defer></script><script src="script.js" defer></script>  <link rel="stylesheet" href="../../../css/banner-system.css">
+<!DOCTYPE html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="Інтерактивний урок математики для 5–6 класів: прямокутник, квадрат, периметр і площа.">
+  <title>Прямокутник і квадрат — Навчальна лабораторія</title>
+  <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../../../css/lesson-standard.css">
+  <script src="./script.js" defer></script>
+  <script src="../../../js/theme.js" defer></script>
 </head>
-<body><div class="lesson-shell"><header class="lesson-top"><a class="back-link" href="../../../subjects/mathematics.html">← До предмета</a><span class="lesson-balance" aria-label="Баланс комп’юшок">🪙 <strong data-coins>0</strong></span></header><main class="lesson-page">
-<header class="lesson-intro"><p class="eyebrow">МАТЕМАТИКА · 5, 6 КЛАС</p><h1>Прямокутник. Квадрат</h1><p>Досліджуй сторони, периметр і площу прямокутника та квадрата.</p><div class="lesson-meta"><span>◷ 15 хвилин</span><span>✦ Інтерактивний урок</span><span>🪙 20 комп’юшок</span></div></header>
-<section class="explorer glass-panel"><div class="explorer-header"><div><span class="eyebrow">ІНТЕРАКТИВНА ЛАБОРАТОРІЯ</span><h2>Прямокутник. Квадрат</h2></div><span class="model-pill">Спробуй самостійно</span></div><p class="model-description">Змінюй довжини сторін і порівнюй периметр та площу фігури.</p><div class="activity-box"><label for="sideA">Сторона a: <output id="sideAValue">5</output> см</label><input id="sideA" type="range" min="1" max="12" value="5"><label for="sideB">Сторона b: <output id="sideBValue">3</output> см</label><input id="sideB" type="range" min="1" max="12" value="3"><div class="activity-result">Периметр: <strong id="perimeter">16 см</strong> · Площа: <strong id="area">15 см²</strong></div></div><p class="feedback" id="activityFeedback" aria-live="polite">Зміни значення або обери варіант, щоб дослідити тему.</p></section>
-<section class="cheatsheet" aria-labelledby="cheatsheetTitle"><div class="cheatsheet-heading"><span class="eyebrow">ШВИДКЕ ПОВТОРЕННЯ</span><h2 id="cheatsheetTitle">Шпаргалка: Прямокутник. Квадрат</h2><p>Коротко про найважливіше — збережи ці правила перед тестом.</p></div><div class="cheatsheet-grid"><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">💡</span>Прямокутник</h3><p>Чотири прямі кути; протилежні сторони рівні.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">📌</span>Квадрат</h3><p>Усі чотири сторони рівні, усі кути прямі.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">🧠</span>Периметр</h3><p>P = 2(a + b); для квадрата P = 4a.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">✅</span>Площа</h3><p>S = ab; для квадрата S = a².</p></article></div></section>
-<section class="quiz-section"><div class="section-heading"><div><span class="eyebrow">ПЕРЕВІР СЕБЕ</span><h2>Мінітест</h2></div><span class="quiz-counter" id="quizCounter">Запитання 1 із 5</span></div><div class="lesson-panel quiz-card"><h3 id="questionText"></h3><div class="answer-list" id="answerList"></div><p class="feedback" id="feedback" aria-live="polite"></p><div class="quiz-actions"><span id="scoreText">Правильних відповідей: 0</span><button class="button button-primary" id="nextQuestion" disabled>Наступне запитання →</button></div></div></section>
-<section class="finish-card hidden" id="finishCard"><span class="finish-star">✦</span><h2>Тест завершено!</h2><p id="finishText"></p><button class="button button-primary" id="completeLesson">Зарахувати результат і отримати комп’юшки</button><p id="result" aria-live="polite"></p><a class="button button-secondary" href="../../../index.html">На головну</a></section><footer class="page-footer"><a href="../../../index.html">Навчальна лабораторія</a><span>Навчайся, досліджуй, зростай ✦</span></footer></main></div></body></html>
+<body>
+  <a class="skip-link" href="#main">Перейти до уроку</a>
+
+  <header class="topbar">
+    <a class="back-link" href="../../../index.html" aria-label="Повернутися до каталогу уроків">
+      <span aria-hidden="true">←</span> До уроків
+    </a>
+    <div class="topbar-right">
+      <span class="platform-label"><span class="status-dot"></span> Навчальна лабораторія</span>
+      <button class="icon-button" type="button" data-theme-toggle aria-label="Увімкнути темну тему" aria-pressed="false">
+        <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-icon">◇</span> Математика · Геометрія</div>
+        <h1>Прямокутник <span>і квадрат</span></h1>
+        <p class="hero-description">
+          Досліджуй властивості фігур, змінюй їхні розміри та навчися
+          знаходити периметр і площу на практиці.
+        </p>
+        <div class="hero-meta">
+          <span>◷ 15–20 хвилин</span>
+          <span>5–6 класи</span>
+          <span class="pill">Інтерактивний урок</span>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-label="Ілюстрація квадрата та прямокутника" role="img">
+        <div class="art-grid"></div>
+        <div class="art-rectangle"><span> a </span><b> b </b></div>
+        <div class="art-square"><span> a </span></div>
+        <span class="art-spark spark-one">✳</span>
+        <span class="art-spark spark-two">✦</span>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="goalsTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Твій маршрут</p>
+          <h2 id="goalsTitle">Чого ти навчишся</h2>
+        </div>
+      </div>
+      <div class="goal-grid">
+        <article class="goal-card">
+          <span class="goal-icon icon-blue">◇</span>
+          <h3>Розрізняти фігури</h3>
+          <p>Визначати спільні та відмінні властивості квадрата й прямокутника.</p>
+        </article>
+        <article class="goal-card">
+          <span class="goal-icon icon-purple">↔</span>
+          <h3>Знаходити периметр</h3>
+          <p>Обчислювати довжину межі фігури за її сторонами.</p>
+        </article>
+        <article class="goal-card">
+          <span class="goal-icon icon-teal">▦</span>
+          <h3>Обчислювати площу</h3>
+          <p>Дізнаватися, скільки одиничних квадратів уміщується всередині фігури.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="conceptsTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Крок 1 · Ознайомся</p>
+          <h2 id="conceptsTitle">Обери фігуру для дослідження</h2>
+          <p class="section-subtitle">Натисни на картку — модель нижче зміниться.</p>
+        </div>
+      </div>
+
+      <div class="concept-grid" role="group" aria-label="Геометричні фігури">
+        <button class="concept-card is-active" type="button" data-shape="rectangle" aria-pressed="true">
+          <span class="concept-visual">
+            <svg viewBox="0 0 120 76" aria-hidden="true">
+              <rect x="18" y="15" width="84" height="46" rx="2"></rect>
+              <path class="right-angle" d="M25 15v8h8"></path>
+              <path class="right-angle" d="M95 53v8h-8"></path>
+            </svg>
+          </span>
+          <span class="concept-name">Прямокутник</span>
+          <span class="concept-caption">Протилежні сторони рівні</span>
+          <span class="concept-check" aria-hidden="true">✓</span>
+        </button>
+
+        <button class="concept-card" type="button" data-shape="square" aria-pressed="false">
+          <span class="concept-visual square-visual">
+            <svg viewBox="0 0 120 76" aria-hidden="true">
+              <rect x="37" y="7" width="46" height="62" rx="2"></rect>
+              <path class="right-angle" d="M44 7v8h8"></path>
+              <path class="right-angle" d="M76 61v8h-8"></path>
+            </svg>
+          </span>
+          <span class="concept-name">Квадрат</span>
+          <span class="concept-caption">Усі сторони рівні</span>
+          <span class="concept-check" aria-hidden="true">✓</span>
+        </button>
+
+        <button class="concept-card" type="button" data-shape="perimeter" aria-pressed="false">
+          <span class="concept-visual">
+            <svg viewBox="0 0 120 76" aria-hidden="true">
+              <rect x="20" y="13" width="80" height="50" rx="2"></rect>
+              <path class="perimeter-mark" d="M20 13h80v50H20z"></path>
+              <path class="direction-mark" d="M53 9l7 4-7 4"></path>
+            </svg>
+          </span>
+          <span class="concept-name">Периметр</span>
+          <span class="concept-caption">Довжина всіх сторін разом</span>
+          <span class="concept-check" aria-hidden="true">✓</span>
+        </button>
+
+        <button class="concept-card" type="button" data-shape="area" aria-pressed="false">
+          <span class="concept-visual">
+            <svg viewBox="0 0 120 76" aria-hidden="true">
+              <rect x="31" y="7" width="58" height="58" rx="2"></rect>
+              <path class="grid-mark" d="M50 7v58M70 7v58M31 26h58M31 46h58"></path>
+            </svg>
+          </span>
+          <span class="concept-name">Площа</span>
+          <span class="concept-caption">Розмір поверхні всередині</span>
+          <span class="concept-check" aria-hidden="true">✓</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section" id="modelSection" aria-labelledby="modelHeading">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Крок 2 · Досліджуй</p>
+          <h2>Геометрична лабораторія</h2>
+          <p class="section-subtitle">Змінюй параметри та спостерігай за результатом.</p>
+        </div>
+        <span class="tag"><span class="live-dot"></span> Інтерактивна модель</span>
+      </div>
+
+      <article class="model-card">
+        <div class="model-header">
+          <div>
+            <span class="model-label">Зараз досліджуємо</span>
+            <h3 id="modelHeading">Прямокутник</h3>
+          </div>
+          <button class="button button-quiet" id="resetModel" type="button">
+            <span aria-hidden="true">↺</span> Скинути
+          </button>
+        </div>
+
+        <div class="model-layout">
+          <div class="model-stage">
+            <svg id="shapeSvg" viewBox="0 0 440 300" role="img" aria-labelledby="shapeSvgTitle shapeSvgDesc">
+              <title id="shapeSvgTitle">Модель прямокутника</title>
+              <desc id="shapeSvgDesc">Прямокутник зі сторонами 8 і 5 сантиметрів.</desc>
+              <defs>
+                <pattern id="unitGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M20 0H0V20" fill="none" class="grid-line"></path>
+                </pattern>
+              </defs>
+              <rect x="18" y="18" width="404" height="264" rx="14" fill="url(#unitGrid)"></rect>
+              <g id="shapeDrawing"></g>
+              <g id="shapeLabels"></g>
+            </svg>
+            <p class="model-hint" id="modelHint" aria-live="polite">
+              Змінюй довжину й ширину. Квадрат має всі сторони однакової довжини.
+            </p>
+          </div>
+
+          <div class="model-controls">
+            <div class="control-group">
+              <div class="control-label">
+                <label for="sideA">Довжина сторони a</label>
+                <output id="sideAValue" for="sideA">8 см</output>
+              </div>
+              <input id="sideA" type="range" min="1" max="12" step="1" value="8">
+              <div class="range-labels"><span>1 см</span><span>12 см</span></div>
+            </div>
+
+            <div class="control-group" id="sideBControl">
+              <div class="control-label">
+                <label for="sideB">Ширина сторони b</label>
+                <output id="sideBValue" for="sideB">5 см</output>
+              </div>
+              <input id="sideB" type="range" min="1" max="10" step="1" value="5">
+              <div class="range-labels"><span>1 см</span><span>10 см</span></div>
+            </div>
+
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <span class="metric-name">Периметр</span>
+                <strong id="perimeterValue">26 <small>см</small></strong>
+                <span class="metric-formula" id="perimeterFormula">P = 2 × (a + b)</span>
+              </div>
+              <div class="metric-card metric-area">
+                <span class="metric-name">Площа</span>
+                <strong id="areaValue">40 <small>см²</small></strong>
+                <span class="metric-formula" id="areaFormula">S = a × b</span>
+              </div>
+            </div>
+            <p class="calculation-note" id="calculationNote" aria-live="polite">
+              P = 2 × (8 + 5) = 26 см. S = 8 × 5 = 40 см².
+            </p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" aria-labelledby="cheatTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Крок 3 · Повтори</p>
+          <h2 id="cheatTitle">Шпаргалка</h2>
+          <p class="section-subtitle">Збережи ці правила у пам’яті перед тестом.</p>
+        </div>
+      </div>
+
+      <div class="cheat-grid">
+        <article class="cheat-card">
+          <span class="cheat-number">01</span>
+          <div class="cheat-icon icon-blue">▱</div>
+          <h3>Прямокутник</h3>
+          <p>Чотирикутник, у якого всі кути прямі, а протилежні сторони рівні.</p>
+          <div class="formula-chip">a = c, b = d</div>
+        </article>
+        <article class="cheat-card">
+          <span class="cheat-number">02</span>
+          <div class="cheat-icon icon-purple">□</div>
+          <h3>Квадрат</h3>
+          <p>Прямокутник, у якого всі чотири сторони однакові.</p>
+          <div class="formula-chip">a = b = c = d</div>
+        </article>
+        <article class="cheat-card">
+          <span class="cheat-number">03</span>
+          <div class="cheat-icon icon-teal">↔</div>
+          <h3>Периметр</h3>
+          <p>Щоб знайти периметр, додай довжини всіх сторін.</p>
+          <div class="formula-chip">P = 2(a + b)</div>
+          <p class="cheat-example">Для квадрата: P = 4a</p>
+        </article>
+        <article class="cheat-card">
+          <span class="cheat-number">04</span>
+          <div class="cheat-icon icon-orange">▦</div>
+          <h3>Площа</h3>
+          <p>Площа прямокутника дорівнює добутку довжини та ширини.</p>
+          <div class="formula-chip">S = a × b</div>
+          <p class="cheat-example">Для квадрата: S = a²</p>
+        </article>
+      </div>
+
+      <div class="tip-banner">
+        <span class="tip-icon" aria-hidden="true">✦</span>
+        <p><strong>Пам’ятай про одиниці!</strong> Периметр вимірюють у см, м тощо, а площу — у см², м² тощо.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="levelTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Крок 4 · Обери виклик</p>
+          <h2 id="levelTitle">Який рівень спробуєш?</h2>
+          <p class="section-subtitle">Рівень змінює запитання тесту. Обирай відповідно до своїх знань.</p>
+        </div>
+      </div>
+
+      <div class="level-grid" role="group" aria-label="Рівень складності">
+        <button class="level-card" type="button" data-level="easy" aria-pressed="false">
+          <span class="level-top"><span class="level-symbol easy-symbol">✦</span><span class="level-badge">Старт</span></span>
+          <strong>Простий</strong>
+          <span class="level-description">Визначення та базові правила.</span>
+          <span class="level-bottom">4 запитання · без винагороди</span>
+        </button>
+        <button class="level-card is-active" type="button" data-level="medium" aria-pressed="true">
+          <span class="level-top"><span class="level-symbol medium-symbol">✦✦</span><span class="level-badge">Баланс</span></span>
+          <strong>Середній</strong>
+          <span class="level-description">Формули та обчислення.</span>
+          <span class="level-bottom">6 запитань · без винагороди</span>
+        </button>
+        <button class="level-card" type="button" data-level="hard" aria-pressed="false">
+          <span class="level-top"><span class="level-symbol hard-symbol">✦✦✦</span><span class="level-badge">Виклик</span></span>
+          <strong>Складний</strong>
+          <span class="level-description">Логіка, аналіз і задачі у кілька кроків.</span>
+          <span class="level-bottom">8 запитань · без винагороди</span>
+        </button>
+      </div>
+      <p id="difficultyNote" class="difficulty-note" aria-live="polite">
+        Середній рівень: 6 запитань на застосування формул і розуміння властивостей фігур.
+      </p>
+    </section>
+
+    <section class="section" id="quizSection" aria-labelledby="quizTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Крок 5 · Перевір себе</p>
+          <h2 id="quizTitle">Мінітест</h2>
+          <p class="section-subtitle">Обери одну відповідь. Після перевірки побачиш пояснення.</p>
+        </div>
+        <span class="tag quiz-level-tag" id="quizLevelLabel">Середній рівень</span>
+      </div>
+
+      <article class="quiz-card" id="quizCard">
+        <form id="quizForm">
+          <div class="quiz-topline">
+            <span id="questionCounter">Запитання 1 із 6</span>
+            <span id="quizScore">Правильних: 0</span>
+          </div>
+          <div class="progress-track" id="quizProgress" role="progressbar" aria-label="Прогрес тесту" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0">
+            <div class="progress-fill" id="quizProgressFill"></div>
+          </div>
+
+          <fieldset id="answerFieldset" class="answer-fieldset">
+            <legend id="questionText" class="question-text">Яка властивість притаманна кожному прямокутнику?</legend>
+            <div class="answer-list" id="answerList"></div>
+          </fieldset>
+
+          <div id="quizFeedback" class="quiz-feedback" role="status" aria-live="polite" hidden></div>
+
+          <div class="quiz-actions">
+            <button class="button button-primary" type="submit" id="checkAnswer">Перевірити відповідь <span aria-hidden="true">→</span></button>
+            <button class="button button-primary" type="button" id="nextQuestion" hidden>Наступне запитання <span aria-hidden="true">→</span></button>
+          </div>
+        </form>
+
+        <section id="resultPanel" class="result-panel" aria-labelledby="resultTitle" hidden>
+          <div class="result-illustration" aria-hidden="true">✦</div>
+          <p class="section-kicker">Тест завершено</p>
+          <h3 id="resultTitle">Чудова робота!</h3>
+          <p id="resultMessage" class="result-message"></p>
+          <div class="result-stats">
+            <div><span>Правильних відповідей</span><strong id="finalScore">0/6</strong></div>
+            <div><span>Твій результат</span><strong id="finalPercent">0%</strong></div>
+          </div>
+          <button class="button button-primary" id="retryQuiz" type="button">Пройти ще раз <span aria-hidden="true">↻</span></button>
+        </section>
+      </article>
+    </section>
+
+    <section class="completion-card" id="completionCard" aria-labelledby="completionTitle">
+      <div class="completion-icon" aria-hidden="true">✓</div>
+      <div class="completion-copy">
+        <p class="section-kicker">Фінішна пряма</p>
+        <h2 id="completionTitle">Ти майже на фініші!</h2>
+        <p id="completionText">Досліди модель, повтори шпаргалку та пройди мінітест. Після тесту зможеш позначити урок завершеним.</p>
+        <p id="completionStatus" class="completion-status" aria-live="polite">Урок ще не завершено.</p>
+      </div>
+      <button class="button button-primary" id="completeLesson" type="button" disabled>Завершити урок</button>
+    </section>
+
+    <div class="return-row">
+      <a class="back-link return-link" href="../../../index.html">← Повернутися до каталогу уроків</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Навчальна лабораторія <span>·</span> Математика</span>
+      <span>Крок за кроком до впевнених знань ✦</span>
+    </div>
+  </footer>
+</body>
+</html>

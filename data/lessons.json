@@ -28,7 +28,7 @@
         5,
         6
       ],
-      "coins": 20,
+      "coins": 10,
       "difficulty": "Початковий"
     },
     {
@@ -45,42 +45,10 @@
         5,
         6
       ],
-      "coins": 20,
-      "difficulty": "Початковий"
+      "coins": 10,
+      "difficulty": "3 рівні"
     },
-    {
-      "id": "algorithms",
-      "title": "Алгоритми та виконавці",
-      "subject": "Інформатика",
-      "category": "informatics",
-      "description": "Складай послідовності команд і допомагай виконавцю досягти мети.",
-      "tag": "АЛГОРИТМИ",
-      "duration": "10–15 хв",
-      "url": "lessons/informatics/algorithms/index.html",
-      "visual": "code",
-      "grades": [
-        5,
-        6
-      ],
-      "coins": 20,
-      "difficulty": "Початковий"
-    },
-    {
-      "id": "numerical-expressions",
-      "title": "Числові вирази. Порівняння числових виразів",
-      "subject": "Математика",
-      "category": "math",
-      "description": "Досліджуй числові вирази, обчислюй їх значення та порівнюй результати за допомогою інтерактивної моделі.",
-      "tag": "АРИФМЕТИКА",
-      "duration": "15 хв",
-      "url": "lessons/math/numerical-expressions/index.html",
-      "visual": "calculator",
-      "grades": [
-        5
-      ],
-      "coins": 20,
-      "difficulty": "Початковий"
-    },
+
     {
       "id": "angles-measurement",
       "title": "Кути та їх вимірювання",
@@ -95,58 +63,12 @@
         5,
         6
       ],
-      "coins": 20,
-      "difficulty": "Початковий"
+      "coins": 10,
+      "difficulty": "3 рівні"
     },
-    {
-      "id": "letter-expressions-formulas",
-      "title": "Буквені вирази. Формули",
-      "subject": "Математика",
-      "category": "math",
-      "description": "Підставляй значення змінних, обчислюй буквені вирази та застосовуй формули.",
-      "tag": "АЛГЕБРА",
-      "duration": "15 хв",
-      "url": "lessons/math/letter-expressions-formulas/index.html",
-      "visual": "geometry",
-      "grades": [
-        5,
-        6
-      ],
-      "coins": 20,
-      "difficulty": "Початковий"
-    },
-    {
-      "id": "addition-natural-numbers",
-      "title": "Додавання натуральних чисел",
-      "subject": "Математика",
-      "category": "math",
-      "description": "Тренуй усне й письмове додавання, використовуй властивості суми та перевіряй результат.",
-      "tag": "АРИФМЕТИКА",
-      "duration": "15 хв",
-      "url": "lessons/math/addition-natural-numbers/index.html",
-      "visual": "geometry",
-      "grades": [
-        5
-      ],
-      "coins": 20,
-      "difficulty": "Початковий"
-    },
-    {
-      "id": "subtraction-natural-numbers",
-      "title": "Віднімання натуральних чисел",
-      "subject": "Математика",
-      "category": "math",
-      "description": "Знаходь різницю натуральних чисел і перевіряй віднімання додаванням.",
-      "tag": "АРИФМЕТИКА",
-      "duration": "15 хв",
-      "url": "lessons/math/subtraction-natural-numbers/index.html",
-      "visual": "geometry",
-      "grades": [
-        5
-      ],
-      "coins": 20,
-      "difficulty": "Початковий"
-    },
+
+  
+
     {
       "id": "rectangle-square",
       "title": "Прямокутник. Квадрат",
@@ -161,8 +83,8 @@
         5,
         6
       ],
-      "coins": 20,
-      "difficulty": "Початковий"
+      "coins": 10,
+      "difficulty": "Середній"
     },
     {
       "id": "computer-components",
@@ -178,7 +100,7 @@
         5,
         6
       ],
-      "coins": 20,
+      "coins": 10,
       "difficulty": "Початковий"
     },
     {
@@ -195,59 +117,42 @@
         5,
         6
       ],
-      "coins": 20,
+      "coins": 10,
       "difficulty": "Початковий"
     },
-    {
-      "id": "text-documents",
-      "title": "Текстові документи та правила роботи з ними",
+       {
+      "id": "algorithms-in-scratch",
+      "title": "Алгоритми в Scratch",
       "subject": "Інформатика",
       "category": "informatics",
-      "description": "Навчися створювати, форматувати й зберігати текстові документи охайно та безпечно.",
-      "tag": "ТЕКСТОВІ ДОКУМЕНТИ",
-      "duration": "15 хв",
-      "url": "lessons/informatics/text-documents/index.html",
-      "visual": "code",
-      "grades": [
-        5,
-        6
-      ],
-      "coins": 20,
-      "difficulty": "Початковий"
-    },
-    {
-      "id": "algorithm-properties",
-      "title": "Алгоритм та його властивості",
-      "subject": "Інформатика",
-      "category": "informatics",
-      "description": "Визначай алгоритми, знаходь їхні властивості та впорядковуй команди для досягнення мети.",
+      "description": "Вивчай основи програмування через інтерактивну гру Scratch.",
       "tag": "АЛГОРИТМИ",
       "duration": "15 хв",
-      "url": "lessons/informatics/algorithm-properties/index.html",
+      "url": "lessons/informatics/algorithms-in-scratch/index.html",
       "visual": "code",
       "grades": [
         5,
         6
       ],
-      "coins": 20,
-      "difficulty": "Початковий"
+      "coins": "3-16",
+      "difficulty": "3 рівні"
     },
     {
-      "id": "programming-languages-history",
-      "title": "Програмування та історія мов програмування",
-      "subject": "Інформатика",
-      "category": "informatics",
-      "description": "Дізнайся, як розвивалися мови програмування та чим відрізняються мови різних поколінь.",
-      "tag": "ПРОГРАМУВАННЯ",
+      "id": "automatic-plant-watering-system",
+      "title": "Система автоматичного поливу рослин",
+      "subject": "STEM",
+      "category": "stem",
+      "description": "Створи систему автоматичного поливу рослин, використовуючи датчики та програмування.",
+      "tag": "ІНЖЕНЕРІЯ",
       "duration": "15 хв",
-      "url": "lessons/informatics/programming-languages-history/index.html",
+      "url": "lessons/stem/automatic-plant-watering-system/index.html",
       "visual": "code",
       "grades": [
-        6,
-        7
+        5,
+        6
       ],
-      "coins": 20,
-      "difficulty": "Початковий"
+      "coins": "",
+      "difficulty": "3 рівні"
     }
   ]
 }

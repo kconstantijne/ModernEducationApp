@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta name="color-scheme" content="light dark">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6ff">
+  <meta name="description" content="Інтерактивний урок інформатики для 5–6 класів: алгоритми навколо нас та у Scratch.">
+  <title>Алгоритми навколо нас та у Scratch — навчальна лабораторія</title>
+  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../../css/lesson-standard.css">
+  <script src="../../../js/theme.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Перейти до уроку</a>
+  <header class="topbar">
+    <a class="back-link" href="../../../subjects/informatics.html" aria-label="Повернутися до предмета Інформатика">
+      <span class="back-arrow" aria-hidden="true">←</span>
+      <span>Інформатика</span>
+    </a>
+    <div class="topbar-right"><span class="lab-brand"><span class="lab-brand-dot"></span>Навчальна
+        лабораторія</span>
+
+  <button class="lesson-theme-button" type="button" data-theme-toggle aria-label="Увімкнути темну тему" title="Змінити тему"><span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Тема</span></button>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> ІНФОРМАТИКА <span class="eyebrow-separator">/</span>
+          АЛГОРИТМИ</div>
+        <h1>Алгоритми навколо нас <span class="title-accent">та у Scratch</span></h1>
+        <p class="hero-description">Навчися помічати алгоритми у звичайному житті, складати послідовності команд і
+          програмувати маршрут персонажа.</p>
+        <div class="hero-meta">
+          <span><span aria-hidden="true">◷</span> 20–25 хв</span>
+          <span><span aria-hidden="true">✦</span> Інтерактивний урок</span>
+          <span><span aria-hidden="true">⌘</span> Практика + тест</span>
+        </div>
+        <a class="primary-button hero-button" href="#concepts">Почати дослідження <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-art" aria-label="Ілюстрація алгоритму з команд і стрілок" role="img">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <div class="art-card art-card-top"><span class="mini-block block-yellow"></span><span>Коли натиснуто
+            прапорець</span></div>
+        <div class="art-card art-card-mid"><span class="mini-block block-blue"></span><span>Перемістити на 10
+            кроків</span></div>
+        <div class="art-card art-card-bottom"><span class="mini-block block-purple"></span><span>Повернути на 15°</span>
+        </div>
+        <div class="art-spark spark-a">✦</div>
+        <div class="art-spark spark-b">✳</div>
+        <div class="art-center"><svg viewBox="0 0 100 100" role="img" aria-label="Кіт-програміст">
+            <path d="M22 34 17 13 39 25Q50 20 61 25L83 13 78 35Q86 46 82 63Q77 82 50 84Q23 82 18 63Q14 46 22 34Z"
+              fill="#f6a65e" stroke="#bd6a37" stroke-width="3" />
+            <path d="M28 36 25 23 40 31M72 36 75 23 60 31" fill="#ffd0a2" />
+            <ellipse cx="37" cy="49" rx="5" ry="7" fill="#34365f" />
+            <ellipse cx="63" cy="49" rx="5" ry="7" fill="#34365f" />
+            <path d="M45 60Q50 65 55 60M50 57 46 54 54 54Z" fill="#bd6a37" />
+            <path d="M25 58 8 55M26 64 9 67M75 58 92 55M74 64 91 67" stroke="#bd6a37" stroke-width="2"
+              stroke-linecap="round" />
+          </svg></div>
+      </div>
+    </section>
+
+    <section class="section" id="concepts">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 01</div>
+          <h2>Знайомся з поняттями</h2>
+        </div>
+        <p>Обери картку, щоб дослідити її в лабораторії.</p>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <button class="concept-card is-active" type="button" data-concept="algorithm" aria-pressed="true">
+          <span class="concept-icon icon-algorithm"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="8" y="8" width="48" height="13" rx="5" fill="#7c73df" />
+              <rect x="8" y="26" width="48" height="13" rx="5" fill="#a7a0f2" />
+              <rect x="8" y="44" width="48" height="12" rx="5" fill="#d0ccff" />
+              <path d="M32 21v5m0 13v5" stroke="#5548b9" stroke-width="3" stroke-linecap="round" />
+            </svg></span>
+          <span class="concept-name">Алгоритм</span><span class="concept-subtitle">План дій крок за кроком</span><span
+            class="card-arrow">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="executor" aria-pressed="false">
+          <span class="concept-icon icon-executor"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="10" y="12" width="44" height="40" rx="12" fill="#b9e5ff" />
+              <rect x="18" y="21" width="28" height="20" rx="7" fill="#4b9ed6" />
+              <circle cx="26" cy="30" r="3" fill="white" />
+              <circle cx="38" cy="30" r="3" fill="white" />
+              <path d="M25 36h14M32 6v6M7 29h3M54 29h3M22 52v5M42 52v5" stroke="#347eb1" stroke-width="3"
+                stroke-linecap="round" />
+            </svg></span>
+          <span class="concept-name">Виконавець</span><span class="concept-subtitle">Той, хто виконує
+            команди</span><span class="card-arrow">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="command" aria-pressed="false">
+          <span class="concept-icon icon-command"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M13 12h31l8 8v32H13Z" fill="#ffe3a3" stroke="#d9a443" stroke-width="2" />
+              <path d="M44 12v9h8" fill="none" stroke="#d9a443" stroke-width="2" />
+              <path d="m23 32 6 6 13-13" fill="none" stroke="#9c6a16" stroke-width="4" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></span>
+          <span class="concept-name">Команда</span><span class="concept-subtitle">Одна зрозуміла вказівка</span><span
+            class="card-arrow">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="scratch" aria-pressed="false">
+          <span class="concept-icon icon-scratch"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M15 12h34a5 5 0 0 1 5 5v10H10V17a5 5 0 0 1 5-5Z" fill="#ffcb5c" />
+              <path d="M10 27h44v11H10Z" fill="#5db7f1" />
+              <path d="M10 38h44v10a5 5 0 0 1-5 5H15a5 5 0 0 1-5-5Z" fill="#9d8df2" />
+              <circle cx="20" cy="20" r="2" fill="#fff" />
+              <circle cx="20" cy="33" r="2" fill="#fff" />
+              <circle cx="20" cy="44" r="2" fill="#fff" />
+            </svg></span>
+          <span class="concept-name">Scratch</span><span class="concept-subtitle">Програмуй блоками</span><span
+            class="card-arrow">↗</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section lab-section" id="laboratory">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 02</div>
+          <h2>Інтерактивна лабораторія</h2>
+        </div>
+        <span class="live-pill"><span></span> Модель працює</span>
+      </div>
+      <div class="lab-card">
+        <div class="lab-header">
+          <div>
+            <div class="lab-label">ІНТЕРАКТИВНА МОДЕЛЬ</div>
+            <h3 id="labTitle">Алгоритм: крок за кроком</h3>
+          </div>
+          <button class="icon-button" id="resetModel" type="button" title="Скинути модель"
+            aria-label="Скинути модель">↻</button>
+        </div>
+        <p class="lab-description" id="labDescription">Алгоритм — це скінченна послідовність зрозумілих команд, яка
+          допомагає досягти результату.</p>
+        <div class="lab-layout">
+          <div class="model-stage" id="modelStage">
+            <div class="stage-topline"><span>ПОЛЕ ДЛЯ ПРОГРАМИ</span><span class="stage-badge">Сітка 5 × 5</span></div>
+            <div class="game-grid" id="gameGrid" role="img" aria-label="Ігрове поле з персонажем, перешкодою та ціллю">
+            </div>
+            <div class="stage-status" id="modelStatus" aria-live="polite"><span class="status-dot"></span> Додай команди
+              та запусти програму.</div>
+          </div>
+          <div class="program-panel">
+            <div class="program-panel-heading">
+              <h4>Твоя програма</h4><span id="commandCount" class="count-badge">0 команд</span>
+            </div>
+            <p class="small-muted">Додавай команди руху в потрібному порядку.</p>
+            <div class="command-palette" id="commandPalette">
+              <button type="button" class="command-button" data-command="right"><span class="cmd-arrow">→</span>
+                Праворуч</button>
+              <button type="button" class="command-button" data-command="down"><span class="cmd-arrow">↓</span>
+                Унизу</button>
+              <button type="button" class="command-button" data-command="left"><span class="cmd-arrow">←</span>
+                Ліворуч</button>
+              <button type="button" class="command-button" data-command="up"><span class="cmd-arrow">↑</span>
+                Угору</button>
+            </div>
+            <ol class="program-list" id="programList" aria-label="Список команд">
+              <li class="program-empty">Тут з'являться твої команди</li>
+            </ol>
+            <div class="program-actions">
+              <button class="secondary-button" id="clearProgram" type="button">Очистити</button>
+              <button class="primary-button" id="runProgram" type="button"><span aria-hidden="true">▶</span>
+                Запустити</button>
+            </div>
+            <div class="hint-box"><span aria-hidden="true">💡</span>
+              <p><strong>Підказка:</strong> обійди перешкоду та дістанься зірочки. Можна додавати до 12 команд.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lab-concept-note" id="conceptNote"><span class="note-icon">✦</span><span><strong>Пам’ятай:</strong>
+            порядок команд має значення. Якщо поміняти команди місцями, результат може змінитися.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="cheatsheet">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 03</div>
+          <h2>Шпаргалка дослідника</h2>
+        </div>
+        <p>Найважливіше — коротко й на прикладах.</p>
+      </div>
+      <div class="cheat-grid">
+        <article class="cheat-card">
+          <div class="cheat-icon purple">☷</div>
+          <h3>Алгоритм</h3>
+          <p>План, що складається з послідовних команд для досягнення мети.</p>
+          <div class="example-chip">Наприклад: рецепт бутерброда</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon blue">◎</div>
+          <h3>Виконавець</h3>
+          <p>Людина, робот або комп’ютерна програма, що виконує команди.</p>
+          <div class="example-chip">Наприклад: кіт у Scratch</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon yellow">↗</div>
+          <h3>Точність</h3>
+          <p>Команди мають бути чіткими, щоб виконавець розумів, що робити.</p>
+          <div class="example-chip">«Зроби 2 кроки»</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon mint">▦</div>
+          <h3>Послідовність</h3>
+          <p>Команди виконуються у визначеному порядку — одна за одною.</p>
+          <div class="example-chip">Спочатку → потім → далі</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon pink">🧩</div>
+          <h3>Scratch</h3>
+          <p>Середовище, де програми складають із кольорових блоків-команд.</p>
+          <div class="example-chip">«Коли натиснуто прапорець»</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section level-section" id="levels">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 04</div>
+          <h2>Обери свій рівень</h2>
+        </div>
+        <p>Складність визначає запитання мінітесту.</p>
+      </div>
+      <div class="level-grid" role="group" aria-label="Вибір рівня складності">
+        <button type="button" class="level-card is-selected" data-level="easy" aria-pressed="true"><span
+            class="level-top"><span class="level-emoji">🌱</span><span
+              class="level-tag">Старт</span></span><strong>Простий</strong><span class="level-description">Впізнавай
+            поняття та базові команди.</span><span class="level-bottom"><span>4 запитання</span><span>✦ +10
+              зірочок</span></span></button>
+        <button type="button" class="level-card" data-level="medium" aria-pressed="false"><span class="level-top"><span
+              class="level-emoji">🚀</span><span class="level-tag">Практика</span></span><strong>Середній</strong><span
+            class="level-description">Застосовуй знання та знаходь правильний порядок.</span><span
+            class="level-bottom"><span>6 запитань</span><span>✦ +15 зірочок</span></span></button>
+        <button type="button" class="level-card" data-level="hard" aria-pressed="false"><span class="level-top"><span
+              class="level-emoji">🧠</span><span class="level-tag">Виклик</span></span><strong>Складний</strong><span
+            class="level-description">Аналізуй алгоритми та виправляй помилки.</span><span class="level-bottom"><span>8
+              запитань</span><span>✦ +20 зірочок</span></span></button>
+      </div>
+    </section>
+
+    <section class="section quiz-section" id="quiz">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 05</div>
+          <h2>Перевір свої знання</h2>
+        </div>
+        <span class="quiz-level-label" id="quizLevelLabel">Простий рівень</span>
+      </div>
+      <div class="quiz-card" id="quizCard">
+        <div id="quizActive">
+          <div class="quiz-progress-row"><span id="questionCounter">Запитання 1 із 4</span><span
+              class="score-counter">Правильних: <strong id="correctCounter">0</strong></span></div>
+          <div class="progress-track" aria-label="Прогрес тесту">
+            <div class="progress-fill" id="progressFill" style="width:25%"></div>
+          </div>
+          <div class="question-area">
+            <div class="question-number" id="questionNumber">01</div>
+            <h3 id="questionText">Що таке алгоритм?</h3>
+          </div>
+          <div class="answer-list" id="answerList"></div>
+          <div class="feedback-box" id="feedbackBox" aria-live="polite" hidden></div>
+          <div class="quiz-footer"><span class="small-muted">Не поспішай — уважно прочитай варіанти.</span><button
+              type="button" class="primary-button" id="nextQuestion" disabled>Наступне <span
+                aria-hidden="true">→</span></button></div>
+        </div>
+        <div id="quizResult" class="result-screen" hidden>
+          <div class="result-illustration" aria-hidden="true">✦</div>
+          <div class="result-kicker">МІСІЮ ВИКОНАНО</div>
+          <h3 id="resultTitle">Чудова робота!</h3>
+          <p id="resultMessage">Ти завершив мінітест.</p>
+          <div class="result-stats">
+            <div><strong id="finalCorrect">0/4</strong><span>Правильних відповідей</span></div>
+            <div><strong id="finalPercent">0%</strong><span>Твій результат</span></div>
+            <div><strong id="earnedStars">+10</strong><span>Зірочок за спробу</span></div>
+          </div>
+          <div class="result-actions"><button type="button" class="primary-button" id="claimReward">Отримати зірочки
+              <span aria-hidden="true">✦</span></button><button type="button" class="secondary-button"
+              id="retryQuiz">Пройти ще раз ↻</button></div>
+          <p class="reward-note" id="rewardNote" aria-live="polite">Зірочки нараховуються один раз за завершену спробу.
+          </p>
+          <a class="home-link" href="#main">← Повернутися на початок уроку</a>
+        </div>
+      </div>
+    </section>
+    <!-- <section class="closing-note">
+      <div class="closing-star">✦</div>
+      <div><strong>Алгоритми є всюди!</strong>
+        <p>Коли ти складаєш план, граєш у гру або пояснюєш роботу роботу — ти вже мислиш алгоритмічно.</p>
+      </div><a href="#concepts" class="text-link">Дослідити ще раз ↑</a>
+    </section> -->
+    <section class="finish-banner" aria-labelledby="finish-title">
+      <div class="finish-sparkle">✦</div>
+      <div>
+        <p class="section-kicker">АЛГОРИТМИ Є ВСЮДИ</p>
+        <h2 id="finish-title">Коли ти складаєш план</h2>
+        <p>Граєш у гру або пояснюєш роботу роботу — ти вже мислиш алгоритмічно.</p>
+      </div><a class="button button-light" href="../../../index.html">На головну <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+  <footer class="site-footer" aria-label="Підвал навчальної сторінки">
+    <div class="footer-brand">
+      <span class="footer-mark" aria-hidden="true">✦</span>
+      <span class="footer-brand-copy"><strong>Навчальна лабораторія</strong><small>Інформатика · 5–6 клас</small></span>
+    </div>
+    <p class="footer-motto">Досліджуй. Практикуйся. Відкривай нове.</p>
+    <span class="footer-status"><span class="footer-status-dot" aria-hidden="true"></span> Навчайся досліджуючи</span>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+.difficulty-picker {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 22px 0;
+    padding: 0;
+    border: 0
+}
+
+.difficulty-option {
+    position: relative;
+    display: block;
+    cursor: pointer
+}
+
+.difficulty-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none
+}
+
+.difficulty-option span {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    padding: 15px;
+    border: 1px solid var(--glass-border, rgba(128, 128, 128, .25));
+    border-radius: 18px;
+    background: var(--glass-bg, rgba(255, 255, 255, .45));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition: transform .2s, border-color .2s, background .2s
+}
+
+.difficulty-option strong {
+    font-size: 1rem
+}
+
+.difficulty-option small {
+    opacity: .75;
+    line-height: 1.4
+}
+
+.difficulty-option input:checked+span {
+    border-color: var(--accent, #6486e9);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent, #6486e9) 22%, transparent);
+    transform: translateY(-2px)
+}
+
+.difficulty-option:focus-within span {
+    outline: 2px solid var(--accent, #6486e9);
+    outline-offset: 3px
+}
+
+.difficulty-note {
+    margin: -8px 0 18px;
+    opacity: .8;
+    font-size: .92rem
+}
+
+.stem-lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+    gap: 16px
+}
+
+.stem-task-card {
+    padding: 20px;
+    border: 1px solid var(--glass-border, rgba(128, 128, 128, .25));
+    border-radius: 22px;
+    background: var(--glass-bg, rgba(255, 255, 255, .4));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px)
+}
+
+.stem-task-card h2 {
+    margin: .5rem 0
+}
+
+.stem-task-card .task-icon {
+    font-size: 2rem
+}
+
+.stem-task-card select,
+.stem-task-card input {
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border, rgba(128, 128, 128, .3));
+    background: var(--input-bg, transparent);
+    color: inherit
+}
+
+.stem-task-card button {
+    margin-top: 12px
+}
+
+.stem-feedback {
+    min-height: 2.5em;
+    margin-top: 12px;
+    font-weight: 600
+}
+
+.stem-workspace {
+    margin: 18px 0;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--glass-bg, rgba(128, 128, 128, .08));
+    border: 1px solid var(--glass-border, rgba(128, 128, 128, .2))
+}
+
+@media(max-width:620px) {
+    .difficulty-picker {
+        grid-template-columns: 1fr
+    }
+
+    .difficulty-option span {
+        padding: 12px
+    }
+}

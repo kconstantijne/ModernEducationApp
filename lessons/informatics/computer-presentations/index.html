@@ -1,10 +1,268 @@
 <!doctype html>
-<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Створюй логічні слайди, добирай читабельний дизайн і використовуй мультимедіа доречно."><title>Комп’ютерні презентації — Навчальна лабораторія</title>
-<link rel="stylesheet" href="../../../css/design-system.css"><link rel="stylesheet" href="../../../css/components.css"><link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="../../../css/lesson-unified.css"><script src="../../../js/theme.js" defer></script><script src="../../../js/gamification.js" defer></script><script src="script.js" defer></script>  <link rel="stylesheet" href="../../../css/banner-system.css">
+<html lang="uk">
+
+<head>
+    <meta name="color-scheme" content="light dark">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="Інтерактивний урок з інформатики для 5–6 класів: комп’ютерні презентації.">
+  <title>Комп’ютерні презентації — Навчальна лабораторія</title>
+  <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../../../css/lesson-standard.css">
+  <script src="../../../js/theme.js" defer></script>
+  <script src="./script.js" defer></script>
 </head>
-<body><div class="lesson-shell"><header class="lesson-top"><a class="back-link" href="../../../subjects/informatics.html">← До предмета</a><span class="lesson-balance" aria-label="Баланс комп’юшок">🪙 <strong data-coins>0</strong></span></header><main class="lesson-page">
-<header class="lesson-intro"><p class="eyebrow">ІНФОРМАТИКА · 5, 6 КЛАС</p><h1>Комп’ютерні презентації</h1><p>Створюй логічні слайди, добирай читабельний дизайн і використовуй мультимедіа доречно.</p><div class="lesson-meta"><span>◷ 15 хвилин</span><span>✦ Інтерактивний урок</span><span>🪙 20 комп’юшок</span></div></header>
-<section class="explorer glass-panel"><div class="explorer-header"><div><span class="eyebrow">ІНТЕРАКТИВНА ЛАБОРАТОРІЯ</span><h2>Комп’ютерні презентації</h2></div><span class="model-pill">Спробуй самостійно</span></div><p class="model-description">Склади мініслайд: обери заголовок, короткий текст і візуальний акцент.</p><div class="activity-box"><label for="slideTitle">Заголовок слайда</label><input id="slideTitle" maxlength="60" value="Моя цікава тема"><label for="slideBody">Короткий текст</label><textarea id="slideBody" rows="2" maxlength="140">Три важливі факти, які варто запам’ятати.</textarea><div class="slide-preview"><span>ПЕРЕГЛЯД СЛАЙДА</span><h3 id="previewTitle">Моя цікава тема</h3><p id="previewBody">Три важливі факти, які варто запам’ятати.</p></div></div><p class="feedback" id="activityFeedback" aria-live="polite">Зміни значення або обери варіант, щоб дослідити тему.</p></section>
-<section class="cheatsheet" aria-labelledby="cheatsheetTitle"><div class="cheatsheet-heading"><span class="eyebrow">ШВИДКЕ ПОВТОРЕННЯ</span><h2 id="cheatsheetTitle">Шпаргалка: Комп’ютерні презентації</h2><p>Коротко про найважливіше — збережи ці правила перед тестом.</p></div><div class="cheatsheet-grid"><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">💡</span>Слайд</h3><p>Одна сторінка електронної презентації.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">📌</span>Одна думка</h3><p>На слайді має бути короткий текст і головний меседж.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">🧠</span>Контраст</h3><p>Текст має чітко відрізнятися від фону.</p></article><article class="cheatsheet-card"><h3><span class="cheatsheet-icon">✅</span>Репетиція</h3><p>Перед показом перевір порядок слайдів, посилання й читабельність.</p></article></div></section>
-<section class="quiz-section"><div class="section-heading"><div><span class="eyebrow">ПЕРЕВІР СЕБЕ</span><h2>Мінітест</h2></div><span class="quiz-counter" id="quizCounter">Запитання 1 із 5</span></div><div class="lesson-panel quiz-card"><h3 id="questionText"></h3><div class="answer-list" id="answerList"></div><p class="feedback" id="feedback" aria-live="polite"></p><div class="quiz-actions"><span id="scoreText">Правильних відповідей: 0</span><button class="button button-primary" id="nextQuestion" disabled>Наступне запитання →</button></div></div></section>
-<section class="finish-card hidden" id="finishCard"><span class="finish-star">✦</span><h2>Тест завершено!</h2><p id="finishText"></p><button class="button button-primary" id="completeLesson">Зарахувати результат і отримати комп’юшки</button><p id="result" aria-live="polite"></p><a class="button button-secondary" href="../../../index.html">На головну</a></section><footer class="page-footer"><a href="../../../index.html">Навчальна лабораторія</a><span>Навчайся, досліджуй, зростай ✦</span></footer></main></div></body></html>
+
+<body>
+  <a class="skip-link" href="#main">Перейти до уроку</a>
+  <header class="topbar">
+    <a class="back-link" href="../../../subjects/informatics.html" aria-label="Повернутися до предмета Інформатика">
+      <span class="back-arrow" aria-hidden="true">←</span><span>Інформатика</span>
+    </a>
+    <div class="topbar-meta"><span class="topbar-dot" aria-hidden="true"></span><span>Навчальна лабораторія</span></div>
+  <button class="lesson-theme-button" type="button" data-theme-toggle aria-label="Увімкнути темну тему" title="Змінити тему"><span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Тема</span></button>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="hero" aria-labelledby="lesson-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> ІНФОРМАТИКА <span class="eyebrow-separator">/</span>
+          ЦИФРОВА ТВОРЧІСТЬ</div>
+        <h1 id="lesson-title">Комп’ютерні <span>презентації</span></h1>
+        <p class="hero-lead">Навчися створювати зрозумілі слайди, оформлювати інформацію та впевнено представляти свої
+          ідеї.</p>
+        <div class="hero-meta"><span>◷ 15–20 хв</span><span>✦ Інтерактивний урок</span><span>▣ 5–6 клас</span></div>
+      </div>
+      <div class="hero-art" aria-label="Ілюстрація презентації на екрані" role="img">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <div class="presentation-window">
+          <div class="window-bar"><i></i><i></i><i></i><span>Моя презентація</span></div>
+          <div class="slide-preview">
+            <div class="slide-kicker">ДОСЛІДЖУЙ СВІТ</div>
+            <div class="slide-title">Планета<br>Земля</div>
+            <div class="slide-line"></div>
+            <div class="slide-subtitle">Наш спільний дім</div>
+            <div class="planet">
+              <div class="planet-land"></div>
+            </div>
+          </div>
+          <div class="slide-thumbs"><b></b><i></i><i></i></div>
+        </div>
+        <div class="floating-note note-left">Aa <span>Текст</span></div>
+        <div class="floating-note note-right">▧ <span>Зображення</span></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="concepts-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">КРОК 01 · ЗНАЙОМСТВО</p>
+          <h2 id="concepts-title">З чого складається презентація?</h2>
+        </div>
+        <p class="section-intro">Обери картку, щоб дослідити кожну складову.</p>
+      </div>
+      <div class="concept-grid" id="concept-grid">
+        <button class="concept-card is-active" type="button" data-concept="slide" aria-pressed="true">
+          <span class="concept-icon icon-lilac"><svg viewBox="0 0 64 48" aria-hidden="true">
+              <rect x="7" y="4" width="50" height="34" rx="5" />
+              <path d="M18 15h18M18 21h12M18 28h8M43 23l7 7" />
+            </svg></span><span class="concept-name">Слайд</span><span class="concept-desc">Окрема сторінка
+            презентації</span><span class="concept-arrow">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="text" aria-pressed="false">
+          <span class="concept-icon icon-blue"><svg viewBox="0 0 64 48" aria-hidden="true">
+              <path d="M12 8h40M32 8v31M21 39h22M22 16h20" />
+            </svg></span><span class="concept-name">Текст</span><span class="concept-desc">Заголовки й короткі
+            думки</span><span class="concept-arrow">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="image" aria-pressed="false">
+          <span class="concept-icon icon-peach"><svg viewBox="0 0 64 48" aria-hidden="true">
+              <rect x="8" y="4" width="48" height="40" rx="5" />
+              <circle cx="40" cy="15" r="4" />
+              <path d="M12 37l13-14 9 9 6-6 12 13" />
+            </svg></span><span class="concept-name">Зображення</span><span class="concept-desc">Фото, малюнки та
+            схеми</span><span class="concept-arrow">↗</span>
+        </button>
+        <button class="concept-card" type="button" data-concept="design" aria-pressed="false">
+          <span class="concept-icon icon-mint"><svg viewBox="0 0 64 48" aria-hidden="true">
+              <rect x="7" y="5" width="50" height="38" rx="5" />
+              <path d="M7 15h50" />
+              <circle cx="14" cy="10" r="1" />
+              <circle cx="19" cy="10" r="1" />
+              <path d="M17 24h17v12H17zM39 24h10M39 29h10M39 34h7" />
+            </svg></span><span class="concept-name">Дизайн</span><span class="concept-desc">Кольори, шрифти та
+            порядок</span><span class="concept-arrow">↗</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="lab-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">КРОК 02 · ДОСЛІДЖЕННЯ</p>
+          <h2 id="lab-title">Майстерня слайдів</h2>
+        </div><span class="model-badge"><span></span> Інтерактивна модель</span>
+      </div>
+      <div class="lab-card">
+        <div class="lab-sidebar">
+          <p class="mini-label">ЗАРАЗ ДОСЛІДЖУЄМО</p>
+          <h3 id="model-title">Слайд</h3>
+          <p id="model-description">Слайд — це окрема сторінка презентації. Кілька слайдів разом розповідають історію
+            або пояснюють тему.</p>
+          <div class="lab-divider"></div>
+          <label class="control-label" for="layout-select">Макет слайда</label>
+          <select id="layout-select">
+            <option value="title">Титульний</option>
+            <option value="text">Заголовок і текст</option>
+            <option value="image">Текст і зображення</option>
+          </select>
+          <label class="control-label" for="theme-select">Стиль оформлення</label>
+          <select id="theme-select">
+            <option value="violet">Лавандовий</option>
+            <option value="ocean">Морський</option>
+            <option value="sunset">Сонячний</option>
+          </select>
+          <label class="switch-row" for="show-guides"><span><strong>Показати підказки</strong><small>Пояснення елементів
+                слайда</small></span><input id="show-guides" type="checkbox" checked><span
+              class="switch-ui"></span></label>
+          <button class="button button-quiet reset-model" id="reset-model" type="button">↺ Скинути модель</button>
+        </div>
+        <div class="lab-stage">
+          <div class="stage-top"><span><span class="live-dot"></span> Попередній перегляд</span><span
+              id="slide-counter">Слайд 1 з 3</span></div>
+          <div class="canvas-wrap">
+            <div class="slide-canvas theme-violet layout-title" id="slide-canvas"
+              aria-label="Попередній перегляд слайда">
+              <div class="canvas-copy"><span class="canvas-kicker">МОЯ ПРЕЗЕНТАЦІЯ</span>
+                <h4 id="canvas-heading">Світ навколо нас</h4>
+                <p id="canvas-subheading">Цікаві факти, які варто знати</p><span class="canvas-accent"></span>
+              </div>
+              <div class="canvas-visual" aria-hidden="true"><svg viewBox="0 0 220 220">
+                  <circle class="planet-base" cx="110" cy="110" r="75" />
+                  <path class="planet-shape"
+                    d="M68 65l20-12 17 13-8 17-18 2-8 18-17-9 4-17zM119 93l20-11 17 13-4 20 14 15-13 23-15-8-7-23-16-8zM73 133l19 7 5 18-12 15-14-12z" />
+                  <circle class="planet-dot" cx="145" cy="54" r="7" />
+                  <path class="planet-ring" d="M34 112c16-45 131-67 158-8 15 32-40 74-93 73" />
+                </svg></div>
+              <div class="guide guide-title" data-guide="title">① Заголовок</div>
+              <div class="guide guide-image" data-guide="image">② Ілюстрація</div>
+              <div class="guide guide-subtitle" data-guide="subtitle">③ Підзаголовок</div>
+              <span class="canvas-number">01</span>
+            </div>
+          </div>
+          <div class="stage-controls"><button type="button" class="slide-nav" id="prev-slide"
+              aria-label="Попередній слайд" disabled>←</button>
+            <div class="slide-progress" id="slide-progress" aria-label="Перегляд слайдів"><button type="button"
+                class="progress-dot active" data-slide="0" aria-label="Показати слайд 1"></button><button type="button"
+                class="progress-dot" data-slide="1" aria-label="Показати слайд 2"></button><button type="button"
+                class="progress-dot" data-slide="2" aria-label="Показати слайд 3"></button></div><button type="button"
+              class="slide-nav" id="next-slide" aria-label="Наступний слайд">→</button>
+          </div>
+          <p class="stage-hint" id="stage-hint" aria-live="polite">Зміни макет або тему — слайд одразу оновиться.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cheatsheet-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">КРОК 03 · ЗАПАМ’ЯТАЙ</p>
+          <h2 id="cheatsheet-title">Шпаргалка автора</h2>
+        </div>
+        <p class="section-intro">Кілька правил, які допоможуть створити гарну презентацію.</p>
+      </div>
+      <div class="cheat-grid">
+        <article class="cheat-card"><span class="cheat-icon">✦</span>
+          <h3>Одна думка — один слайд</h3>
+          <p>Не намагайся вмістити всю розповідь на одній сторінці. Розподіляй матеріал послідовно.</p>
+          <div class="cheat-example">Заголовок + 2–4 короткі тези</div>
+        </article>
+        <article class="cheat-card"><span class="cheat-icon">Aa</span>
+          <h3>Текст має читатися</h3>
+          <p>Обирай достатньо великий шрифт і прості слова. Не використовуй надто багато різних шрифтів.</p>
+          <div class="cheat-example">Великий заголовок · короткий текст</div>
+        </article>
+        <article class="cheat-card"><span class="cheat-icon">◈</span>
+          <h3>Зображення пояснює</h3>
+          <p>Додавай доречні фото, малюнки або схеми. Картинка має допомагати зрозуміти тему.</p>
+          <div class="cheat-example">Обирай чітке зображення за темою</div>
+        </article>
+        <article class="cheat-card"><span class="cheat-icon">◐</span>
+          <h3>Єдиний стиль</h3>
+          <p>Повторюй кольори, оформлення заголовків і розташування елементів на різних слайдах.</p>
+          <div class="cheat-example">2–3 основні кольори на всю роботу</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section quiz-section" aria-labelledby="quiz-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">КРОК 04 · ПЕРЕВІР СЕБЕ</p>
+          <h2 id="quiz-title">Час для мінітесту!</h2>
+        </div>
+        <p class="section-intro">Обери рівень і перевір, як добре ти засвоїв матеріал.</p>
+      </div>
+      <div class="level-grid" role="group" aria-label="Рівень складності">
+        <button class="level-card is-selected" type="button" data-level="easy" aria-pressed="true"><span
+            class="level-emoji">🌱</span><span class="level-name">Простий</span><span class="level-desc">Згадай
+            основи</span><span class="level-count">4 запитання</span></button>
+        <button class="level-card" type="button" data-level="medium" aria-pressed="false"><span
+            class="level-emoji">🚀</span><span class="level-name">Середній</span><span class="level-desc">Застосуй
+            знання</span><span class="level-count">6 запитань</span></button>
+        <button class="level-card" type="button" data-level="hard" aria-pressed="false"><span
+            class="level-emoji">🧠</span><span class="level-name">Складний</span><span class="level-desc">Подумай як
+            автор</span><span class="level-count">8 запитань</span></button>
+      </div>
+      <div class="quiz-card" id="quiz-card">
+        <div id="quiz-active">
+          <div class="quiz-topline"><span class="quiz-tag">МІНІТЕСТ</span><span class="quiz-score"
+              id="score-label">Правильних: 0</span></div>
+          <div class="quiz-progress-meta"><span id="question-counter">Запитання 1 з 4</span><span
+              id="progress-percent">0%</span></div>
+          <div class="quiz-progress-track">
+            <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+          </div>
+          <h3 id="question-text">Що таке комп’ютерна презентація?</h3>
+          <div class="answer-list" id="answer-list"></div>
+          <div class="answer-feedback" id="answer-feedback" aria-live="polite" hidden></div>
+          <div class="quiz-actions"><span class="quiz-note" id="quiz-note">Обери одну відповідь</span><button
+              type="button" class="button button-primary" id="next-question" disabled>Наступне запитання <span
+                aria-hidden="true">→</span></button></div>
+        </div>
+        <div id="quiz-result" class="result-screen" hidden>
+          <div class="result-illustration" id="result-illustration">🎉</div>
+          <p class="section-kicker">МІНІТЕСТ ЗАВЕРШЕНО</p>
+          <h3 id="result-title">Чудова робота!</h3>
+          <p id="result-message">Ти завершив тест.</p>
+          <div class="result-stats">
+            <div><strong id="result-score">4/4</strong><span>Правильних відповідей</span></div>
+            <div><strong id="result-percent">100%</strong><span>Твій результат</span></div>
+          </div>
+          <button type="button" class="button button-primary" id="restart-quiz">↻ Пройти ще раз</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="finish-banner" aria-labelledby="finish-title">
+      <div class="finish-sparkle">✦</div>
+      <div>
+        <p class="section-kicker">ТИ ВЖЕ БЛИЖЧЕ ДО МЕТИ</p>
+        <h2 id="finish-title">Твої ідеї заслуговують на гарні слайди!</h2>
+        <p>Пам’ятай: найкраща презентація — та, яку легко зрозуміти.</p>
+      </div><a class="button button-light" href="../../../index.html">На головну <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+  <footer class="site-footer" aria-label="Підвал навчальної сторінки">
+    <div class="footer-brand">
+      <span class="footer-mark" aria-hidden="true">✦</span>
+      <span class="footer-brand-copy"><strong>Навчальна лабораторія</strong><small>Інформатика · 5–6 клас</small></span>
+    </div>
+    <p class="footer-motto">Досліджуй. Практикуйся. Відкривай нове.</p>
+    <span class="footer-status"><span class="footer-status-dot" aria-hidden="true"></span> Навчайся досліджуючи</span>
+  </footer>
+</body>
+
+</html>

@@ -33,10 +33,21 @@
     { id: 'big-journey', title: 'Велика мандрівка', description: 'Заверши 12 уроків', icon: '🚀', test: p => p.completed.length >= 12 }
   ];
   function evaluate(all) { const p = read(); let changed = false; achievements.forEach(a => { if (!p.achievements.includes(a.id) && a.test(p, all)) { p.achievements.push(a.id); changed = true } }); if (changed) save(p); return p; }
-  function awardLesson(id, score, maxScore, all) {
-    const p = read(); const isNew = !p.completed.includes(id); if (isNew) { p.completed.push(id); const base = 20; p.coins += base; p.lessonRewards[id] = base; }
-    const perfect = Number(maxScore) > 0 && Number(score) >= Number(maxScore); const newPerfect = perfect && !p.perfect.includes(id); if (newPerfect) { p.perfect.push(id); p.coins += 10; }
-    save(p); const latest = evaluate(all || []); renderProfile(all || []); return { newCompletion: isNew, coins: isNew ? 20 : 0, perfectBonus: newPerfect ? 10 : 0, profile: latest };
+  function awardLesson(id, score, maxScore, all, difficulty = 'medium') {
+    const p = read(); const level = ['simple','medium','hard'].includes(difficulty) ? difficulty : 'medium';
+    const amounts = { simple: 5, medium: 10, hard: 20 }; const base = amounts[level];
+    const isNew = !p.completed.includes(id); if (isNew) p.completed.push(id);
+    if (!p.lessonRewards || typeof p.lessonRewards !== 'object') p.lessonRewards = {};
+    const old = p.lessonRewards[id]; const levels = old && typeof old === 'object' ? old : (typeof old === 'number' ? { medium: old } : {});
+    const newLevel = !levels[level]; let coinsAwarded = 0;
+    if (newLevel) { levels[level] = base; p.coins += base; coinsAwarded += base; }
+    p.lessonRewards[id] = levels;
+    const perfect = Number(maxScore) > 0 && Number(score) >= Number(maxScore);
+    const perfectKey = `${id}:${level}`; if (!Array.isArray(p.perfectLevels)) p.perfectLevels = [];
+    const newPerfect = perfect && !p.perfectLevels.includes(perfectKey);
+    if (newPerfect) { p.perfectLevels.push(perfectKey); if (!p.perfect.includes(id)) p.perfect.push(id); p.coins += 10; coinsAwarded += 10; }
+    save(p); const latest = evaluate(all || []); renderProfile(all || []);
+    return { newCompletion: isNew, newLevel, coins: newLevel ? base : 0, coinsAwarded, difficulty: level, perfectBonus: newPerfect ? 10 : 0, profile: latest };
   }
   function profile() { return read() }
   function renderProfile(all) {

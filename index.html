@@ -12,7 +12,6 @@
   <script src="js/sidebar.js" defer></script>
   <script src="js/gamification.js" defer></script>
   <script src="js/catalog.js" defer></script>
-  <script src="js/lesson-slider.js" defer></script>
   <link rel="stylesheet" href="css/banner-system.css">
 </head>
 <body>
@@ -111,14 +110,7 @@
 
       <section class="section-block" id="lessons">
         <div class="section-heading"><div><span class="eyebrow">МАЛЕНЬКІ КРОКИ — ВЕЛИКІ ВІДКРИТТЯ</span><h2>Уроки для дослідження</h2></div><span class="lesson-count" id="lessonCount">3 уроки</span></div>
-        <div class="lesson-slider-controls" aria-label="Керування каруселлю уроків">
-          <span class="lesson-slider-hint">Гортай, щоб переглянути уроки</span>
-          <div class="lesson-slider-buttons">
-            <button class="icon-button lesson-slider-prev" type="button" aria-label="Попередні уроки">←</button>
-            <button class="icon-button lesson-slider-next" type="button" aria-label="Наступні уроки">→</button>
-          </div>
-        </div>
-        <div class="lesson-grid lesson-slider" id="lessonGrid" tabindex="0" aria-label="Уроки для дослідження" aria-live="polite"></div>
+        <div class="lesson-grid" id="lessonGrid" aria-label="Випадкова добірка уроків" aria-live="polite"></div>
         <p class="empty-state hidden" id="emptyState">Нічого не знайшлося. Спробуй інший пошуковий запит.</p>
       </section>
 

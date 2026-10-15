@@ -8,8 +8,17 @@
   function prepareButtons() {
     document.querySelectorAll("[data-theme-toggle]").forEach(button => {
       button.setAttribute("aria-pressed", "false");
+      const svgIcon = button.querySelector(".theme-icon");
+      if (svgIcon && svgIcon.tagName.toLowerCase() === "svg") {
+        const replacement = document.createElement("span");
+        replacement.className = "theme-icon top-theme-icon";
+        replacement.setAttribute("aria-hidden", "true");
+        replacement.textContent = "◐";
+        svgIcon.replaceWith(replacement);
+      }
       if (button.querySelector(".theme-switch-track")) return;
-      if (button.classList.contains("sidebar-theme-toggle") || button.classList.contains("theme-toggle")) {
+      const hasSidebarLabel = Boolean(button.querySelector(".theme-label")) || /Змінити тему/i.test(button.textContent || "");
+      if ((button.classList.contains("sidebar-theme-toggle") || button.classList.contains("theme-toggle")) && hasSidebarLabel) {
         let track = button.querySelector(".toggle-track");
         if (!track) {
           track = document.createElement("span");
@@ -19,13 +28,19 @@
           button.appendChild(track);
         } else track.classList.add("theme-switch-track");
       } else {
-        // Wrap the icon glyph so the top-bar control can animate independently.
-        const icon = document.createElement("span");
-        icon.className = "theme-icon top-theme-icon";
-        icon.setAttribute("aria-hidden", "true");
-        icon.textContent = "◐";
-        button.textContent = "";
-        button.appendChild(icon);
+        // Preserve the button and replace only its icon (some lesson pages use SVG here).
+        let icon = button.querySelector(".theme-icon");
+        if (!icon || icon.tagName.toLowerCase() === "svg") {
+          const replacement = document.createElement("span");
+          replacement.className = "theme-icon top-theme-icon";
+          replacement.setAttribute("aria-hidden", "true");
+          replacement.textContent = "◐";
+          if (icon) icon.replaceWith(replacement);
+          else { button.textContent = ""; button.appendChild(replacement); }
+          icon = replacement;
+        } else {
+          icon.classList.add("top-theme-icon");
+        }
       }
     });
   }
