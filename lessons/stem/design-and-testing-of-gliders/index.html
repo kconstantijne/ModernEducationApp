@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f5f6ff">
+    <meta name="description"
+        content="Інтерактивний STEM-урок для 5 класу: конструювання та випробування паперових планерів, сили й аеродинаміка.">
+    <title>Лабораторія аеродинаміки — навчальна лабораторія</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../../css/lesson-standard.css">
+    <script src="../../../js/theme.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Перейти до уроку</a>
+    <header class="topbar"><a class="back-link" href="../../../subjects/stem.html"
+            aria-label="Повернутися до каталогу STEM-уроків"><span aria-hidden="true">←</span><span>До STEM</span></a>
+        <!-- <div class="topbar-right"><span class="class-pill">STEM · 5 клас</span><span class="points-pill"><span
+                    aria-hidden="true">✦</span><span id="starBalance">0 зірочок</span></span><button
+                class="lesson-theme-button" type="button" data-theme-toggle aria-label="Змінити тему оформлення"
+                title="Змінити тему"><span class="theme-icon" aria-hidden="true">◐</span><span
+                    class="theme-label">Тема</span></button></div> -->
+    </header>
+    <main id="main" class="page-shell">
+        <section class="hero">
+            <div class="hero-copy">
+                <div class="eyebrow"><span class="eyebrow-dot"></span> STEM <span class="eyebrow-separator">/</span>
+                    ІНЖЕНЕРІЯ ТА ФІЗИКА</div>
+                <h1>Лабораторія <span class="title-accent">аеродинаміки</span></h1>
+                <p class="hero-description">Спроєктуй паперовий планер, досліди вплив крил, носової ваги та сили запуску
+                    й з’ясуй, чому одні моделі летять далі за інші.</p>
+                <div class="hero-meta"><span><span aria-hidden="true">◷</span> 20–25 хв</span><span><span
+                            aria-hidden="true">✦</span> Інтерактивний урок</span><span><span aria-hidden="true">⌘</span>
+                        Практика + тест</span></div><a class="primary-button hero-button" href="#concepts">Почати
+                    дослідження <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="hero-art glider-hero-art" role="img"
+                aria-label="Паперовий планер у польоті, потік повітря та траєкторія">
+                <div class="art-orbit orbit-one"></div>
+                <div class="art-orbit orbit-two"></div>
+                <div class="glider-sun">☼</div>
+                <div class="glider-plane">✈</div>
+                <div class="glider-trail"></div>
+                <div class="art-card art-card-top"><span class="mini-block block-yellow"></span><span>Підйомна
+                        сила</span></div>
+                <div class="art-card art-card-mid"><span class="mini-block block-blue"></span><span>Крила</span></div>
+                <div class="art-card art-card-bottom"><span class="mini-block block-purple"></span><span>Дальність
+                        польоту</span></div>
+                <div class="art-spark spark-a">✦</div>
+                <div class="art-spark spark-b">✳</div>
+            </div>
+        </section>
+        <section class="section" id="concepts">
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">КРОК 01</div>
+                    <h2>Знайомся з поняттями</h2>
+                </div>
+                <p>Обери картку, щоб дослідити її в лабораторії.</p>
+            </div>
+            <div class="concept-grid" id="conceptGrid">
+                <button class="concept-card is-active" type="button" data-concept="lift" aria-pressed="true"><span
+                        class="concept-icon icon-algorithm"><span class="concept-glyph">↑</span></span><span
+                        class="concept-name">Підйомна сила</span><span class="concept-subtitle">Допомагає планеру
+                        триматися в повітрі</span><span class="card-arrow">↗</span></button>
+                <button class="concept-card" type="button" data-concept="drag" aria-pressed="false"><span
+                        class="concept-icon icon-executor"><span class="concept-glyph">〰</span></span><span
+                        class="concept-name">Опір повітря</span><span class="concept-subtitle">Гальмує рух крізь
+                        повітря</span><span class="card-arrow">↗</span></button>
+                <button class="concept-card" type="button" data-concept="balance" aria-pressed="false"><span
+                        class="concept-icon icon-command"><span class="concept-glyph">⚖</span></span><span
+                        class="concept-name">Баланс і центр мас</span><span class="concept-subtitle">Впливають на
+                        стійкість польоту</span><span class="card-arrow">↗</span></button>
+                <button class="concept-card" type="button" data-concept="design" aria-pressed="false"><span
+                        class="concept-icon icon-scratch"><span class="concept-glyph">✈</span></span><span
+                        class="concept-name">Конструкція планера</span><span class="concept-subtitle">Форма крил і носа
+                        змінює політ</span><span class="card-arrow">↗</span></button>
+            </div>
+        </section>
+        <section class="section lab-section" id="laboratory">
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">КРОК 02</div>
+                    <h2>Інтерактивна лабораторія</h2>
+                </div><span class="live-pill"><span></span> Модель працює</span>
+            </div>
+            <div class="lab-card">
+                <div class="lab-header">
+                    <div>
+                        <div class="lab-label">КОНСТРУКТОР ПАПЕРОВОГО ПЛАНЕРА</div>
+                        <h3 id="labTitle">Підйомна сила</h3>
+                    </div><button class="icon-button" id="resetModel" type="button" title="Скинути модель"
+                        aria-label="Скинути модель">↻</button>
+                </div>
+                <p class="lab-description" id="labDescription">Підйомна сила допомагає планеру залишатися в повітрі.
+                    Форма крил і кут зустрічі з повітрям впливають на політ.</p>
+                <div class="percent-model-layout glider-model-layout">
+                    <div class="model-stage glider-stage">
+                        <div class="stage-topline"><span>ВІЗУАЛІЗАЦІЯ ПОЛЬОТУ</span><span class="stage-badge"
+                                id="flightBadge">Тестова модель</span></div>
+                        <div class="flight-scene" id="flightScene" role="img"
+                            aria-label="Схематична траєкторія польоту паперового планера">
+                            <div class="wind-lines"><i></i><i></i><i></i></div>
+                            <div class="flight-ground"></div><svg class="flight-path" viewBox="0 0 600 230"
+                                preserveAspectRatio="none" aria-hidden="true">
+                                <path id="flightPath" d="M35 180 Q210 20 565 155" fill="none" stroke="currentColor"
+                                    stroke-width="3" stroke-linecap="round" stroke-dasharray="7 8" />
+                            </svg>
+                            <div class="plane-marker" id="planeMarker" aria-hidden="true">✈</div><span
+                                class="flight-label start-label">Запуск</span><span class="flight-label end-label"
+                                id="endLabel">Посадка</span>
+                            <div class="flight-distance"><span>Оціночна дальність</span><strong id="distanceValue">8.4
+                                    м</strong></div>
+                        </div>
+                        <div class="coordinate-result glider-result"><span class="percent-result-icon"
+                                aria-hidden="true">✈</span>
+                            <div><span class="percent-result-caption" id="resultCaption">Прогноз моделі</span><strong
+                                    id="modelResult">8,4 м</strong></div>
+                        </div>
+                        <div class="stage-status" id="modelStatus" aria-live="polite"><span
+                                class="status-dot"></span><span>Налаштуй планер і запусти випробування.</span></div>
+                    </div>
+                    <div class="program-panel percent-controls glider-controls">
+                        <div class="program-panel-heading">
+                            <h4>Налаштуй планер</h4><span class="count-badge">Дослід</span>
+                        </div><label class="percent-label" for="wingInput">Розмах крил: <strong id="wingValue">16
+                                см</strong></label><input id="wingInput" class="glider-range" type="range" min="10"
+                            max="24" step="2" value="16">
+                        <div class="range-ends"><span>10 см</span><span>24 см</span></div><label class="percent-label"
+                            for="weightInput">Носова вага: <strong id="weightValue">2 умовні
+                                одиниці</strong></label><input id="weightInput" class="glider-range" type="range"
+                            min="0" max="5" step="1" value="2">
+                        <div class="range-ends"><span>Легкий ніс</span><span>Важкий ніс</span></div><label
+                            class="percent-label" for="angleInput">Кут крил: <strong
+                                id="angleValue">8°</strong></label><input id="angleInput" class="glider-range"
+                            type="range" min="0" max="16" step="2" value="8">
+                        <div class="range-ends"><span>0°</span><span>16°</span></div><label class="percent-label"
+                            for="launchInput">Сила запуску: <strong id="launchValue">6/10</strong></label><input
+                            id="launchInput" class="glider-range" type="range" min="1" max="10" step="1" value="6">
+                        <div class="range-ends"><span>М’яко</span><span>Сильно</span></div><button
+                            class="primary-button percent-calculate" id="launchGlider" type="button">Запустити планер
+                            <span aria-hidden="true">→</span></button><button class="secondary-button percent-reset"
+                            id="resetCalculation" type="button">Повернути базову модель</button>
+                        <div class="hint-box"><span aria-hidden="true">💡</span>
+                            <p><strong>Підказка:</strong> змінюй лише один параметр за раз. Так легше зрозуміти, що саме
+                                вплинуло на результат.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-concept-note" id="conceptNote"><span
+                        class="note-icon">✦</span><span><strong>Пам’ятай:</strong> це навчальна спрощена модель, а не
+                        точний прогноз реального польоту. Справжній результат залежить також від паперу, згинів і
+                        повітряних потоків.</span></div>
+            </div>
+        </section>
+        <section class="section" id="cheatsheet">
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">КРОК 03</div>
+                    <h2>Шпаргалка дослідника</h2>
+                </div>
+                <p>П’ять принципів, які допоможуть спроєктувати кращий планер.</p>
+            </div>
+            <div class="cheat-grid">
+                <article class="cheat-card">
+                    <div class="cheat-icon purple">↑</div>
+                    <h3>Підйомна сила</h3>
+                    <p>Під час руху повітря взаємодіє з крилом і може створювати силу, спрямовану вгору.</p>
+                    <div class="example-chip">Крила допомагають триматися в повітрі</div>
+                </article>
+                <article class="cheat-card">
+                    <div class="cheat-icon blue">〰</div>
+                    <h3>Опір повітря</h3>
+                    <p>Повітря протидіє руху. Форма планера та поверхня впливають на величину опору.</p>
+                    <div class="example-chip">Менше зайвих виступів — часто краще</div>
+                </article>
+                <article class="cheat-card">
+                    <div class="cheat-icon yellow">⚖</div>
+                    <h3>Баланс важливий</h3>
+                    <p>Якщо вага розподілена невдало, планер може задирати ніс, пірнати або хитатися.</p>
+                    <div class="example-chip">Змінюй носову вагу малими кроками</div>
+                </article>
+                <article class="cheat-card">
+                    <div class="cheat-icon mint">↗</div>
+                    <h3>Кут запуску</h3>
+                    <p>Надто крутий запуск може зробити політ нестійким. Спробуй рівний плавний кидок уперед.</p>
+                    <div class="example-chip">Порівнюй результати запусків</div>
+                </article>
+                <article class="cheat-card">
+                    <div class="cheat-icon pink">🧪</div>
+                    <h3>Тестуй чесно</h3>
+                    <p>Щоб перевірити одну ідею, змінюй лише один параметр, а решту залишай однаковими.</p>
+                    <div class="example-chip">Гіпотеза → тест → спостереження</div>
+                </article>
+            </div>
+        </section>
+        <section class="section level-section" id="levels">
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">КРОК 04</div>
+                    <h2>Обери свій рівень</h2>
+                </div>
+                <p>Від базових понять до інженерного аналізу.</p>
+            </div>
+            <div class="level-grid" role="group" aria-label="Вибір рівня складності"><button type="button"
+                    class="level-card is-selected" data-level="easy" aria-pressed="true"><span class="level-top"><span
+                            class="level-emoji">🌱</span><span
+                            class="level-tag">Старт</span></span><strong>Простий</strong><span
+                        class="level-description">Впізнавай основні сили й деталі планера.</span><span
+                        class="level-bottom"><span>4 запитання</span><span>✦ +10 компʼюшок</span></span></button><button
+                    type="button" class="level-card" data-level="medium" aria-pressed="false"><span
+                        class="level-top"><span class="level-emoji">🚀</span><span
+                            class="level-tag">Практика</span></span><strong>Середній</strong><span
+                        class="level-description">Застосовуй принципи до випробувань і спостережень.</span><span
+                        class="level-bottom"><span>6 запитань</span><span>✦ +15 компʼюшок</span></span></button><button
+                    type="button" class="level-card" data-level="hard" aria-pressed="false"><span
+                        class="level-top"><span class="level-emoji">🧠</span><span
+                            class="level-tag">Виклик</span></span><strong>Складний</strong><span
+                        class="level-description">Аналізуй результати й плануй контрольований експеримент.</span><span
+                        class="level-bottom"><span>8 запитань</span><span>✦ +20 компʼюшок</span></span></button></div>
+        </section>
+        <section class="section quiz-section" id="quiz">
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">КРОК 05</div>
+                    <h2>Перевір свої знання</h2>
+                </div><span class="quiz-level-label" id="quizLevelLabel">Простий рівень</span>
+            </div>
+            <div class="quiz-card" id="quizCard">
+                <div id="quizActive">
+                    <div class="quiz-progress-row"><span id="questionCounter">Запитання 1 із 4</span><span
+                            class="score-counter">Правильних: <strong id="correctCounter">0</strong></span></div>
+                    <div class="progress-track" role="progressbar" aria-label="Прогрес тесту" aria-valuemin="0"
+                        aria-valuemax="100" aria-valuenow="0" id="progressTrack">
+                        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+                    </div>
+                    <div class="question-area">
+                        <div class="question-number" id="questionNumber">01</div>
+                        <h3 id="questionText">Що допомагає планеру триматися в повітрі?</h3>
+                    </div>
+                    <div class="answer-list" id="answerList"></div>
+                    <div class="feedback-box" id="feedbackBox" aria-live="polite" hidden></div>
+                    <div class="quiz-footer"><span class="small-muted">Поміркуй над кожною відповіддю.</span><button
+                            type="button" class="primary-button" id="nextQuestion" disabled>Наступне <span
+                                aria-hidden="true">→</span></button></div>
+                </div>
+                <div id="quizResult" class="result-screen" hidden>
+                    <div class="result-illustration" aria-hidden="true">✦</div>
+                    <div class="result-kicker">МІСІЮ ВИКОНАНО</div>
+                    <h3 id="resultTitle">Чудова робота!</h3>
+                    <p id="resultMessage">Ти завершив мінітест.</p>
+                    <div class="result-stats">
+                        <div><strong id="finalCorrect">0/4</strong><span>Правильних відповідей</span></div>
+                        <div><strong id="finalPercent">0%</strong><span>Твій результат</span></div>
+                        <div><strong id="earnedStars">+10</strong><span> Компʼюшок за спробу</span></div>
+                    </div>
+                    <div class="result-actions"><button type="button" class="primary-button" id="claimReward">Отримати
+                            компʼюшки <span aria-hidden="true">✦</span></button><button type="button"
+                            class="secondary-button" id="retryQuiz">Пройти ще раз ↻</button></div>
+                    <p class="reward-note" id="rewardNote" aria-live="polite">Компʼюшки нараховуються один раз за
+                        завершену спробу.</p><a class="home-link" href="#main">← Повернутися на початок уроку</a>
+                </div>
+            </div>
+        </section>
+        <section class="finish-banner" aria-labelledby="finish-title">
+            <div class="finish-sparkle">✦</div>
+            <div>
+                <p class="section-kicker">ІДЕЇ ЗЛІТАЮТЬ</p>
+                <h2 id="finish-title">Тепер ти можеш мислити як інженер</h2>
+                <p>Спостерігай, висувай гіпотези, змінюй параметри по одному й порівнюй результати. Саме так дослідники
+                    вдосконалюють конструкції — крок за кроком.</p>
+            </div><a class="button button-light" href="../../../index.html">На головну <span
+                    aria-hidden="true">↗</span></a>
+        </section>
+    </main>
+    <footer class="site-footer" aria-label="Підвал навчальної сторінки">
+        <div class="footer-brand"><span class="footer-mark" aria-hidden="true">✦</span><span
+                class="footer-brand-copy"><strong>Навчальна лабораторія</strong><small>STEM · 5 клас</small></span>
+        </div>
+        <p class="footer-motto">Досліджуй. Практикуйся. Відкривай нове.</p><span class="footer-status"><span
+                class="footer-status-dot" aria-hidden="true"></span> Навчайся досліджуючи</span>
+    </footer>
+</body>
+
+</html>

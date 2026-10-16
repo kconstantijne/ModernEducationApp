@@ -1,68 +1,657 @@
+
 (() => {
-  'use strict';
-  const $ = (selector, root = document) => root.querySelector(selector);
-  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  "use strict";
+
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+
   const concepts = {
-    ray: { title:'Координатний промінь', description:'Пересувай точку та дивись, як змінюється її координата.', insight:n=>`Точка A має координату ${n}: від початку O потрібно відкласти ${n} ${n===1?'одиничний відрізок':'одиничні відрізки'}.`, footer:'Початок променя має координату 0, а числа зростають зліва направо.' },
-    unit: { title:'Одиничний відрізок', description:'Зміни довжину одиничного відрізка та порівняй відстані на рисунку.', insight:n=>`Одиничний відрізок задає масштаб. Координата A залишається ${n}, навіть якщо масштаб змінюється.`, footer:'Зміна довжини одиничного відрізка змінює рисунок, але не координати точок.' },
-    coordinates: { title:'Координати точок', description:'Координата — це число, яке визначає положення точки на промені.', insight:n=>`Запис A(${n}) означає, що точка A віддалена від O на ${n} одиничних відрізків.`, footer:'Координату точки записують у дужках після назви точки: A(4).' },
-    compare: { title:'Порівняння чисел', description:'Пересувай точку та спостерігай: чим правіше вона розташована, тим більше її координата.', insight:n=>n<5?`A(${n}) розташована лівіше від точки з координатою 5, тому ${n} < 5.`:n===5?'A(5) збігається з точкою, що має координату 5.':`A(${n}) розташована правіше від точки з координатою 5, тому ${n} > 5.`, footer:'На координатному промені менше число розташоване лівіше, а більше — правіше.' }
+    ray: {
+      title: "Координатний промінь",
+      description:
+        "Координатний промінь має початок, напрям і одиничний відрізок. Числа на ньому зростають праворуч.",
+      note:
+        "Промінь продовжується в одному напрямі, тому на ньому можна позначати дедалі більші числа.",
+      status:
+        "Зверни увагу: позначки йдуть від 0 праворуч у напрямі зростання чисел."
+    },
+
+    origin: {
+      title: "Початок відліку — точка O",
+      description:
+        "Початок координатного променя позначають O. Його координата дорівнює нулю.",
+      note:
+        "Точка O має координату 0. Відлік поділок починають саме від неї.",
+      status:
+        "Точка O завжди стоїть на початку променя та відповідає числу 0."
+    },
+
+    unit: {
+      title: "Одиничний відрізок задає крок",
+      description:
+        "Одиничний відрізок — це відрізок, довжину якого прийнято за одну одиницю. Він визначає відстань між сусідніми цілими числами, якщо поділки рівні.",
+      note:
+        "Якщо відрізок від 0 до 1 дорівнює 1 см, то від 0 до 4 — 4 см.",
+      status:
+        "Зміни значення кроку: номер поділки залишиться тим самим, але її число зміниться."
+    },
+
+    coordinate: {
+      title: "Координата показує місце точки",
+      description:
+        "Координата точки — це число, яке відповідає її положенню на координатному промені. Її записують у дужках після назви точки.",
+      note:
+        "Якщо точка A розташована на шостій поділці від O за одиничного кроку 1, то A(6).",
+      status:
+        "Обери номер поділки й визнач координату точки A."
+    }
   };
-  const questionBank = {
+
+  const levelNames = {
+    easy: "Простий рівень",
+    medium: "Середній рівень",
+    hard: "Складний рівень"
+  };
+
+  const rewards = {
+    easy: 10,
+    medium: 15,
+    hard: 20
+  };
+
+  const questions = {
     easy: [
-      {q:'Яка координата у початку координатного променя?',a:['0','1','10','100'],correct:0,why:'Початок координатного променя позначають числом 0.'},
-      {q:'Що потрібно позначити на координатному промені, крім початку?',a:['Лише колір','Одиничний відрізок і напрямок','Коло','Кут'],correct:1,why:'Координатний промінь має початок, одиничний відрізок і напрямок.'},
-      {q:'Яка координата точки, якщо від O відкладено 3 одиничні відрізки?',a:['1','2','3','4'],correct:2,why:'Кожен одиничний відрізок додає одну одиницю: три відрізки — координата 3.'},
-      {q:'У якому напрямку зростають числа на координатному промені?',a:['Зліва направо','Справа наліво','Вгору','Числа не зростають'],correct:0,why:'На звичайному зображенні координатного променя числа зростають зліва направо.'}
+      {
+        q: "Яку координату має початок координатного променя O?",
+        a: ["1", "0", "10", "100"],
+        correct: 1,
+        why: "Початок відліку позначають O, і його координата дорівнює 0."
+      },
+      {
+        q: "У якому напрямі зростають числа на координатному промені?",
+        a: [
+          "Ліворуч від початку",
+          "В обидва боки однаково",
+          "Праворуч від початку",
+          "Напрям не має значення"
+        ],
+        correct: 2,
+        why: "Координатний промінь починається в O і продовжується праворуч, де числа зростають."
+      },
+      {
+        q: "Що називають одиничним відрізком?",
+        a: [
+          "Відрізок, довжину якого прийнято за одиницю",
+          "Будь-який найдовший відрізок",
+          "Відстань між числами 2 і 5",
+          "Саму точку O"
+        ],
+        correct: 0,
+        why: "Одиничний відрізок задає масштаб променя: за його довжину приймають одну одиницю."
+      },
+      {
+        q: "Як записати, що точка A має координату 4?",
+        a: ["4A", "A=4 см", "A(4)", "(A)4"],
+        correct: 2,
+        why: "Назву точки записують перед координатою в дужках: A(4)."
+      }
     ],
+
     medium: [
-      {q:'Точка B має координату 6. Скільки одиничних відрізків від O до B?',a:['5','6','7','12'],correct:1,why:'Координата 6 означає, що від початку відкладено 6 одиничних відрізків.'},
-      {q:'Яка точка розташована правіше на координатному промені?',a:['A(2)','B(7)','Вони в одному місці','Визначити неможливо'],correct:1,why:'Координата 7 більша за 2, тому B(7) розташована правіше.'},
-      {q:'Точка C(4) і точка D(9). На скільки одиниць відрізняються їхні координати?',a:['3','4','5','13'],correct:2,why:'Різниця координат: 9 − 4 = 5 одиниць.'},
-      {q:'Який запис правильно позначає точку M з координатою 8?',a:['8(M)','M=8°','M(8)','(M)8'],correct:2,why:'Назву точки записують перед координатою в дужках: M(8).'},
-      {q:'Як зміниться координата точки, якщо одиничний відрізок на малюнку зробити довшим, але точку не перенумеровувати?',a:['Обов’язково збільшиться','Обов’язково зменшиться','Не зміниться','Стане нулем'],correct:2,why:'Масштаб зображення може змінитися, але числова координата точки залишається тією самою.'},
-      {q:'Яке твердження правильне?',a:['3 > 8','5 < 2','4 < 6','9 < 1'],correct:2,why:'На координатному промені 4 розташоване лівіше за 6, отже 4 < 6.'}
+      {
+        q: "Одна поділка дорівнює 1. Яке число стоїть на п’ятій поділці після 0?",
+        a: ["4", "5", "6", "10"],
+        correct: 1,
+        why: "Від 0 відраховуємо п’ять рівних одиничних кроків: отримуємо 5."
+      },
+      {
+        q: "Одиничний відрізок дорівнює 2 см. Яка відстань від 0 до координати 3?",
+        a: ["3 см", "5 см", "6 см", "9 см"],
+        correct: 2,
+        why: "До координати 3 є три одиничні кроки по 2 см: 3 × 2 = 6 см."
+      },
+      {
+        q: "На якій поділці розташована точка B(7), якщо крок дорівнює 1?",
+        a: ["На сьомій", "На шостій", "На першій", "На восьмій"],
+        correct: 0,
+        why: "Координата 7 означає сім одиничних кроків від початку O."
+      },
+      {
+        q: "Крок між сусідніми поділками дорівнює 5. Яка координата четвертої поділки?",
+        a: ["9", "15", "20", "25"],
+        correct: 2,
+        why: "Координата дорівнює номеру поділки, помноженому на значення кроку: 4 × 5 = 20."
+      },
+      {
+        q: "Яка точка розташована правіше на промені: M(3) чи N(8)?",
+        a: [
+          "M(3)",
+          "N(8)",
+          "Вони в одному місці",
+          "Не можна визначити"
+        ],
+        correct: 1,
+        why: "На координатному промені більше число розташоване правіше. Оскільки 8 > 3, правіше точка N."
+      },
+      {
+        q: "Від 0 до точки C — чотири рівні кроки по 3 одиниці. Яка координата C?",
+        a: ["7", "12", "4", "9"],
+        correct: 1,
+        why: "Кожен крок дорівнює 3 одиницям, а кроків чотири: 4 × 3 = 12."
+      }
     ],
+
     hard: [
-      {q:'Точка A має координату 3, а B — координату 11. Яка відстань між ними в одиничних відрізках?',a:['8','11','14','33'],correct:0,why:'Відстань між точками на промені дорівнює різниці координат: 11 − 3 = 8.'},
-      {q:'Точка K(5) розташована на 4 одиниці лівіше від точки L. Яка координата L?',a:['1','4','9','20'],correct:2,why:'Праворуч координати збільшуються: 5 + 4 = 9.'},
-      {q:'Між точками A(2) і B(10) позначили точку C посередині. Яка координата C?',a:['4','6','8','12'],correct:1,why:'Середина має координату, рівновіддалену від 2 і 10: (2 + 10) ÷ 2 = 6.'},
-      {q:'Точка P має координату 7. Точка Q на 3 одиниці лівіше за P. Знайди координату Q.',a:['3','4','10','21'],correct:1,why:'Рух ліворуч означає віднімання: 7 − 3 = 4.'},
-      {q:'Які точки розташовані в порядку зліва направо?',a:['C(8), A(2), B(5)','B(5), A(2), C(8)','A(2), B(5), C(8)','A(5), B(8), C(2)'],correct:2,why:'Координати зростають зліва направо: 2, потім 5, потім 8.'},
-      {q:'Одиничний відрізок дорівнює 2 см. Яка відстань від O до точки A(6)?',a:['3 см','6 см','8 см','12 см'],correct:3,why:'Шість одиничних відрізків по 2 см: 6 × 2 = 12 см.'},
-      {q:'Точка X(4) і точка Y(12). Яка координата точки Z, що є серединою XY?',a:['6','8','10','16'],correct:1,why:'Середина відрізка має координату (4 + 12) ÷ 2 = 8.'},
-      {q:'Точка A(9) на 5 одиниць правіше за точку B. Яка координата B?',a:['4','5','14','45'],correct:0,why:'Якщо A правіше за B на 5 одиниць, то координата B дорівнює 9 − 5 = 4.'}
+      {
+        q: "Одиничний відрізок дорівнює 4 см. На якій відстані від O буде точка A(6)?",
+        a: ["10 см", "20 см", "24 см", "6 см"],
+        correct: 2,
+        why: "Координата 6 означає шість одиничних відрізків: 6 × 4 = 24 см."
+      },
+      {
+        q: "На промені сусідні позначки мають координати 0, 3, 6, 9… Яка координата наступної позначки?",
+        a: ["10", "11", "12", "15"],
+        correct: 2,
+        why: "Кожного разу додаємо 3: 9 + 3 = 12."
+      },
+      {
+        q: "Точка A має координату 18, а крок між позначками дорівнює 3. На якій поділці стоїть A?",
+        a: ["На 3-й", "На 6-й", "На 9-й", "На 15-й"],
+        correct: 1,
+        why: "Щоб знайти номер поділки, координату ділимо на крок: 18 ÷ 3 = 6."
+      },
+      {
+        q: "Учень позначив точку з координатою 5 на четвертій поділці, де крок дорівнює 1. У чому помилка?",
+        a: [
+          "Помилки немає",
+          "На четвертій поділці координата має бути 4",
+          "Координата початку не 0",
+          "Координати не записують числами"
+        ],
+        correct: 1,
+        why: "За кроку 1 четверта поділка відповідає числу 4. Щоб дістатися 5, потрібно п’ять одиничних кроків."
+      },
+      {
+        q: "Точки P(11) і Q(7) розміщені на промені. На скільки одиниць P правіше за Q?",
+        a: ["4", "7", "11", "18"],
+        correct: 0,
+        why: "Знаходимо різницю координат: 11 − 7 = 4 одиниці."
+      },
+      {
+        q: "На п’ятій поділці стоїть число 20. Яке число відповідає одній поділці, якщо O має координату 0?",
+        a: ["2", "4", "5", "15"],
+        correct: 1,
+        why: "П’ять однакових кроків дають 20: 20 ÷ 5 = 4 одиниці на крок."
+      },
+      {
+        q: "Одиничний відрізок 2 см. Точка B розташована на відстані 14 см від O. Яка її координата?",
+        a: ["7", "12", "14", "28"],
+        correct: 0,
+        why: "Кількість одиничних відрізків: 14 ÷ 2 = 7. Отже, координата B — 7."
+      },
+      {
+        q: "Точка A(4) і точка B(10). Одиничний відрізок збільшили вдвічі, але координати точок не змінювали. Що станеться з відстанню між A і B у сантиметрах?",
+        a: [
+          "Зменшиться вдвічі",
+          "Не зміниться",
+          "Збільшиться вдвічі",
+          "Збільшиться на 2 см"
+        ],
+        correct: 2,
+        why: "Різниця координат дорівнює 10 − 4 = 6 одиничних відрізків. Якщо довжина кожного відрізка подвоїлася, фізична відстань також подвоїться."
+      }
     ]
   };
-  const levelNames = {easy:'Простий рівень',medium:'Середній рівень',hard:'Складний рівень'};
-  const state = {concept:'ray', coordinate:4, unit:40, level:'medium', index:0, score:0, answered:false};
-  const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
-  function renderModel() {
-    const n=state.coordinate, unit=state.unit, origin=92, y=126, maxX=origin+10*unit;
-    $('#rayLine').setAttribute('x1',origin); $('#rayLine').setAttribute('x2',Math.min(514,maxX));
-    const markerX=origin+n*unit;
-    $('#pointMarker').setAttribute('cx',markerX); $('#pointLabel').setAttribute('x',markerX); $('#pointLabel').textContent=`A(${n})`;
-    $('#unitSegment').setAttribute('x1',origin); $('#unitSegment').setAttribute('x2',origin+unit);
-    $('#unitLabel').setAttribute('x',(origin+origin+unit)/2); $('#unitLabel').textContent='1 од.';
-    const ticks=$('#ticks'), labels=$('#numberLabels'); ticks.replaceChildren(); labels.replaceChildren();
-    for(let i=0;i<=10;i++){
-      const x=origin+i*unit; if(x>512) continue;
-      const tick=document.createElementNS('http://www.w3.org/2000/svg','line'); tick.setAttribute('x1',x);tick.setAttribute('x2',x);tick.setAttribute('y1',i===0?112:117);tick.setAttribute('y2',i===0?140:135);tick.setAttribute('class',i===0?'coordinate-tick origin-tick':'coordinate-tick');ticks.append(tick);
-      const label=document.createElementNS('http://www.w3.org/2000/svg','text');label.setAttribute('x',x);label.setAttribute('y',160);label.setAttribute('text-anchor','middle');label.setAttribute('class','coordinate-number');label.textContent=String(i);labels.append(label);
+
+  const state = {
+    concept: "ray",
+    level: "easy",
+    questionIndex: 0,
+    correct: 0,
+    answered: false,
+    completed: false,
+    claimed: false,
+    stars: 0
+  };
+
+  const format = n =>
+    new Intl.NumberFormat("uk-UA", {
+      maximumFractionDigits: 2
+    }).format(n);
+
+  function setStatus(message, kind = "neutral") {
+    const box = $("#modelStatus");
+    box.replaceChildren();
+
+    const dot = document.createElement("span");
+    dot.className = "status-dot";
+
+    if (kind === "good") {
+      dot.style.background = "var(--green, #2eaa78)";
     }
-    const desc=`Координатний промінь від 0 до 10. Точка A має координату ${n}.`;
-    $('#raySvgDesc').textContent=desc;setText('coordinateValue',n);setText('coordinateOutput',String(n));setText('unitOutput',`${unit} px`);setText('coordinateMeaning',`A розташована на ${n} ${n===1?'одиницю':'одиниць'} від O`);
-    const info=concepts[state.concept];setText('modelHeading',info.title);setText('modelDescription',info.description);setText('modelInsight',info.insight(n));setText('modelFooterNote',info.footer);
-    $('#coordinateSlider').value=n;$('#unitSlider').value=unit;
+
+    if (kind === "bad") {
+      dot.style.background = "var(--red, #d85d68)";
+    }
+
+    const text = document.createElement("span");
+    text.textContent = message;
+
+    box.append(dot, text);
   }
-  function selectConcept(key){state.concept=key;$$('[data-concept]').forEach(btn=>{const active=btn.dataset.concept===key;btn.classList.toggle('is-active',active);btn.setAttribute('aria-pressed',String(active));});renderModel();}
-  function currentQuestions(){return questionBank[state.level];}
-  function renderQuestion(){const qs=currentQuestions(),q=qs[state.index];state.answered=false;setText('quizLevelLabel',levelNames[state.level]);setText('questionCounter',`Запитання ${state.index+1} із ${qs.length}`);setText('questionText',q.q);setText('quizScore',state.score);$('#quizProgress').setAttribute('aria-valuemax',qs.length);$('#quizProgress').setAttribute('aria-valuenow',state.index);$('#quizProgressFill').style.width=`${state.index/qs.length*100}%`;const list=$('#answerList');list.replaceChildren();q.a.forEach((answer,index)=>{const label=document.createElement('label');label.className='answer-option';const input=document.createElement('input');input.type='radio';input.name='answer';input.value=String(index);input.setAttribute('aria-label',answer);const text=document.createElement('span');text.className='answer-text';text.textContent=answer;const letter=document.createElement('span');letter.className='answer-letter';letter.textContent=String.fromCharCode(65+index);label.append(letter,input,text);list.append(label);});$('#quizFeedback').hidden=true;$('#quizFeedback').textContent='';$('#checkAnswer').hidden=false;$('#checkAnswer').disabled=false;$('#nextQuestion').hidden=true;$('#answerFieldset').disabled=false;$('#quizPanel').hidden=false;$('#resultPanel').hidden=true;}
-  function checkAnswer(event){event.preventDefault();if(state.answered)return;const chosen=$('input[name="answer"]:checked');if(!chosen){setText('quizFeedback','Спочатку обери один варіант відповіді.');$('#quizFeedback').className='quiz-feedback is-wrong';$('#quizFeedback').hidden=false;return;}state.answered=true;const q=currentQuestions()[state.index],picked=Number(chosen.value),correct=picked===q.correct;if(correct)state.score++;$$('input[name="answer"]').forEach(input=>{input.disabled=true;const label=input.closest('.answer-option');if(Number(input.value)===q.correct)label.classList.add('is-correct');if(Number(input.value)===picked&&!correct)label.classList.add('is-wrong');});setText('quizScore',state.score);setText('quizFeedback',`${correct?'Правильно!':'Не зовсім.'} ${q.why}`);$('#quizFeedback').className=`quiz-feedback ${correct?'is-correct':'is-wrong'}`;$('#quizFeedback').hidden=false;$('#checkAnswer').hidden=true;$('#nextQuestion').hidden=false;$('#nextQuestion').focus();setText('questionCounter',`Запитання ${state.index+1} із ${currentQuestions().length}`);}
-  function showResult(){const total=currentQuestions().length,pct=Math.round(state.score/total*100);$('#quizPanel').hidden=true;$('#resultPanel').hidden=false;setText('finalScore',`${state.score}/${total}`);setText('finalPercent',`${pct}%`);setText('resultTitle',pct===100?'Ідеальний результат!':pct>=70?'Чудова робота!':pct>=40?'Гарний початок!':'Спробуй ще раз!');setText('resultMessage',pct>=80?'Ти добре орієнтуєшся на координатному промені. Продовжуй у тому ж дусі!':pct>=50?'Основи вже знайомі. Переглянь шпаргалку й закріпи кілька правил.':'Повернися до інтерактивної моделі, досліди приклади й повтори тест.');$('#quizProgress').setAttribute('aria-valuenow',total);$('#quizProgressFill').style.width='100%';$('#resultPanel').scrollIntoView({behavior:'smooth',block:'center'});}
-  function nextQuestion(){if(!state.answered)return;state.index++;if(state.index>=currentQuestions().length)showResult();else renderQuestion();}
-  function startQuiz(level=state.level){state.level=level;state.index=0;state.score=0;state.answered=false;$$('[data-level]').forEach(btn=>{const active=btn.dataset.level===level;btn.classList.toggle('is-active',active);btn.setAttribute('aria-pressed',String(active));});renderQuestion();}
-  $('#coordinateSlider').addEventListener('input',e=>{state.coordinate=Number(e.target.value);renderModel();});$('#unitSlider').addEventListener('input',e=>{state.unit=Number(e.target.value);renderModel();});$$('[data-coordinate]').forEach(btn=>btn.addEventListener('click',()=>{state.coordinate=Number(btn.dataset.coordinate);renderModel();}));$$('[data-concept]').forEach(btn=>btn.addEventListener('click',()=>selectConcept(btn.dataset.concept)));
-  $('#resetModel').addEventListener('click',()=>{state.coordinate=4;state.unit=40;selectConcept('ray');});$('#quizForm').addEventListener('submit',checkAnswer);$('#nextQuestion').addEventListener('click',nextQuestion);$('#retryQuiz').addEventListener('click',()=>startQuiz(state.level));$$('[data-level]').forEach(btn=>btn.addEventListener('click',()=>startQuiz(btn.dataset.level)));
-  renderModel();startQuiz('medium');
+
+  function renderRay(selected = null) {
+    const unit = Number($("#unitInput").value);
+    const ticks = $("#coordinateTicks");
+
+    ticks.replaceChildren();
+
+    for (let i = 0; i <= 10; i++) {
+      const tick = document.createElement("span");
+
+      tick.className =
+        "ray-tick" +
+        (i === 0 ? " origin" : "") +
+        (selected === i ? " selected" : "");
+
+      tick.textContent = String(i * unit);
+      tick.setAttribute(
+        "aria-label",
+        `Поділка ${i}, координата ${i * unit}`
+      );
+
+      ticks.append(tick);
+    }
+
+    $("#rayBadge").textContent = `Крок = ${unit}`;
+
+    $("#coordinateRay").setAttribute(
+      "aria-label",
+      `Координатний промінь з кроком ${unit}, числа від 0 до ${10 * unit}`
+    );
+
+    const point = $("#coordinatePoint");
+
+    if (selected !== null) {
+      point.hidden = false;
+      point.style.left = `${selected * 10}%`;
+      point.textContent = `A(${selected * unit})`;
+    } else {
+      point.hidden = true;
+    }
+  }
+
+  function calculateCoordinate() {
+    const unit = Number($("#unitInput").value);
+    const tick = Number($("#tickInput").value);
+
+    if (!Number.isInteger(tick) || tick < 1 || tick > 10) {
+      setStatus("Введи номер поділки від 1 до 10.", "bad");
+      $("#tickInput").focus();
+      return false;
+    }
+
+    const value = unit * tick;
+
+    renderRay(tick);
+
+    $("#resultCaption").textContent =
+      `Координата точки A: ${tick} × ${unit} =`;
+
+    $("#modelResult").textContent = format(value);
+
+    setStatus(
+      `Правильно: ${tick} поділок × ${unit} одиниць = ${value}. Точка A має координату ${value}.`,
+      "good"
+    );
+
+    return true;
+  }
+
+  function selectConcept(key) {
+    if (!concepts[key]) return;
+
+    state.concept = key;
+
+    $$(".concept-card").forEach(b => {
+      const active = b.dataset.concept === key;
+
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-pressed", String(active));
+    });
+
+    const c = concepts[key];
+
+    $("#labTitle").textContent = c.title;
+    $("#labDescription").textContent = c.description;
+
+    const note = $("#conceptNote").lastElementChild;
+    note.replaceChildren();
+
+    const strong = document.createElement("strong");
+    strong.textContent = "Пам’ятай: ";
+
+    note.append(strong, document.createTextNode(c.note));
+
+    setStatus(c.status);
+
+    if (key === "origin") {
+      $("#unitInput").value = "1";
+      $("#tickInput").value = "1";
+    } else if (key === "unit") {
+      $("#unitInput").value = "2";
+      $("#tickInput").value = "4";
+    } else if (key === "coordinate") {
+      $("#unitInput").value = "1";
+      $("#tickInput").value = "6";
+    } else {
+      $("#unitInput").value = "1";
+      $("#tickInput").value = "4";
+    }
+
+    calculateCoordinate();
+  }
+
+  function resetModel() {
+    $("#unitInput").value = "1";
+    $("#tickInput").value = "4";
+
+    calculateCoordinate();
+
+    setStatus(
+      "Модель скинуто. Спробуй змінити крок і знайти нову координату."
+    );
+  }
+
+  function chooseLevel(level) {
+    if (!questions[level]) return;
+
+    state.level = level;
+
+    $$(".level-card").forEach(b => {
+      const active = b.dataset.level === level;
+
+      b.classList.toggle("is-selected", active);
+      b.setAttribute("aria-pressed", String(active));
+    });
+
+    $("#quizLevelLabel").textContent = levelNames[level];
+
+    startQuiz();
+  }
+
+  function startQuiz() {
+    state.questionIndex = 0;
+    state.correct = 0;
+    state.answered = false;
+    state.completed = false;
+    state.claimed = false;
+
+    $("#quizActive").hidden = false;
+    $("#quizResult").hidden = true;
+
+    $("#claimReward").disabled = false;
+    $("#claimReward").textContent = "Отримати зірочки ✦";
+
+    $("#rewardNote").textContent =
+      "Зірочки нараховуються один раз за завершену спробу.";
+
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const set = questions[state.level];
+    const q = set[state.questionIndex];
+
+    state.answered = false;
+
+    $("#questionCounter").textContent =
+      `Запитання ${state.questionIndex + 1} із ${set.length}`;
+
+    $("#correctCounter").textContent = String(state.correct);
+
+    $("#questionNumber").textContent =
+      String(state.questionIndex + 1).padStart(2, "0");
+
+    $("#questionText").textContent = q.q;
+
+    const progress = Math.round(
+      (state.questionIndex / set.length) * 100
+    );
+
+    $("#progressFill").style.width = `${progress}%`;
+
+    $("#progressTrack").setAttribute(
+      "aria-valuenow",
+      String(progress)
+    );
+
+    const feedback = $("#feedbackBox");
+
+    feedback.hidden = true;
+    feedback.className = "feedback-box";
+
+    $("#nextQuestion").disabled = true;
+
+    $("#nextQuestion").textContent =
+      state.questionIndex === set.length - 1
+        ? "Побачити результат →"
+        : "Наступне →";
+
+    const list = $("#answerList");
+
+    list.replaceChildren();
+
+    q.a.forEach((answer, index) => {
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.className = "answer-option";
+
+      button.setAttribute(
+        "aria-label",
+        `Варіант ${String.fromCharCode(65 + index)}: ${answer}`
+      );
+
+      const letter = document.createElement("span");
+      letter.className = "answer-letter";
+      letter.textContent = String.fromCharCode(65 + index);
+
+      const text = document.createElement("span");
+      text.textContent = answer;
+
+      button.append(letter, text);
+
+      button.addEventListener("click", () =>
+        answerQuestion(index, button)
+      );
+
+      list.append(button);
+    });
+  }
+
+  function answerQuestion(index, chosen) {
+    if (state.answered || state.completed) return;
+
+    state.answered = true;
+
+    const q = questions[state.level][state.questionIndex];
+    const correct = index === q.correct;
+
+    if (correct) {
+      state.correct++;
+    }
+
+    $$("#answerList button").forEach((button, i) => {
+      button.disabled = true;
+
+      if (i === q.correct) {
+        button.classList.add("is-correct");
+      }
+
+      if (i === index && !correct) {
+        button.classList.add("is-wrong");
+      }
+    });
+
+    const feedback = $("#feedbackBox");
+
+    feedback.hidden = false;
+    feedback.className = `feedback-box ${correct ? "good" : "bad"}`;
+
+    const heading = document.createElement("strong");
+
+    heading.textContent = correct
+      ? "Саме так! "
+      : "Спробуй запам’ятати. ";
+
+    feedback.replaceChildren(
+      heading,
+      document.createTextNode(q.why)
+    );
+
+    $("#correctCounter").textContent = String(state.correct);
+
+    $("#nextQuestion").disabled = false;
+
+    const progress = Math.round(
+      ((state.questionIndex + 1) /
+        questions[state.level].length) *
+        100
+    );
+
+    $("#progressFill").style.width = `${progress}%`;
+
+    $("#progressTrack").setAttribute(
+      "aria-valuenow",
+      String(progress)
+    );
+  }
+
+  function showResult() {
+    if (!state.answered || state.completed) return;
+
+    state.completed = true;
+
+    $("#quizActive").hidden = true;
+    $("#quizResult").hidden = false;
+
+    const total = questions[state.level].length;
+    const pct = Math.round((state.correct / total) * 100);
+
+    $("#finalCorrect").textContent = `${state.correct}/${total}`;
+    $("#finalPercent").textContent = `${pct}%`;
+    $("#earnedStars").textContent = `+${rewards[state.level]}`;
+
+    $("#resultTitle").textContent =
+      pct === 100
+        ? "Безпомилково!"
+        : pct >= 75
+          ? "Чудова робота!"
+          : pct >= 50
+            ? "Добрий поступ!"
+            : "Є куди зростати!";
+
+    $("#resultMessage").textContent =
+      pct >= 75
+        ? "Ти добре орієнтуєшся на координатному промені. Продовжуй у тому ж дусі!"
+        : "Переглянь шпаргалку та пояснення до відповідей, а тоді спробуй ще раз.";
+
+    $("#claimReward").disabled = false;
+
+    $("#rewardNote").textContent =
+      "Зірочки нараховуються один раз за завершену спробу.";
+
+    $("#quizResult").scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
+  }
+
+  function claimReward() {
+    if (!state.completed || state.claimed) return;
+
+    state.claimed = true;
+
+    const reward = rewards[state.level];
+
+    state.stars += reward;
+
+    $("#starBalance").textContent =
+      `${state.stars} зірочок`;
+
+    $("#claimReward").disabled = true;
+    $("#claimReward").textContent = "Зірочки отримано ✓";
+
+    $("#rewardNote").textContent =
+      `+${reward} зірочок додано до балансу цього уроку. Разом: ${state.stars}.`;
+  }
+
+  $$(".concept-card").forEach(b =>
+    b.addEventListener("click", () =>
+      selectConcept(b.dataset.concept)
+    )
+  );
+
+  $$(".level-card").forEach(b =>
+    b.addEventListener("click", () =>
+      chooseLevel(b.dataset.level)
+    )
+  );
+
+  $("#calculateCoordinate").addEventListener(
+    "click",
+    calculateCoordinate
+  );
+
+  $("#resetCalculation").addEventListener(
+    "click",
+    resetModel
+  );
+
+  $("#resetModel").addEventListener(
+    "click",
+    resetModel
+  );
+
+  $("#unitInput").addEventListener("change", () => {
+    renderRay();
+
+    setStatus(
+      "Крок змінено. Натисни «Позначити точку», щоб обчислити координату."
+    );
+  });
+
+  $("#tickInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      calculateCoordinate();
+    }
+  });
+
+  $$("[data-tick]").forEach(b =>
+    b.addEventListener("click", () => {
+      $("#tickInput").value = b.dataset.tick;
+      calculateCoordinate();
+    })
+  );
+
+  $("#nextQuestion").addEventListener("click", () => {
+    if (!state.answered || state.completed) return;
+
+    if (state.questionIndex < questions[state.level].length - 1) {
+      state.questionIndex++;
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  });
+
+  $("#claimReward").addEventListener("click", claimReward);
+
+  $("#retryQuiz").addEventListener("click", startQuiz);
+
+  renderRay();
+  calculateCoordinate();
+  selectConcept("ray");
+  startQuiz();
 })();

@@ -1,729 +1,769 @@
-/* lessons/math/rectangle-square/script.js */
+
+/* Інтерактивний урок: «Прямокутник та квадрат», 5 клас.
+   Чистий JavaScript, без сторонніх бібліотек. */
 (() => {
   "use strict";
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-  const SVG_NS = "http://www.w3.org/2000/svg";
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-  const state = {
-    concept: "rectangle",
-    sideA: 8,
-    sideB: 5,
-    level: "medium",
-    questionIndex: 0,
-    score: 0,
-    answered: 0,
-    hasAnswered: false,
-    finished: false,
-    completed: false
-  };
-
-  const ui = {
-    conceptCards: $$("[data-shape]"),
-    modelHeading: $("#modelHeading"),
-    shapeSvgTitle: $("#shapeSvgTitle"),
-    shapeSvgDesc: $("#shapeSvgDesc"),
-    shapeDrawing: $("#shapeDrawing"),
-    shapeLabels: $("#shapeLabels"),
-    sideA: $("#sideA"),
-    sideB: $("#sideB"),
-    sideAValue: $("#sideAValue"),
-    sideBValue: $("#sideBValue"),
-    sideBControl: $("#sideBControl"),
-    perimeterValue: $("#perimeterValue"),
-    areaValue: $("#areaValue"),
-    perimeterFormula: $("#perimeterFormula"),
-    areaFormula: $("#areaFormula"),
-    modelHint: $("#modelHint"),
-    calculationNote: $("#calculationNote"),
-    resetModel: $("#resetModel"),
-
-    levelCards: $$("[data-level]"),
-    difficultyNote: $("#difficultyNote"),
-    quizLevelLabel: $("#quizLevelLabel"),
-    quizSection: $("#quizSection"),
-    quizForm: $("#quizForm"),
-    answerFieldset: $("#answerFieldset"),
-    questionCounter: $("#questionCounter"),
-    quizScore: $("#quizScore"),
-    quizProgress: $("#quizProgress"),
-    quizProgressFill: $("#quizProgressFill"),
-    questionText: $("#questionText"),
-    answerList: $("#answerList"),
-    quizFeedback: $("#quizFeedback"),
-    checkAnswer: $("#checkAnswer"),
-    nextQuestion: $("#nextQuestion"),
-
-    resultPanel: $("#resultPanel"),
-    resultTitle: $("#resultTitle"),
-    resultMessage: $("#resultMessage"),
-    finalScore: $("#finalScore"),
-    finalPercent: $("#finalPercent"),
-    retryQuiz: $("#retryQuiz"),
-
-    completionCard: $("#completionCard"),
-    completionText: $("#completionText"),
-    completionStatus: $("#completionStatus"),
-    completeLesson: $("#completeLesson"),
-    themeToggle: $("[data-theme-toggle]")
-  };
-
-  const requiredElements = [
-    "modelHeading", "shapeSvgTitle", "shapeSvgDesc", "shapeDrawing",
-    "shapeLabels", "sideA", "sideB", "sideAValue", "sideBValue",
-    "sideBControl", "perimeterValue", "areaValue", "perimeterFormula",
-    "areaFormula", "modelHint", "calculationNote", "resetModel",
-    "difficultyNote", "quizLevelLabel", "quizSection", "quizForm",
-    "answerFieldset", "questionCounter", "quizScore", "quizProgress",
-    "quizProgressFill", "questionText", "answerList", "quizFeedback",
-    "checkAnswer", "nextQuestion", "resultPanel", "resultTitle",
-    "resultMessage", "finalScore", "finalPercent", "retryQuiz",
-    "completionCard", "completionText", "completionStatus",
-    "completeLesson"
+  const concepts = [
+    {
+      id: "rectangle",
+      icon: "▱",
+      title: "Прямокутник",
+      subtitle: "Чотири прямі кути",
+      description: "Прямокутник — це чотирикутник, у якого всі кути прямі. Протилежні сторони рівні.",
+      fact: "Якщо довжина 8 см, а ширина 3 см, то периметр дорівнює 2 × (8 + 3) = 22 см."
+    },
+    {
+      id: "square",
+      icon: "□",
+      title: "Квадрат",
+      subtitle: "Усі сторони рівні",
+      description: "Квадрат — це прямокутник, у якого всі чотири сторони рівні. Усі його кути прямі.",
+      fact: "Якщо сторона квадрата 5 см, то периметр — 4 × 5 = 20 см, а площа — 5 × 5 = 25 см²."
+    },
+    {
+      id: "perimeter",
+      icon: "↔",
+      title: "Периметр",
+      subtitle: "Довжина межі фігури",
+      description: "Периметр — це сума довжин усіх сторін фігури. Він показує, скільки одиниць довжини потрібно для обходу межі.",
+      fact: "Для прямокутника P = 2 × (a + b), а для квадрата P = 4 × a."
+    },
+    {
+      id: "area",
+      icon: "▦",
+      title: "Площа",
+      subtitle: "Місце всередині фігури",
+      description: "Площа показує, скільки квадратних одиниць уміщується всередині фігури.",
+      fact: "Площа прямокутника S = a × b, а площа квадрата S = a × a."
+    }
   ];
 
-  const missing = requiredElements.filter((key) => !ui[key]);
-
-  if (missing.length) {
-    console.error("[Прямокутник і квадрат] Відсутні елементи:", missing);
-    return;
-  }
-
-  // ------------------------------------------------------------
-  // 1. Інтерактивна геометрична модель
-  // ------------------------------------------------------------
-
-  const CONCEPTS = {
-    rectangle: {
-      heading: "Прямокутник",
-      svgTitle: "Модель прямокутника",
-      description: "Прямокутник зі сторонами a та b.",
-      hint: "Змінюй довжину й ширину. Протилежні сторони прямокутника рівні."
+  const cheatSheet = [
+    {
+      icon: "📐",
+      title: "Прямі кути",
+      color: "blue",
+      text: "Кожен кут прямокутника й квадрата дорівнює 90°.",
+      example: "У фігури чотири прямі кути."
     },
-    square: {
-      heading: "Квадрат",
-      svgTitle: "Модель квадрата",
-      description: "Квадрат, у якого всі сторони однакової довжини.",
-      hint: "У квадрата всі сторони рівні. Змінюй сторону a — усі чотири сторони змінюватимуться разом."
+    {
+      icon: "↔️",
+      title: "Протилежні сторони",
+      color: "purple",
+      text: "У прямокутника протилежні сторони попарно рівні.",
+      example: "Довжини 7 см і 3 см повторюються попарно."
     },
-    perimeter: {
-      heading: "Периметр",
-      svgTitle: "Периметр прямокутника",
-      description: "Периметр — сума довжин усіх сторін фігури.",
-      hint: "Периметр показує загальну довжину межі фігури. Змінюй сторони та стеж за результатом."
+    {
+      icon: "🟪",
+      title: "Ознака квадрата",
+      color: "pink",
+      text: "Квадрат має чотири рівні сторони та чотири прямі кути.",
+      example: "Сторони: 4 см, 4 см, 4 см, 4 см."
     },
-    area: {
-      heading: "Площа",
-      svgTitle: "Площа прямокутника",
-      description: "Площа показує, скільки одиничних квадратів уміщується всередині фігури.",
-      hint: "Площа залежить від обох сторін. Зверни увагу на сітку всередині фігури."
+    {
+      icon: "🔁",
+      title: "Формула периметра",
+      color: "yellow",
+      text: "Периметр — сума всіх сторін.",
+      example: "P прям. = 2(a + b); P кв. = 4a."
+    },
+    {
+      icon: "🧩",
+      title: "Формула площі",
+      color: "green",
+      text: "Площу прямокутника обчислюємо множенням довжини на ширину.",
+      example: "S = a × b; одиниці площі — см², м² тощо."
     }
-  };
+  ];
 
-  function svgEl(tag, attrs = {}) {
-    const node = document.createElementNS(SVG_NS, tag);
-
-    for (const [key, value] of Object.entries(attrs)) {
-      node.setAttribute(key, String(value));
-    }
-
-    return node;
-  }
-
-  function addSvgText(parent, text, x, y, className = "shape-side-label") {
-    const node = svgEl("text", {
-      x,
-      y,
-      class: className,
-      "text-anchor": "middle"
-    });
-    node.textContent = text;
-    parent.appendChild(node);
-    return node;
-  }
-
-  function formatNumber(value) {
-    return Number.isInteger(value)
-      ? String(value)
-      : value.toLocaleString("uk-UA", { maximumFractionDigits: 2 });
-  }
-
-  function isSquare() {
-    return state.concept === "square";
-  }
-
-  function actualSideB() {
-    return isSquare() ? state.sideA : state.sideB;
-  }
-
-  function setConcept(concept) {
-    if (!Object.hasOwn(CONCEPTS, concept)) return;
-
-    state.concept = concept;
-
-    ui.conceptCards.forEach((card) => {
-      const active = card.dataset.shape === concept;
-      card.classList.toggle("is-active", active);
-      card.setAttribute("aria-pressed", String(active));
-    });
-
-    renderModel();
-  }
-
-  function renderModel() {
-    const concept = CONCEPTS[state.concept];
-    const a = state.sideA;
-    const b = actualSideB();
-    const perimeter = 2 * (a + b);
-    const area = a * b;
-
-    ui.modelHeading.textContent = concept.heading;
-    ui.shapeSvgTitle.textContent = concept.svgTitle;
-    ui.shapeSvgDesc.textContent =
-      `${concept.description} Довжина a — ${a} сантиметрів, ширина b — ${b} сантиметрів.`;
-    ui.modelHint.textContent = concept.hint;
-
-    ui.sideA.value = String(a);
-    ui.sideAValue.textContent = `${a} см`;
-    ui.sideAValue.value = `${a} см`;
-
-    ui.sideB.value = String(state.sideB);
-    ui.sideBValue.textContent = `${b} см`;
-    ui.sideBValue.value = `${b} см`;
-
-    ui.sideB.disabled = isSquare();
-    ui.sideBControl.classList.toggle("is-disabled", isSquare());
-    ui.sideBControl.setAttribute("aria-disabled", String(isSquare()));
-
-    ui.perimeterValue.replaceChildren();
-    ui.perimeterValue.append(document.createTextNode(formatNumber(perimeter)));
-    const perimeterUnit = document.createElement("small");
-    perimeterUnit.textContent = " см";
-    ui.perimeterValue.appendChild(perimeterUnit);
-
-    ui.areaValue.replaceChildren();
-    ui.areaValue.append(document.createTextNode(formatNumber(area)));
-    const areaUnit = document.createElement("small");
-    areaUnit.textContent = " см²";
-    ui.areaValue.appendChild(areaUnit);
-
-    if (isSquare()) {
-      ui.perimeterFormula.textContent = "P = 4 × a";
-      ui.areaFormula.textContent = "S = a × a";
-      ui.calculationNote.textContent =
-        `P = 4 × ${a} = ${perimeter} см. S = ${a} × ${a} = ${area} см².`;
-    } else {
-      ui.perimeterFormula.textContent = "P = 2 × (a + b)";
-      ui.areaFormula.textContent = "S = a × b";
-      ui.calculationNote.textContent =
-        `P = 2 × (${a} + ${b}) = ${perimeter} см. S = ${a} × ${b} = ${area} см².`;
-    }
-
-    drawShape(a, b);
-  }
-
-  function drawShape(a, b) {
-    ui.shapeDrawing.replaceChildren();
-    ui.shapeLabels.replaceChildren();
-
-    // Розміри моделі масштабуються так, щоб фігура вміщувалася в SVG.
-    const width = a * 18;
-    const height = b * 18;
-    const x = (440 - width) / 2;
-    const y = (300 - height) / 2;
-    const right = x + width;
-    const bottom = y + height;
-
-    if (state.concept === "area") {
-      const unit = 18;
-
-      for (let row = 0; row < b; row += 1) {
-        for (let col = 0; col < a; col += 1) {
-          const cell = svgEl("rect", {
-            x: x + col * unit,
-            y: y + row * unit,
-            width: unit,
-            height: unit,
-            class: "area-cell"
-          });
-          ui.shapeDrawing.appendChild(cell);
-        }
-      }
-    }
-
-    const shape = svgEl("rect", {
-      x, y, width, height,
-      rx: 2,
-      class: `shape-outline${isSquare() ? " square" : ""}`
-    });
-    ui.shapeDrawing.appendChild(shape);
-
-    // Позначки прямих кутів.
-    const marker = 9;
-    const corners = [
-      `M ${x + marker} ${y} H ${x + marker} V ${y + marker} H ${x}`,
-      `M ${right - marker} ${y} V ${y + marker} H ${right}`,
-      `M ${right - marker} ${bottom} V ${bottom - marker} H ${right}`,
-      `M ${x + marker} ${bottom} V ${bottom - marker} H ${x}`
-    ];
-
-    corners.forEach((path) => {
-      ui.shapeDrawing.appendChild(svgEl("path", {
-        d: path,
-        class: "shape-angle"
-      }));
-    });
-
-    // Виносні лінії та позначення сторін.
-    const topLineY = y - 22;
-    const leftLineX = x - 22;
-
-    ui.shapeDrawing.append(
-      svgEl("path", {
-        d: `M ${x} ${y - 5} V ${topLineY - 2} M ${right} ${y - 5} V ${topLineY - 2} M ${x} ${topLineY} H ${right}`,
-        class: "shape-measure"
-      }),
-      svgEl("path", {
-        d: `M ${x - 5} ${y} H ${leftLineX - 2} M ${x - 5} ${bottom} H ${leftLineX - 2} M ${leftLineX} ${y} V ${bottom}`,
-        class: "shape-measure"
-      })
-    );
-
-    addSvgText(
-      ui.shapeLabels,
-      `a = ${a} см`,
-      x + width / 2,
-      Math.max(19, topLineY - 7)
-    );
-
-    addSvgText(
-      ui.shapeLabels,
-      `b = ${b} см`,
-      Math.max(25, leftLineX - 5),
-      y + height / 2,
-    ).setAttribute("transform", `rotate(-90 ${Math.max(25, leftLineX - 5)} ${y + height / 2})`);
-
-    if (state.concept === "area") {
-      addSvgText(
-        ui.shapeLabels,
-        `S = ${areaLabel(a, b)} см²`,
-        x + width / 2,
-        bottom + 23
-      );
-    }
-  }
-
-  function areaLabel(a, b) {
-    return formatNumber(a * b);
-  }
-
-  ui.conceptCards.forEach((card) => {
-    card.addEventListener("click", () => setConcept(card.dataset.shape));
-  });
-
-  ui.sideA.addEventListener("input", () => {
-    const value = Number(ui.sideA.value);
-    if (!Number.isFinite(value)) return;
-
-    state.sideA = Math.max(1, Math.min(12, Math.round(value)));
-    renderModel();
-  });
-
-  ui.sideB.addEventListener("input", () => {
-    const value = Number(ui.sideB.value);
-    if (!Number.isFinite(value)) return;
-
-    state.sideB = Math.max(1, Math.min(10, Math.round(value)));
-    renderModel();
-  });
-
-  ui.resetModel.addEventListener("click", () => {
-    state.sideA = 8;
-    state.sideB = 5;
-    ui.sideA.value = "8";
-    ui.sideB.value = "5";
-    setConcept("rectangle");
-  });
-
-  // ------------------------------------------------------------
-  // 2. Банк запитань для трьох рівнів
-  // ------------------------------------------------------------
-
-  const QUESTION_BANK = {
+  const questions = {
     easy: [
       {
-        question: "Скільки прямих кутів має прямокутник?",
-        answers: ["Два", "Три", "Чотири", "Жодного"],
+        q: "Скільки прямих кутів має прямокутник?",
+        a: ["Два", "Три", "Чотири", "Жодного"],
         correct: 2,
-        explanation: "Усі чотири кути прямокутника — прямі, тобто по 90°."
+        explanation: "У прямокутника всі чотири кути прямі, тобто по 90°."
       },
       {
-        question: "Яка властивість притаманна квадрату?",
-        answers: [
-          "Усі сторони різної довжини",
-          "Усі сторони рівні",
-          "Лише дві сторони рівні",
-          "Немає прямих кутів"
-        ],
+        q: "Яка фігура має чотири рівні сторони й чотири прямі кути?",
+        a: ["Трикутник", "Квадрат", "Коло", "Будь-який прямокутник"],
         correct: 1,
-        explanation: "Квадрат має чотири рівні сторони та чотири прямі кути."
+        explanation: "Квадрат має і чотири рівні сторони, і чотири прямі кути."
       },
       {
-        question: "Знайди периметр квадрата зі стороною 3 см.",
-        answers: ["6 см", "9 см", "12 см", "12 см²"],
+        q: "Як називається сума довжин усіх сторін фігури?",
+        a: ["Площа", "Ширина", "Об'єм", "Периметр"],
+        correct: 3,
+        explanation: "Периметр — це загальна довжина межі фігури."
+      },
+      {
+        q: "Яка формула площі прямокутника зі сторонами a і b?",
+        a: ["S = a + b", "S = 2(a + b)", "S = a × b", "S = 4a"],
         correct: 2,
-        explanation: "Периметр квадрата P = 4 × a = 4 × 3 = 12 см."
-      },
-      {
-        question: "Яка одиниця підходить для вимірювання площі?",
-        answers: ["см", "см²", "кг", "см³"],
-        correct: 1,
-        explanation: "Площу вимірюють квадратними одиницями, наприклад см² або м²."
+        explanation: "Площу прямокутника обчислюємо множенням довжини на ширину: S = a × b."
       }
     ],
 
     medium: [
       {
-        question: "Довжина прямокутника 8 см, ширина 3 см. Чому дорівнює периметр?",
-        answers: ["11 см", "22 см", "24 см", "24 см²"],
+        q: "Довжина прямокутника 8 см, ширина 3 см. Чому дорівнює периметр?",
+        a: ["11 см", "22 см", "24 см", "16 см"],
         correct: 1,
         explanation: "P = 2 × (8 + 3) = 2 × 11 = 22 см."
       },
       {
-        question: "Знайди площу прямокутника зі сторонами 7 см і 4 см.",
-        answers: ["11 см²", "22 см²", "28 см²", "28 см"],
+        q: "Сторона квадрата дорівнює 6 см. Яка його площа?",
+        a: ["12 см²", "24 см²", "36 см²", "18 см²"],
         correct: 2,
-        explanation: "S = a × b = 7 × 4 = 28 см²."
+        explanation: "S = 6 × 6 = 36 см². Для площі використовують квадратні одиниці."
       },
       {
-        question: "Периметр квадрата дорівнює 36 см. Яка довжина його сторони?",
-        answers: ["6 см", "9 см", "12 см", "18 см"],
-        correct: 1,
-        explanation: "У квадрата чотири рівні сторони, тому a = 36 ÷ 4 = 9 см."
+        q: "Периметр квадрата дорівнює 28 см. Яка довжина його сторони?",
+        a: ["7 см", "6 см", "14 см", "4 см"],
+        correct: 0,
+        explanation: "У квадрата чотири рівні сторони, тому a = 28 ÷ 4 = 7 см."
       },
       {
-        question: "Яке твердження правильне?",
-        answers: [
-          "Кожен прямокутник є квадратом",
-          "Квадрат не має прямих кутів",
-          "Кожен квадрат є прямокутником",
-          "У прямокутника всі сторони завжди рівні"
+        q: "Площа прямокутника 45 см², а одна сторона 9 см. Знайди іншу сторону.",
+        a: ["36 см", "9 см", "6 см", "5 см"],
+        correct: 3,
+        explanation: "Інша сторона дорівнює площі, поділеній на відому сторону: 45 ÷ 9 = 5 см."
+      },
+      {
+        q: "Яке твердження завжди правильне?",
+        a: [
+          "Кожен прямокутник — квадрат",
+          "У квадрата лише два прямі кути",
+          "Квадрат є прямокутником",
+          "У прямокутника всі сторони різні"
         ],
         correct: 2,
-        explanation: "Квадрат має всі властивості прямокутника, але додатково має чотири рівні сторони."
+        explanation: "Квадрат відповідає визначенню прямокутника, бо має чотири прямі кути."
       },
       {
-        question: "Площа прямокутника 30 см², а одна сторона — 6 см. Знайди іншу сторону.",
-        answers: ["5 см", "24 см", "36 см", "6 см"],
-        correct: 0,
-        explanation: "Інша сторона дорівнює площі, поділеній на відому сторону: 30 ÷ 6 = 5 см."
-      },
-      {
-        question: "На скільки збільшиться периметр квадрата, якщо його сторону збільшити з 4 см до 6 см?",
-        answers: ["2 см", "4 см", "8 см", "12 см"],
-        correct: 2,
-        explanation: "Було 4 × 4 = 16 см, стало 4 × 6 = 24 см. Різниця: 24 − 16 = 8 см."
+        q: "Сторони прямокутника 10 см і 4 см. Яка його площа?",
+        a: ["28 см²", "40 см²", "14 см²", "80 см²"],
+        correct: 1,
+        explanation: "S = 10 × 4 = 40 см²."
       }
     ],
 
     hard: [
       {
-        question: "Прямокутник має периметр 34 см, а його довжина — 10 см. Знайди ширину.",
-        answers: ["7 см", "14 см", "17 см", "24 см"],
+        q: "Периметр прямокутника 34 см, його довжина 10 см. Яка ширина?",
+        a: ["7 см", "14 см", "4 см", "5 см"],
         correct: 0,
-        explanation: "P = 2(a + b), отже a + b = 34 ÷ 2 = 17. Ширина b = 17 − 10 = 7 см."
+        explanation: "Півпериметр дорівнює 34 ÷ 2 = 17 см. Ширина: 17 − 10 = 7 см."
       },
       {
-        question: "Площа квадрата дорівнює 64 см². Чому дорівнює його периметр?",
-        answers: ["16 см", "24 см", "32 см", "256 см"],
+        q: "Площа квадрата дорівнює 64 см². Чому дорівнює його периметр?",
+        a: ["16 см", "24 см", "32 см", "64 см"],
         correct: 2,
-        explanation: "Сторона квадрата дорівнює √64 = 8 см. Периметр P = 4 × 8 = 32 см."
+        explanation: "Сторона квадрата дорівнює 8 см, адже 8 × 8 = 64. Периметр: 4 × 8 = 32 см."
       },
       {
-        question: "Довжину прямокутника збільшили вдвічі, а ширину не змінили. Як змінилася площа?",
-        answers: [
-          "Не змінилася",
-          "Збільшилася вдвічі",
-          "Збільшилася втричі",
-          "Збільшилася вчетверо"
-        ],
-        correct: 1,
-        explanation: "S = a × b. Якщо замість a взяти 2a, то площа стане 2a × b = 2S."
-      },
-      {
-        question: "Периметр прямокутника 50 см. Одна сторона 15 см. Яка площа прямокутника?",
-        answers: ["150 см²", "300 см²", "15 см²", "100 см²"],
+        q: "Прямокутник має периметр 26 см і ширину 5 см. Яка його площа?",
+        a: ["40 см²", "30 см²", "65 см²", "20 см²"],
         correct: 0,
-        explanation: "Півпериметр: 50 ÷ 2 = 25 см. Інша сторона: 25 − 15 = 10 см. Площа: 15 × 10 = 150 см²."
+        explanation: "Півпериметр 13 см, довжина 13 − 5 = 8 см. Площа: 8 × 5 = 40 см²."
       },
       {
-        question: "Квадрат і прямокутник мають однакову площу 36 см². Яка сторона квадрата?",
-        answers: ["6 см", "9 см", "18 см", "36 см"],
+        q: "Який квадрат має більшу площу?",
+        a: ["Зі стороною 5 см", "Зі стороною 4 см", "Площі однакові", "Неможливо визначити"],
         correct: 0,
-        explanation: "Площа квадрата S = a². Оскільки 6 × 6 = 36, його сторона дорівнює 6 см."
+        explanation: "5² = 25 см², а 4² = 16 см², тому більшу площу має квадрат зі стороною 5 см."
       },
       {
-        question: "Який квадратний периметр має прямокутник зі сторонами 12 см і 5 см?",
-        answers: ["17 см", "34 см", "60 см²", "24 см"],
+        q: "Довжину прямокутника збільшили вдвічі, а ширину не змінили. Як змінилася площа?",
+        a: ["Зменшилася вдвічі", "Збільшилася вдвічі", "Збільшилася на 2 см²", "Не змінилася"],
         correct: 1,
-        explanation: "Периметр — це довжина межі: P = 2 × (12 + 5) = 34 см. Одиниця вимірювання — см."
+        explanation: "Якщо довжину a замінити на 2a, площа стане 2a × b = 2S, тобто подвоїться."
       },
       {
-        question: "Периметр квадрата дорівнює 28 см. Чому дорівнює його площа?",
-        answers: ["7 см²", "28 см²", "49 см²", "196 см²"],
-        correct: 2,
-        explanation: "Сторона a = 28 ÷ 4 = 7 см. Площа S = 7 × 7 = 49 см²."
+        q: "Периметр квадрата 36 см. Яка його площа?",
+        a: ["81 см²", "36 см²", "72 см²", "9 см²"],
+        correct: 0,
+        explanation: "Сторона: 36 ÷ 4 = 9 см. Площа: 9 × 9 = 81 см²."
       },
       {
-        question: "У прямокутника одна сторона 9 см, а площа 72 см². На скільки сантиметрів периметр більший за 30 см?",
-        answers: ["2 см", "4 см", "6 см", "8 см"],
-        correct: 1,
-        explanation: "Друга сторона: 72 ÷ 9 = 8 см. Периметр: 2 × (9 + 8) = 34 см. Різниця: 34 − 30 = 4 см."
+        q: "Який прямокутник із цілими додатними сторонами та периметром 20 см має найбільшу площу?",
+        a: ["1 см × 9 см", "2 см × 8 см", "4 см × 6 см", "5 см × 5 см"],
+        correct: 3,
+        explanation: "За периметра 20 см найбільшу площу серед наведених має квадрат 5 × 5 = 25 см²."
+      },
+      {
+        q: "Площа прямокутника 48 см². Одна сторона 6 см. Який його периметр?",
+        a: ["28 см", "24 см", "54 см", "16 см"],
+        correct: 0,
+        explanation: "Друга сторона: 48 ÷ 6 = 8 см. Периметр: 2 × (6 + 8) = 28 см."
       }
     ]
   };
 
-  const LEVELS = {
-    easy: {
-      title: "Простий рівень",
-      note: "Простий рівень: 4 запитання на розпізнавання фігур і базові правила."
-    },
-    medium: {
-      title: "Середній рівень",
-      note: "Середній рівень: 6 запитань на обчислення периметра, площі та розуміння властивостей."
-    },
-    hard: {
-      title: "Складний рівень",
-      note: "Складний рівень: 8 запитань на логіку, зворотні обчислення та аналіз змін."
-    }
+  const state = {
+    concept: "rectangle",
+    level: "easy",
+    questionIndex: 0,
+    correct: 0,
+    answered: false,
+    answers: [],
+    stars: 0,
+    totalStars: 0,
+    modelShape: "rectangle",
+    length: 8,
+    width: 4
   };
 
-  function getQuestions() {
-    return QUESTION_BANK[state.level];
+  function announce(message, target = $("#live-message")) {
+    if (target) target.textContent = message;
   }
 
-  function setQuizFeedback(message, type = "neutral") {
-    ui.quizFeedback.textContent = message;
-    ui.quizFeedback.hidden = !message;
-    ui.quizFeedback.className = `quiz-feedback is-${type}`;
+  function renderConcepts() {
+    const container = $("#concept-cards, [data-concept-cards]");
+    if (!container) return;
+
+    container.replaceChildren();
+
+    concepts.forEach((concept) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "concept-card";
+      button.dataset.concept = concept.id;
+      button.setAttribute("aria-pressed", String(concept.id === state.concept));
+
+      const icon = document.createElement("span");
+      icon.className = "concept-card__icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = concept.icon;
+
+      const title = document.createElement("strong");
+      title.textContent = concept.title;
+
+      const subtitle = document.createElement("span");
+      subtitle.textContent = concept.subtitle;
+
+      button.append(icon, title, subtitle);
+      button.addEventListener("click", () => selectConcept(concept.id));
+      container.append(button);
+    });
   }
 
-  function updateLevelUI() {
-    ui.levelCards.forEach((card) => {
-      const active = card.dataset.level === state.level;
-      card.classList.toggle("is-active", active);
-      card.setAttribute("aria-pressed", String(active));
+  function selectConcept(id) {
+    const concept = concepts.find((item) => item.id === id);
+    if (!concept) return;
+
+    state.concept = id;
+
+    $$(".concept-card").forEach((card) => {
+      const selected = card.dataset.concept === id;
+      card.setAttribute("aria-pressed", String(selected));
+      card.classList.toggle("is-selected", selected);
     });
 
-    ui.difficultyNote.textContent = LEVELS[state.level].note;
-    ui.quizLevelLabel.textContent = LEVELS[state.level].title;
+    const title = $("#concept-title, [data-concept-title]");
+    const description = $("#concept-description, [data-concept-description]");
+    const fact = $("#concept-example, [data-concept-example]");
+
+    if (title) title.textContent = concept.title;
+    if (description) description.textContent = concept.description;
+    if (fact) fact.textContent = concept.fact;
+
+    announce(`Вибрано поняття: ${concept.title}.`);
   }
 
-  function updateProgress() {
-    const total = getQuestions().length;
-    const number = Math.min(state.questionIndex + 1, total);
+  function renderCheatSheet() {
+    const container = $("#cheat-sheet, [data-cheat-sheet]");
+    if (!container) return;
 
-    ui.questionCounter.textContent = `Запитання ${number} із ${total}`;
-    ui.quizScore.textContent = `Правильних: ${state.score}`;
-    ui.quizProgress.setAttribute("aria-valuemax", String(total));
-    ui.quizProgress.setAttribute("aria-valuenow", String(state.answered));
-    ui.quizProgressFill.style.width = `${(state.answered / total) * 100}%`;
-  }
+    container.replaceChildren();
 
-  function renderQuestion() {
-    const question = getQuestions()[state.questionIndex];
+    cheatSheet.forEach((item) => {
+      const card = document.createElement("article");
+      card.className = `cheat-card accent-${item.color}`;
 
-    state.hasAnswered = false;
-    ui.questionText.textContent = question.question;
-    ui.answerList.replaceChildren();
-    ui.answerFieldset.disabled = false;
-    ui.checkAnswer.hidden = false;
-    ui.nextQuestion.hidden = true;
-    ui.nextQuestion.textContent = "Наступне запитання";
-    setQuizFeedback("");
+      const icon = document.createElement("span");
+      icon.className = "cheat-card__icon";
+      icon.textContent = item.icon;
+      icon.setAttribute("aria-hidden", "true");
 
-    question.answers.forEach((answer, index) => {
-      const label = document.createElement("label");
-      label.className = "answer-option";
+      const title = document.createElement("h3");
+      title.textContent = item.title;
 
-      const radio = document.createElement("input");
-      radio.type = "radio";
-      radio.name = "quizAnswer";
-      radio.value = String(index);
-      radio.required = true;
+      const text = document.createElement("p");
+      text.textContent = item.text;
 
-      const answerText = document.createElement("span");
-      answerText.textContent = answer;
+      const example = document.createElement("p");
+      example.className = "cheat-card__example";
+      example.textContent = item.example;
 
-      label.append(radio, answerText);
-      ui.answerList.appendChild(label);
+      card.append(icon, title, text, example);
+      container.append(card);
     });
-
-    updateProgress();
   }
 
-  function checkAnswer(event) {
-    event.preventDefault();
-
-    if (state.finished || state.hasAnswered) return;
-
-    const selected = $('input[name="quizAnswer"]:checked', ui.answerList);
-
-    if (!selected) {
-      setQuizFeedback("Обери один варіант відповіді, а потім натисни «Перевірити відповідь».", "neutral");
-      return;
-    }
-
-    const question = getQuestions()[state.questionIndex];
-    const selectedIndex = Number(selected.value);
-    const isCorrect = selectedIndex === question.correct;
-
-    state.hasAnswered = true;
-    state.answered += 1;
-
-    if (isCorrect) state.score += 1;
-
-    $$(".answer-option", ui.answerList).forEach((label, index) => {
-      const input = $("input", label);
-      input.disabled = true;
-
-      if (index === question.correct) {
-        label.classList.add("is-correct");
-      }
-
-      if (index === selectedIndex && !isCorrect) {
-        label.classList.add("is-incorrect");
-      }
-    });
-
-    ui.answerFieldset.disabled = true;
-    ui.checkAnswer.hidden = true;
-    ui.nextQuestion.hidden = false;
-
-    if (state.questionIndex === getQuestions().length - 1) {
-      ui.nextQuestion.textContent = "Показати результат";
-    }
-
-    const prefix = isCorrect
-      ? "Правильно!"
-      : "Не зовсім. Правильну відповідь позначено зеленим.";
-
-    setQuizFeedback(`${prefix} ${question.explanation}`, isCorrect ? "correct" : "incorrect");
-    updateProgress();
+  function modelElements() {
+    return {
+      svg: $("#geometry-svg, [data-geometry-svg]"),
+      length: $("#length-input, [data-length-input]"),
+      width: $("#width-input, [data-width-input]"),
+      lengthValue: $("#length-value, [data-length-value]"),
+      widthValue: $("#width-value, [data-width-value]"),
+      perimeter: $("#model-perimeter, [data-model-perimeter]"),
+      area: $("#model-area, [data-model-area]"),
+      shapeLabel: $("#model-shape-label, [data-model-shape-label]"),
+      feedback: $("#model-feedback, [data-model-feedback]")
+    };
   }
 
-  function showResult() {
-    state.finished = true;
+  function renderModel() {
+    const el = modelElements();
+    const a = state.length;
+    const b = state.modelShape === "square" ? a : state.width;
 
-    const total = getQuestions().length;
-    const percent = Math.round((state.score / total) * 100);
+    if (el.length) el.value = String(a);
 
-    ui.quizForm.hidden = true;
-    ui.resultPanel.hidden = false;
-    ui.finalScore.textContent = `${state.score}/${total}`;
-    ui.finalPercent.textContent = `${percent}%`;
-
-    if (percent === 100) {
-      ui.resultTitle.textContent = "Без жодної помилки!";
-      ui.resultMessage.textContent =
-        "Чудово! Ти впевнено розрізняєш властивості прямокутника й квадрата та вмієш застосовувати формули.";
-    } else if (percent >= 75) {
-      ui.resultTitle.textContent = "Чудова робота!";
-      ui.resultMessage.textContent =
-        "Ти добре засвоїв тему. Переглянь пояснення до помилкових відповідей, щоб закріпити знання.";
-    } else if (percent >= 50) {
-      ui.resultTitle.textContent = "Гарний початок!";
-      ui.resultMessage.textContent =
-        "Основи вже знайомі. Повтори формули периметра й площі та спробуй пройти тест ще раз.";
-    } else {
-      ui.resultTitle.textContent = "Продовжуй дослідження!";
-      ui.resultMessage.textContent =
-        "Повернися до інтерактивної моделі й шпаргалки. Крок за кроком ти навчишся розв’язувати ці задачі.";
+    if (el.width) {
+      el.value = String(state.width);
+      el.disabled = state.modelShape === "square";
     }
 
-    ui.completeLesson.disabled = false;
-    ui.completionText.textContent =
-      `Тест пройдено: ${state.score} із ${total} правильних відповідей (${percent}%). Тепер можна позначити урок завершеним.`;
-    ui.completionStatus.textContent = "Тест завершено. Урок ще не позначено завершеним.";
+    if (el.lengthValue) el.lengthValue.textContent = `${a} см`;
+    if (el.widthValue) el.widthValue.textContent = `${b} см`;
 
-    ui.resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  function nextQuestion() {
-    if (!state.hasAnswered || state.finished) return;
-
-    if (state.questionIndex >= getQuestions().length - 1) {
-      showResult();
-      return;
+    if (el.perimeter) {
+      const perimeter = state.modelShape === "square" ? 4 * a : 2 * (a + b);
+      el.perimeter.textContent = `${perimeter} см`;
     }
 
-    state.questionIndex += 1;
-    renderQuestion();
-    ui.questionText.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (el.area) {
+      const area = state.modelShape === "square" ? a * a : a * b;
+      el.area.textContent = `${area} см²`;
+    }
+
+    if (el.shapeLabel) {
+      el.shapeLabel.textContent =
+        state.modelShape === "square" ? "Квадрат" : "Прямокутник";
+    }
+
+    if (el.feedback) {
+      el.feedback.textContent = state.modelShape === "square"
+        ? `У квадрата всі сторони рівні: ${a} см.`
+        : `Протилежні сторони рівні: ${a} см і ${b} см.`;
+    }
+
+    if (el.svg) drawShape(el.svg, a, b, state.modelShape);
   }
 
-  function startQuiz(level = state.level) {
-    if (!Object.hasOwn(QUESTION_BANK, level)) return;
+  function drawShape(svg, a, b, shape) {
+    const ns = "http://www.w3.org/2000/svg";
+
+    svg.replaceChildren();
+    svg.setAttribute("viewBox", "0 0 360 230");
+    svg.setAttribute("role", "img");
+    svg.setAttribute(
+      "aria-label",
+      shape === "square"
+        ? `Квадрат зі стороною ${a} сантиметрів`
+        : `Прямокутник зі сторонами ${a} і ${b} сантиметрів`
+    );
+
+    const maxW = 260;
+    const maxH = 135;
+    const scale = Math.min(maxW / a, maxH / b);
+    const w = a * scale;
+    const h = b * scale;
+    const x = (360 - w) / 2;
+    const y = (190 - h) / 2;
+
+    const rect = document.createElementNS(ns, "rect");
+    rect.setAttribute("x", x);
+    rect.setAttribute("y", y);
+    rect.setAttribute("width", w);
+    rect.setAttribute("height", h);
+    rect.setAttribute("rx", "5");
+    rect.setAttribute("fill", "#e9e5ff");
+    rect.setAttribute("stroke", "#7665d8");
+    rect.setAttribute("stroke-width", "3");
+
+    svg.append(rect);
+
+    const addText = (text, tx, ty) => {
+      const node = document.createElementNS(ns, "text");
+      node.setAttribute("x", tx);
+      node.setAttribute("y", ty);
+      node.setAttribute("text-anchor", "middle");
+      node.setAttribute("font-size", "13");
+      node.setAttribute("font-family", "inherit");
+      node.setAttribute("fill", "currentColor");
+      node.textContent = text;
+      svg.append(node);
+    };
+
+    addText(`${a} см`, x + w / 2, y + h + 22);
+    addText(`${b} см`, x + w + 25, y + h / 2 + 4);
+    addText("90°", x + 20, y + 20);
+  }
+
+  function resetModel() {
+    state.modelShape = "rectangle";
+    state.length = 8;
+    state.width = 4;
+
+    const shapeSelect = $("#shape-select, [data-shape-select]");
+    if (shapeSelect) shapeSelect.value = "rectangle";
+
+    renderModel();
+    announce("Модель скинуто до початкових значень.");
+  }
+
+  function levelLabel(level) {
+    return {
+      easy: "простий",
+      medium: "середній",
+      hard: "складний"
+    }[level] || level;
+  }
+
+  function setLevel(level) {
+    if (!questions[level]) return;
 
     state.level = level;
     state.questionIndex = 0;
-    state.score = 0;
-    state.answered = 0;
-    state.hasAnswered = false;
-    state.finished = false;
-    state.completed = false;
+    state.correct = 0;
+    state.answered = false;
+    state.answers = [];
 
-    updateLevelUI();
+    $$(".level-card, [data-level]").forEach((card) => {
+      const selected = (card.dataset.level || card.value) === level;
+      card.classList.toggle("is-selected", selected);
+      card.setAttribute("aria-pressed", String(selected));
+    });
 
-    ui.quizForm.hidden = false;
-    ui.resultPanel.hidden = true;
-    ui.completeLesson.disabled = true;
-    ui.completeLesson.textContent = "Завершити урок";
-    ui.completionCard.classList.remove("is-complete");
-    ui.completionText.textContent =
-      "Досліди модель, повтори шпаргалку та пройди мінітест. Після тесту зможеш позначити урок завершеним.";
-    ui.completionStatus.textContent = "Урок ще не завершено.";
+    const levelSelect = $("#level-select, [data-level-select]");
+    if (levelSelect) levelSelect.value = level;
 
     renderQuestion();
+    announce(`Обрано ${levelLabel(level)} рівень. Починаємо нову спробу.`);
   }
 
-  ui.quizForm.addEventListener("submit", checkAnswer);
-  ui.nextQuestion.addEventListener("click", nextQuestion);
-  ui.retryQuiz.addEventListener("click", () => startQuiz(state.level));
+  function renderQuestion() {
+    const list = questions[state.level];
+    const resultPanel = $("#quiz-result, [data-quiz-result]");
+    const quizPanel = $("#quiz-panel, [data-quiz-panel]");
 
-  ui.levelCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const nextLevel = card.dataset.level;
+    if (state.questionIndex >= list.length) {
+      showResults();
+      return;
+    }
 
-      if (nextLevel === state.level) return;
+    if (resultPanel) resultPanel.hidden = true;
+    if (quizPanel) quizPanel.hidden = false;
 
-      startQuiz(nextLevel);
-      ui.quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    state.answered = false;
+
+    const question = list[state.questionIndex];
+    const qText = $("#question-text, [data-question-text]");
+
+    if (qText) qText.textContent = question.q;
+
+    const count = $("#question-count, [data-question-count]");
+    if (count) {
+      count.textContent = `Запитання ${state.questionIndex + 1} із ${list.length}`;
+    }
+
+    const progress = $("#quiz-progress, [data-quiz-progress]");
+    if (progress) {
+      progress.max = list.length;
+      progress.value = state.questionIndex;
+      progress.setAttribute(
+        "aria-valuetext",
+        `${state.questionIndex} із ${list.length}`
+      );
+    }
+
+    const correctCount = $("#correct-count, [data-correct-count]");
+    if (correctCount) correctCount.textContent = String(state.correct);
+
+    const options = $("#answer-options, [data-answer-options]");
+
+    if (options) {
+      options.replaceChildren();
+
+      question.a.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-option";
+        button.dataset.answerIndex = String(index);
+        button.setAttribute(
+          "aria-label",
+          `Варіант ${String.fromCharCode(65 + index)}: ${answer}`
+        );
+
+        const letter = document.createElement("span");
+        letter.className = "answer-option__letter";
+        letter.textContent = String.fromCharCode(65 + index);
+
+        const text = document.createElement("span");
+        text.textContent = answer;
+
+        button.append(letter, text);
+        button.addEventListener("click", () => chooseAnswer(index));
+        options.append(button);
+      });
+    }
+
+    const feedback = $("#answer-feedback, [data-answer-feedback]");
+
+    if (feedback) {
+      feedback.hidden = true;
+      feedback.textContent = "";
+      feedback.className = "answer-feedback";
+    }
+
+    const next = $("#next-question, [data-next-question]");
+    if (next) next.hidden = true;
+  }
+
+  function chooseAnswer(index) {
+    if (state.answered) return;
+
+    const list = questions[state.level];
+    const question = list[state.questionIndex];
+
+    if (!question || index < 0 || index >= question.a.length) return;
+
+    state.answered = true;
+
+    const isCorrect = index === question.correct;
+    if (isCorrect) state.correct++;
+
+    state.answers.push({
+      questionIndex: state.questionIndex,
+      selected: index,
+      correct: isCorrect
     });
-  });
 
-  // ------------------------------------------------------------
-  // 3. Позначення уроку завершеним
-  // ------------------------------------------------------------
+    $$(".answer-option").forEach((button) => {
+      button.disabled = true;
 
-  ui.completeLesson.addEventListener("click", () => {
-    if (!state.finished || state.completed) return;
+      const answerIndex = Number(button.dataset.answerIndex);
 
-    state.completed = true;
-    ui.completionCard.classList.add("is-complete");
-    ui.completeLesson.disabled = true;
-    ui.completeLesson.textContent = "Урок завершено";
-    ui.completionStatus.textContent =
-      `Урок завершено. Результат: ${state.score} із ${getQuestions().length}.`;
+      if (answerIndex === question.correct) {
+        button.classList.add("is-correct");
+      } else if (answerIndex === index) {
+        button.classList.add("is-incorrect");
+      }
+    });
 
-    // Інтеграцію з винагородами можна додати після перевірки
-    // реального API гейміфікації навчальної платформи.
-    // Тут навмисно не викликаються невідомі функції.
-  });
+    const feedback = $("#answer-feedback, [data-answer-feedback]");
 
-  // Початкове відображення.
-  renderModel();
-  updateThemeButton();
-  startQuiz("medium");
+    if (feedback) {
+      feedback.hidden = false;
+      feedback.classList.toggle("is-correct", isCorrect);
+      feedback.classList.toggle("is-incorrect", !isCorrect);
+      feedback.textContent =
+        `${isCorrect ? "Правильно! " : "Не зовсім. "}${question.explanation}`;
+    }
+
+    const correctCount = $("#correct-count, [data-correct-count]");
+    if (correctCount) correctCount.textContent = String(state.correct);
+
+    const next = $("#next-question, [data-next-question]");
+
+    if (next) {
+      next.hidden = false;
+      next.textContent =
+        state.questionIndex === list.length - 1
+          ? "Показати результат"
+          : "Наступне запитання";
+      next.focus({ preventScroll: true });
+    }
+
+    const progress = $("#quiz-progress, [data-quiz-progress]");
+    if (progress) progress.value = state.questionIndex + 1;
+
+    announce(
+      isCorrect
+        ? "Правильна відповідь."
+        : "Відповідь неправильна. Прочитай пояснення."
+    );
+  }
+
+  function showResults() {
+    const list = questions[state.level];
+    const total = list.length;
+    const percent = Math.round((state.correct / total) * 100);
+
+    state.stars = percent >= 90 ? 3
+      : percent >= 70 ? 2
+      : percent >= 50 ? 1
+      : 0;
+
+    const quizPanel = $("#quiz-panel, [data-quiz-panel]");
+    const resultPanel = $("#quiz-result, [data-quiz-result]");
+
+    if (quizPanel) quizPanel.hidden = true;
+    if (resultPanel) resultPanel.hidden = false;
+
+    const score = $("#result-score, [data-result-score]");
+    if (score) score.textContent = `${state.correct} / ${total}`;
+
+    const percentEl = $("#result-percent, [data-result-percent]");
+    if (percentEl) percentEl.textContent = `${percent}%`;
+
+    const stars = $("#result-stars, [data-result-stars]");
+    if (stars) {
+      stars.textContent = "★".repeat(state.stars) +
+        "☆".repeat(3 - state.stars);
+    }
+
+    const message = $("#result-message, [data-result-message]");
+
+    if (message) {
+      message.textContent = percent >= 90
+        ? "Чудова робота! Ти впевнено розрізняєш прямокутник і квадрат."
+        : percent >= 70
+          ? "Гарний результат! Повтори формули й спробуй здобути ще більше зірок."
+          : percent >= 50
+            ? "Непоганий початок. Переглянь шпаргалку та потренуйся ще."
+            : "Не здавайся! Повернися до понять і моделі, а потім пройди тест знову.";
+    }
+
+    const earned = $("#earned-stars, [data-earned-stars]");
+    if (earned) earned.textContent = String(state.stars);
+
+    const totalStars = $("#total-stars, [data-total-stars]");
+
+    if (totalStars) {
+      state.totalStars += state.stars;
+      totalStars.textContent = String(state.totalStars);
+    }
+
+    announce(`Тест завершено. Правильних відповідей: ${state.correct} із ${total}.`);
+  }
+
+  function restartQuiz() {
+    state.questionIndex = 0;
+    state.correct = 0;
+    state.answered = false;
+    state.answers = [];
+
+    renderQuestion();
+    announce("Тест розпочато знову.");
+  }
+
+  function bind(selector, event, callback) {
+    $$(selector).forEach((element) => {
+      element.addEventListener(event, callback);
+    });
+  }
+
+  function init() {
+    renderConcepts();
+    renderCheatSheet();
+    selectConcept(state.concept);
+    renderModel();
+    renderQuestion();
+
+    bind("#length-input, [data-length-input]", "input", (event) => {
+      state.length = clamp(Number(event.currentTarget.value) || 1, 1, 12);
+
+      if (state.modelShape === "square") {
+        state.width = state.length;
+      }
+
+      renderModel();
+    });
+
+    bind("#width-input, [data-width-input]", "input", (event) => {
+      state.width = clamp(Number(event.currentTarget.value) || 1, 1, 12);
+      renderModel();
+    });
+
+    bind("#shape-select, [data-shape-select]", "change", (event) => {
+      state.modelShape =
+        event.currentTarget.value === "square" ? "square" : "rectangle";
+
+      if (state.modelShape === "square") {
+        state.width = state.length;
+      }
+
+      renderModel();
+    });
+
+    bind("#reset-model, [data-reset-model]", "click", resetModel);
+
+    bind("#next-question, [data-next-question]", "click", () => {
+      if (!state.answered) return;
+
+      state.questionIndex++;
+      renderQuestion();
+    });
+
+    bind("#restart-quiz, [data-restart-quiz]", "click", restartQuiz);
+
+    bind(".level-card, [data-level]", "click", (event) => {
+      const card = event.currentTarget;
+      setLevel(card.dataset.level || card.value);
+    });
+
+    bind("#start-lesson, [data-start-lesson]", "click", () => {
+      const target = $("#concepts, #step-01, [data-step='concepts']");
+
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+
+    bind("#theme-toggle, [data-theme-toggle]", "click", () => {
+      const root = document.documentElement;
+      const dark = root.dataset.theme !== "dark";
+
+      root.dataset.theme = dark ? "dark" : "light";
+
+      const button = $("#theme-toggle, [data-theme-toggle]");
+
+      if (button) {
+        button.setAttribute("aria-pressed", String(dark));
+        button.setAttribute(
+          "aria-label",
+          dark ? "Увімкнути світлу тему" : "Увімкнути темну тему"
+        );
+      }
+    });
+
+    bind("#level-select, [data-level-select]", "change", (event) => {
+      setLevel(event.currentTarget.value);
+    });
+
+    bind('a[href^="#"]', "click", (event) => {
+      const href = event.currentTarget.getAttribute("href");
+
+      if (!href || href === "#") return;
+
+      const target = $(href);
+
+      if (target) {
+        event.preventDefault();
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
 })();

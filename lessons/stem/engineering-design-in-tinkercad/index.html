@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f5f6ff">
+  <meta name="description"
+    content="Інтерактивний STEM-урок для 5 класу: інженерний дизайн у Tinkercad — від ескізу до 3D-друку.">
+  <title>Інженерний дизайн у Tinkercad — навчальна лабораторія</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../../css/lesson-standard.css">
+  <script src="../../../js/theme.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Перейти до уроку</a>
+  <header class="topbar"><a class="back-link" href="../../../subjects/stem.html"
+      aria-label="Повернутися до каталогу STEM"><span aria-hidden="true">←</span><span>До STEM</span></a>
+    <!-- <div class="topbar-right"><span class="lab-brand"><span class="lab-brand-dot"></span>Навчальна
+        лабораторія</span><button class="lesson-theme-button" type="button" data-theme-toggle
+        aria-label="Змінити тему оформлення" title="Змінити тему"><span class="theme-icon"
+          aria-hidden="true">◐</span><span class="theme-label">Тема</span></button></div> -->
+  </header>
+  <main id="main" class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> STEM <span class="eyebrow-separator">/</span> ІНЖЕНЕРІЯ
+          ТА 3D-МОДЕЛЮВАННЯ</div>
+        <h1>Від ескізу <span class="title-accent">до 3D-друку</span></h1>
+        <p class="hero-description">Стань юним інженером: поєднуй об’ємні фігури, створюй корисний предмет у стилі
+          Tinkercad і перевіряй, чи готова модель до друку.</p>
+        <div class="hero-meta"><span><span aria-hidden="true">◷</span> 20–25 хв</span><span><span
+              aria-hidden="true">✦</span> Інтерактивний урок</span><span><span aria-hidden="true">⌘</span> Практика +
+            тест</span></div><a class="primary-button hero-button" href="#concepts">Почати проєктування <span
+            aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-art percent-hero-art" role="img"
+        aria-label="Тематична ілюстрація 3D-моделювання: куб, циліндр, креслення та готова деталь">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <div class="art-card art-card-top"><span class="mini-block block-yellow"></span><span>Ескіз → модель</span>
+        </div>
+        <div class="art-card art-card-mid"><span class="mini-block block-blue"></span><span>Об’єднати фігури</span>
+        </div>
+        <div class="art-card art-card-bottom"><span class="mini-block block-purple"></span><span>Файл для друку</span>
+        </div>
+        <div class="art-spark spark-a">✦</div>
+        <div class="art-spark spark-b">✳</div>
+        <div class="percent-art-center"><span>3D</span>
+          <div class="percent-art-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="concepts">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 01</div>
+          <h2>Знайомся з поняттями</h2>
+        </div>
+        <p>Обери картку, щоб побачити пояснення в лабораторії.</p>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <button class="concept-card is-active" type="button" data-concept="sketch" aria-pressed="true"><span
+            class="concept-icon icon-algorithm"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="10" y="8" width="44" height="48" rx="7" fill="#d9d5ff" />
+              <path d="m19 39 10-16 8 9 7-6 5 13Z" fill="#6556c8" />
+              <path d="M18 16h17M18 21h11" stroke="#6556c8" stroke-width="2" />
+            </svg></span><span class="concept-name">Ескіз</span><span class="concept-subtitle">План майбутнього
+            предмета</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="solid" aria-pressed="false"><span
+            class="concept-icon icon-executor"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <path d="m32 7 22 12v26L32 57 10 45V19Z" fill="#b9e5ff" stroke="#4b9ed6" stroke-width="2" />
+              <path d="m10 19 22 13 22-13M32 32v25" fill="none" stroke="#4b9ed6" stroke-width="2" />
+            </svg></span><span class="concept-name">3D-форма</span><span class="concept-subtitle">Об’єкт із шириною,
+            висотою й глибиною</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="group" aria-pressed="false"><span
+            class="concept-icon icon-command"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="8" y="18" width="27" height="27" rx="5" fill="#f4c65e" />
+              <circle cx="39" cy="36" r="15" fill="#fff0c7" stroke="#d8a33b" stroke-width="3" />
+              <path d="M27 31h10M32 26v10" stroke="#d8a33b" stroke-width="3" />
+            </svg></span><span class="concept-name">Групування</span><span class="concept-subtitle">Об’єднання форм в
+            одну модель</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="print" aria-pressed="false"><span
+            class="concept-icon icon-scratch"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M13 22h38v30H13z" fill="#d9f5e8" stroke="#55b994" stroke-width="2" />
+              <path d="M20 22v-9h24v9M25 31h14M25 38h14M25 45h14" fill="none" stroke="#278b69" stroke-width="3" />
+            </svg></span><span class="concept-name">3D-друк</span><span class="concept-subtitle">Створення фізичної речі
+            з цифрової моделі</span><span class="card-arrow">↗</span></button>
+      </div>
+    </section>
+    <section class="section lab-section" id="laboratory">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 02</div>
+          <h2>Інтерактивна лабораторія</h2>
+        </div><span class="live-pill"><span></span> Модель працює</span>
+      </div>
+      <div class="lab-card">
+        <div class="lab-header">
+          <div>
+            <div class="lab-label">КОНСТРУКТОР 3D-МОДЕЛІ</div>
+            <h3 id="labTitle">Ескіз перетворюється на модель</h3>
+          </div><button class="icon-button" id="resetModel" type="button" title="Скинути модель"
+            aria-label="Скинути модель">↻</button>
+        </div>
+        <p class="lab-description" id="labDescription">Почни з простих об’ємних форм. Змінюй основу, додавай деталі та
+          перевіряй розміри перед підготовкою до друку.</p>
+        <div class="percent-model-layout">
+          <div class="model-stage percent-stage">
+            <div class="stage-topline"><span>РОБОЧА ПЛОЩИНА</span><span class="stage-badge" id="barBadge">Модель:
+                брелок</span></div>
+            <div class="percent-whole-labels"><span>Вигляд</span><strong
+                id="highlightPercent">3D</strong><span>Огляд</span></div>
+            <div class="cad-stage" id="cadStage" role="img" aria-label="Попередній перегляд тривимірної моделі">
+              <div class="cad-grid"></div>
+              <div class="cad-shadow"></div>
+              <div class="cad-object" id="cadObject">
+                <div class="cad-top"></div>
+                <div class="cad-front"></div>
+                <div class="cad-side"></div>
+                <div class="cad-hole" id="cadHole"></div>
+              </div>
+            </div>
+            <div class="percent-result-panel"><span class="percent-result-icon" aria-hidden="true">
+              <span class="note-icon">✦</span>
+
+            </span>
+              <div><span class="percent-result-caption" id="resultCaption">
+               
+              </span><strong
+                  id="modelResult">80%</strong></div>
+            </div>
+            
+            <div class="stage-status" id="modelStatus" aria-live="polite" style="margin: 10px;"> Модель готова
+              до налаштування.</div>
+          </div>
+          <div class="program-panel percent-controls">
+            <div class="program-panel-heading">
+              <h4>Налаштуй модель</h4><span class="count-badge">Практика</span>
+            </div><label class="percent-label" for="objectType">Основа моделі</label><select id="objectType"
+              class="percent-select">
+              <option value="keychain">Брелок</option>
+              <option value="block">Блок-конструктор</option>
+              <option value="stand">Підставка</option>
+            </select><label class="percent-label" for="sizeInput">Розмір основи (умовні мм)</label><input id="sizeInput"
+              class="percent-input" type="number" min="10" max="60" step="5" value="30" inputmode="numeric"><label
+              class="percent-label" for="detailInput">Кількість додаткових деталей</label><input id="detailInput"
+              class="percent-input" type="range" min="0" max="4" step="1" value="1">
+            <div class="percent-presets" aria-label="Швидкий вибір кількості деталей"><button type="button"
+                data-detail="0">0 деталей</button><button type="button" data-detail="1">1 деталь</button><button
+                type="button" data-detail="3">3 деталі</button></div><label class="percent-label check-row"
+              for="holeInput"><input id="holeInput" type="checkbox" checked> Додати отвір для кріплення</label><button
+              class="primary-button percent-calculate" id="buildModel" type="button">Оновити 3D-модель <span
+                aria-hidden="true">→</span></button><button class="secondary-button percent-reset" id="resetCalculation"
+              type="button">Повернути початкові параметри</button>
+            <div class="hint-box"><span aria-hidden="true">💡</span>
+              <p><strong>Підказка:</strong> перевір, чи немає дуже тонких деталей і чи отвір не виходить за край моделі.
+                Це спрощена навчальна перевірка, а не повна перевірка файлу для друку.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lab-concept-note" id="conceptNote">
+        </div>
+      </div>
+    </section>
+    <section class="section" id="cheatsheet">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 03</div>
+          <h2>Шпаргалка дослідника</h2>
+        </div>
+        <p>П’ять принципів, які допоможуть спроєктувати модель.</p>
+      </div>
+      <div class="cheat-grid">
+        <article class="cheat-card">
+          <div class="cheat-icon purple">✎</div>
+          <h3>Почни з ескізу</h3>
+          <p>Намалюй вигляд предмета та познач важливі частини, перш ніж будувати 3D-модель.</p>
+          <div class="example-chip">Ідея → ескіз → модель</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon blue">◇</div>
+          <h3>Думай у трьох вимірах</h3>
+          <p>3D-об’єкт має ширину, висоту й глибину. Перевіряй його з різних боків.</p>
+          <!-- <div class="example-chip">X · Y · Z</div> -->
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon yellow">＋</div>
+          <h3>Комбінуй прості форми</h3>
+          <p>Складний предмет можна скласти з кубів, циліндрів та інших базових тіл.</p>
+          <div class="example-chip">Основа + деталь</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon mint">⊕</div>
+          <h3>Групуй та вирізай</h3>
+          <p>У редакторах на кшталт Tinkercad групування об’єднує форми, а форма-отвір може вирізати порожнину.</p>
+          <div class="example-chip">Форма + отвір → виріз</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon pink">▤</div>
+          <h3>Підготуй до друку</h3>
+          <p>Перевір розміри, міцність тонких частин і цілісність моделі. Експортований файл ще потрібно перевірити в
+            слайсері.</p>
+          <div class="example-chip">Модель → STL/3MF → слайсер</div>
+        </article>
+      </div>
+    </section>
+    <section class="section level-section" id="levels">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 04</div>
+          <h2>Обери свій рівень</h2>
+        </div>
+        <p>Рівень визначає складність мінітесту.</p>
+      </div>
+      <div class="level-grid" role="group" aria-label="Вибір рівня складності"><button type="button"
+          class="level-card is-selected" data-level="easy" aria-pressed="true"><span class="level-top"><span
+              class="level-emoji">🌱</span><span class="level-tag">Старт</span></span><strong>Простий</strong><span
+            class="level-description">Впізнавай основні поняття 3D-моделювання.</span><span class="level-bottom"><span>4
+              запитання</span><span>✦ +10 компʼюшок</span></span></button><button type="button" class="level-card"
+          data-level="medium" aria-pressed="false"><span class="level-top"><span class="level-emoji">🚀</span><span
+              class="level-tag">Практика</span></span><strong>Середній</strong><span
+            class="level-description">Застосовуй принципи до конкретних моделей.</span><span
+            class="level-bottom"><span>6 запитань</span><span>✦ +15 компʼюшок</span></span></button><button type="button"
+          class="level-card" data-level="hard" aria-pressed="false"><span class="level-top"><span
+              class="level-emoji">🧠</span><span class="level-tag">Виклик</span></span><strong>Складний</strong><span
+            class="level-description">Аналізуй помилки та плануй складніші конструкції.</span><span
+            class="level-bottom"><span>8 запитань</span><span>✦ +20 компʼюшок</span></span></button></div>
+    </section>
+    <section class="section quiz-section" id="quiz">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 05</div>
+          <h2>Перевір свої знання</h2>
+        </div><span class="quiz-level-label" id="quizLevelLabel">Простий рівень</span>
+      </div>
+      <div class="quiz-card" id="quizCard">
+        <div id="quizActive">
+          <div class="quiz-progress-row"><span id="questionCounter">Запитання 1 із 4</span><span
+              class="score-counter">Правильних: <strong id="correctCounter">0</strong></span></div>
+          <div class="progress-track" role="progressbar" aria-label="Прогрес тесту" aria-valuemin="0"
+            aria-valuemax="100" aria-valuenow="0" id="progressTrack">
+            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+          </div>
+          <div class="question-area">
+            <div class="question-number" id="questionNumber">01</div>
+            <h3 id="questionText">Що таке 3D-модель?</h3>
+          </div>
+          <div class="answer-list" id="answerList"></div>
+          <div class="feedback-box" id="feedbackBox" aria-live="polite" hidden></div>
+          <div class="quiz-footer"><span class="small-muted">Обери одну відповідь і прочитай пояснення.</span><button
+              type="button" class="primary-button" id="nextQuestion" disabled>Наступне <span
+                aria-hidden="true">→</span></button></div>
+        </div>
+        <div id="quizResult" class="result-screen" hidden>
+          <div class="result-illustration" aria-hidden="true">✦</div>
+          <div class="result-kicker">МІСІЮ ВИКОНАНО</div>
+          <h3 id="resultTitle">Чудова робота!</h3>
+          <p id="resultMessage">Ти завершив мінітест.</p>
+          <div class="result-stats">
+            <div><strong id="finalCorrect">0/4</strong><span>Правильних відповідей</span></div>
+            <div><strong id="finalPercent">0%</strong><span>Твій результат</span></div>
+            <div><strong id="earnedStars">+10</strong><span> Компʼюшок за спробу</span></div>
+          </div>
+          <div class="result-actions"><button type="button" class="primary-button" id="claimReward">Отримати компʼюшки
+              <span aria-hidden="true">✦</span></button><button type="button" class="secondary-button"
+              id="retryQuiz">Пройти ще раз ↻</button></div>
+          <p class="reward-note" id="rewardNote" aria-live="polite">Компʼюшки нараховуються один раз за завершену спробу.
+          </p><a class="home-link" href="#main">← Повернутися на початок уроку</a>
+        </div>
+      </div>
+    </section>
+    <section class="finish-banner" aria-labelledby="finish-title">
+      <div class="finish-sparkle">✦</div>
+      <div>
+        <p class="section-kicker">ВІД ІДЕЇ ДО РЕЧІ</p>
+        <h2 id="finish-title">Ти мислиш як інженер!</h2>
+        <p>Спостерігай за предметами навколо, малюй їхні ескізи й уявляй, як розкласти форму на прості об’ємні тіла.
+          Кожен прототип починається з ідеї.</p>
+      </div><a class="button button-light" href="../../../index.html">На головну <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+  <footer class="site-footer" aria-label="Підвал навчальної сторінки">
+    <div class="footer-brand"><span class="footer-mark" aria-hidden="true">✦</span><span
+        class="footer-brand-copy"><strong>Навчальна лабораторія</strong><small>STEM · 5 клас</small></span></div>
+    <p class="footer-motto">Досліджуй. Проєктуй. Створюй.</p><span class="footer-status"><span class="footer-status-dot"
+        aria-hidden="true"></span> Навчайся досліджуючи</span>
+  </footer>
+</body>
+
+</html>

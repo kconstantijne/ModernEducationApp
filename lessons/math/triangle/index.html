@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f5f6ff">
+  <meta name="description" content="Інтерактивний урок математики для 5 класу: трикутники, їхні сторони, кути та види.">
+  <title>Трикутник та його види — навчальна лабораторія</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../../css/lesson-standard.css">
+  <script src="../../../js/theme.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Перейти до уроку</a>
+  <header class="topbar">
+    <a class="back-link" href="../../../subjects/mathematics.html" aria-label="Повернутися до предмета Математика"><span
+        class="back-arrow" aria-hidden="true">←</span><span>Математика</span></a>
+    <!-- <div class="topbar-right"><span class="lab-brand"><span class="lab-brand-dot"></span>Навчальна
+        лабораторія</span><button class="lesson-theme-button" type="button" data-theme-toggle
+        aria-label="Увімкнути темну тему" title="Змінити тему"><span class="theme-icon" aria-hidden="true">◐</span><span
+          class="theme-label">Тема</span></button></div> -->
+  </header>
+  <main id="main" class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> МАТЕМАТИКА <span class="eyebrow-separator">/</span>
+          ГЕОМЕТРІЯ</div>
+        <h1>Трикутник <span class="title-accent">та його види</span></h1>
+        <p class="hero-description">Досліди, що робить фігуру трикутником, навчися розрізняти трикутники за сторонами й
+          кутами та перевір свої знання на інтерактивній моделі.</p>
+        <div class="hero-meta"><span><span aria-hidden="true">◷</span> 20–25 хв</span><span><span
+              aria-hidden="true">✦</span> Інтерактивний урок</span><span><span aria-hidden="true">⌘</span> Практика +
+            тест</span></div>
+        <a class="primary-button hero-button" href="#concepts">Почати дослідження <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-art percent-hero-art" role="img"
+        aria-label="Ілюстрація трикутників різних видів та їхніх сторін і кутів">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <div class="art-card art-card-top"><span class="mini-block block-yellow"></span><span>Рівнобедрений</span></div>
+        <div class="art-card art-card-mid"><span class="mini-block block-blue"></span><span>3 сторони</span></div>
+        <div class="art-card art-card-bottom"><span class="mini-block block-purple"></span><span>3 кути</span></div>
+        <div class="art-spark spark-a">✦</div>
+        <div class="art-spark spark-b">✳</div>
+        <div class="triangle-hero-shapes"><svg viewBox="0 0 180 150" role="presentation" aria-hidden="true">
+            <polygon points="90,12 14,136 166,136" fill="#d9d5ff" stroke="#7165d9" stroke-width="4"
+              stroke-linejoin="round" />
+            <path d="M90 12 L90 136" stroke="#54a9df" stroke-width="3" stroke-dasharray="5 5" />
+            <circle cx="90" cy="12" r="5" fill="#f5c65b" />
+            <circle cx="14" cy="136" r="5" fill="#f5c65b" />
+            <circle cx="166" cy="136" r="5" fill="#f5c65b" />
+          </svg></div>
+      </div>
+    </section>
+
+    <section class="section" id="concepts">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 01</div>
+          <h2>Знайомся з поняттями</h2>
+        </div>
+        <p>Обери картку, щоб дослідити її в лабораторії.</p>
+      </div>
+      <div class="concept-grid" id="conceptGrid">
+        <button class="concept-card is-active" type="button" data-concept="triangle" aria-pressed="true"><span
+            class="concept-icon"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,7 6,55 58,55" fill="#d9d5ff" stroke="#6556c8" stroke-width="3"
+                stroke-linejoin="round" />
+            </svg></span><span class="concept-name">Трикутник</span><span class="concept-subtitle">Три сторони й три
+            вершини</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="sides" aria-pressed="false"><span
+            class="concept-icon"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="32,7 7,54 57,54" fill="#b9e5ff" stroke="#4b9ed6" stroke-width="3" />
+              <path d="M17 35l5 3M42 38l5-3" stroke="#2878ad" stroke-width="3" stroke-linecap="round" />
+            </svg></span><span class="concept-name">Сторони</span><span class="concept-subtitle">Рівні чи різної
+            довжини</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="angles" aria-pressed="false"><span
+            class="concept-icon"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="8,54 56,54 44,13" fill="#fff0c7" stroke="#d8a33b" stroke-width="3" />
+              <path d="M44 54V43H34" fill="none" stroke="#d8a33b" stroke-width="2.5" />
+            </svg></span><span class="concept-name">Кути</span><span class="concept-subtitle">Гострі, прямі та
+            тупі</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="types" aria-pressed="false"><span
+            class="concept-icon"><svg viewBox="0 0 64 64" aria-hidden="true">
+              <polygon points="15,52 32,12 49,52" fill="#d9f5e8" stroke="#23966a" stroke-width="2.5" />
+              <path d="M7 54h18M37 54h18" stroke="#23966a" stroke-width="2.5" stroke-linecap="round" />
+            </svg></span><span class="concept-name">Види трикутників</span><span class="concept-subtitle">Класифікація
+            за ознаками</span><span class="card-arrow">↗</span></button>
+      </div>
+    </section>
+
+    <section class="section lab-section" id="laboratory">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 02</div>
+          <h2>Інтерактивна лабораторія</h2>
+        </div><span class="live-pill"><span></span> Модель працює</span>
+      </div>
+      <div class="lab-card">
+        <div class="lab-header">
+          <div>
+            <div class="lab-label">КОНСТРУКТОР ТРИКУТНИКІВ</div>
+            <h3 id="labTitle">Досліджуй трикутник</h3>
+          </div><button class="icon-button" id="resetModel" type="button" title="Скинути модель"
+            aria-label="Скинути модель">↻</button>
+        </div>
+        <p class="lab-description" id="labDescription">Змінюй довжини трьох сторін і спостерігай, як змінюється
+          трикутник. Спробуй визначити його вид за сторонами та кутами.</p>
+        <div class="triangle-model-layout">
+          <div class="model-stage triangle-stage">
+            <div class="stage-topline"><span>ГЕОМЕТРИЧНА МОДЕЛЬ</span><span class="stage-badge"
+                id="triangleTypeBadge">Різносторонній</span></div>
+            <div class="triangle-svg-wrap"><svg id="triangleSvg" viewBox="0 0 360 250" role="img"
+                aria-label="Модель трикутника зі сторонами 5, 6 і 7">
+                <polygon id="trianglePolygon" points="180,25 55,220 305,220" fill="#e3e0ff" stroke="#7165d9"
+                  stroke-width="4" stroke-linejoin="round" />
+                <path id="angleMark" d="M285 220 L285 200 L305 200" fill="none" stroke="#54a9df" stroke-width="3"
+                  opacity="0" /><text id="sideLabelA" x="108" y="122" class="triangle-side-label">5</text><text
+                  id="sideLabelB" x="250" y="122" class="triangle-side-label">6</text><text id="sideLabelC" x="180"
+                  y="242" class="triangle-side-label">7</text><text x="168" y="17"
+                  class="triangle-vertex-label">A</text><text x="35" y="237" class="triangle-vertex-label">B</text><text
+                  x="310" y="237" class="triangle-vertex-label">C</text>
+              </svg></div>
+            <div class="triangle-classification">
+              <div><span class="classification-label">За сторонами</span><strong
+                  id="sideClassification">Різносторонній</strong></div>
+              <div><span class="classification-label">За кутами</span><strong
+                  id="angleClassification">Гострокутний</strong></div>
+            </div>
+            <div class="stage-status" id="modelStatus" aria-live="polite"><span class="status-dot"></span> Зміни довжини
+              сторін і натисни «Побудувати».</div>
+          </div>
+          <div class="program-panel triangle-controls">
+            <div class="program-panel-heading">
+              <h4>Налаштуй сторони</h4><span class="count-badge">Практика</span>
+            </div>
+            <label class="percent-label" for="sideA">Сторона a</label><input id="sideA" class="percent-input"
+              type="number" min="1" max="12" step="1" value="5" inputmode="numeric">
+            <label class="percent-label" for="sideB">Сторона b</label><input id="sideB" class="percent-input"
+              type="number" min="1" max="12" step="1" value="6" inputmode="numeric">
+            <label class="percent-label" for="sideC">Сторона c</label><input id="sideC" class="percent-input"
+              type="number" min="1" max="12" step="1" value="7" inputmode="numeric">
+            <div class="triangle-presets" aria-label="Готові приклади"><button type="button"
+                data-triangle-preset="equilateral">Рівносторонній</button><button type="button"
+                data-triangle-preset="isosceles">Рівнобедрений</button><button type="button"
+                data-triangle-preset="right">Прямокутний</button></div>
+            <button class="primary-button percent-calculate" id="buildTriangle" type="button">Побудувати <span
+                aria-hidden="true">→</span></button>
+            <button class="secondary-button percent-reset" id="resetTriangle" type="button">Повернути приклад</button>
+            <div class="hint-box"><span aria-hidden="true">💡</span>
+              <p><strong>Підказка:</strong> сума довжин будь-яких двох сторін має бути більшою за третю. Наприклад, 3, 4
+                і 5 утворюють прямокутний трикутник.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lab-concept-note" id="conceptNote"><span class="note-icon">✦</span><span><strong>Пам’ятай:</strong>
+            трикутник має три сторони, три вершини й три кути. За сторонами він буває рівностороннім, рівнобедреним або
+            різностороннім.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="cheatsheet">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 03</div>
+          <h2>Шпаргалка дослідника</h2>
+        </div>
+        <p>Найважливіше — коротко й на прикладах.</p>
+      </div>
+      <div class="cheat-grid">
+        <article class="cheat-card">
+          <div class="cheat-icon purple">△</div>
+          <h3>Ознаки трикутника</h3>
+          <p>Це многокутник із трьома сторонами, трьома вершинами й трьома кутами.</p>
+          <div class="example-chip">3 сторони + 3 вершини</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon blue">＝</div>
+          <h3>Рівносторонній</h3>
+          <p>Усі три сторони мають однакову довжину; усі кути дорівнюють 60°.</p>
+          <div class="example-chip">5 см, 5 см, 5 см</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon yellow">∥</div>
+          <h3>Рівнобедрений</h3>
+          <p>Дві сторони рівні. Третя сторона називається основою.</p>
+          <div class="example-chip">6 см, 6 см, 4 см</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon mint">∠</div>
+          <h3>Види за кутами</h3>
+          <p>Гострокутний має всі кути гострі; прямокутний — один прямий; тупокутний — один тупий.</p>
+          <div class="example-chip">90° — прямий кут</div>
+        </article>
+        <article class="cheat-card">
+          <div class="cheat-icon pink">✓</div>
+          <h3>Чи можна побудувати?</h3>
+          <p>Сума довжин будь-яких двох сторін має бути більшою за довжину третьої.</p>
+          <div class="example-chip">2, 3, 6 — не утворюють трикутник</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section level-section" id="levels">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 04</div>
+          <h2>Обери свій рівень</h2>
+        </div>
+        <p>Складність визначає запитання мінітесту.</p>
+      </div>
+      <div class="level-grid" role="group" aria-label="Вибір рівня складності">
+        <button type="button" class="level-card is-selected" data-level="easy" aria-pressed="true"><span
+            class="level-top"><span class="level-emoji">🌱</span><span
+              class="level-tag">Старт</span></span><strong>Простий</strong><span class="level-description">Розпізнавай
+            трикутники та їхні основні ознаки.</span><span class="level-bottom"><span>4 запитання</span><span>✦ +10
+              компʼюшок</span></span></button>
+        <button type="button" class="level-card" data-level="medium" aria-pressed="false"><span class="level-top"><span
+              class="level-emoji">🚀</span><span class="level-tag">Практика</span></span><strong>Середній</strong><span
+            class="level-description">Обчислюй частини числа та розв’язуй життєві задачі.</span><span
+            class="level-bottom"><span>6 запитань</span><span>✦ +15 компʼюшок</span></span></button>
+        <button type="button" class="level-card" data-level="hard" aria-pressed="false"><span class="level-top"><span
+              class="level-emoji">🧠</span><span class="level-tag">Виклик</span></span><strong>Складний</strong><span
+            class="level-description">Аналізуй умови, знаходь помилки та розв’язуй задачі в кілька кроків.</span><span
+            class="level-bottom"><span>8 запитань</span><span>✦ +20 компʼюшок</span></span></button>
+      </div>
+    </section>
+
+    <section class="section quiz-section" id="quiz">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">КРОК 05</div>
+          <h2>Перевір свої знання</h2>
+        </div><span class="quiz-level-label" id="quizLevelLabel">Простий рівень</span>
+      </div>
+      <div class="quiz-card" id="quizCard">
+        <div id="quizActive">
+          <div class="quiz-progress-row"><span id="questionCounter">Запитання 1 із 4</span><span
+              class="score-counter">Правильних: <strong id="correctCounter">0</strong></span></div>
+          <div class="progress-track" role="progressbar" aria-label="Прогрес тесту" aria-valuemin="0"
+            aria-valuemax="100" aria-valuenow="25" id="progressTrack">
+            <div class="progress-fill" id="progressFill" style="width:25%"></div>
+          </div>
+          <div class="question-area">
+            <div class="question-number" id="questionNumber">01</div>
+            <h3 id="questionText">Скільки сторін має трикутник?</h3>
+          </div>
+          <div class="answer-list" id="answerList"></div>
+          <div class="feedback-box" id="feedbackBox" aria-live="polite" hidden></div>
+          <div class="quiz-footer"><span class="small-muted">Не поспішай — уважно прочитай варіанти.</span><button
+              type="button" class="primary-button" id="nextQuestion" disabled>Наступне <span
+                aria-hidden="true">→</span></button></div>
+        </div>
+        <div id="quizResult" class="result-screen" hidden>
+          <div class="result-illustration" aria-hidden="true">✦</div>
+          <div class="result-kicker">МІСІЮ ВИКОНАНО</div>
+          <h3 id="resultTitle">Чудова робота!</h3>
+          <p id="resultMessage">Ти завершив мінітест.</p>
+          <div class="result-stats">
+            <div><strong id="finalCorrect">0/4</strong><span>Правильних відповідей</span></div>
+            <div><strong id="finalPercent">0%</strong><span>Твій результат</span></div>
+            <div><strong id="earnedStars">+10</strong><span>Компʼюшок за спробу</span></div>
+          </div>
+          <div class="result-actions"><button type="button" class="primary-button" id="claimReward">Отримати компʼюшки
+              <span aria-hidden="true">✦</span></button><button type="button" class="secondary-button"
+              id="retryQuiz">Пройти ще раз ↻</button></div>
+          <p class="reward-note" id="rewardNote" aria-live="polite">Компʼюшки нараховуються один раз за завершену спробу.
+          </p><a class="home-link" href="#main">← Повернутися на початок уроку</a>
+        </div>
+      </div>
+    </section>
+    <section class="finish-banner" aria-labelledby="finish-title">
+      <div class="finish-sparkle">✦</div>
+      <div>
+        <p class="section-kicker">ГЕОМЕТРІЯ НАВКОЛО НАС</p>
+        <h2 id="finish-title">Тепер ти розпізнаєш трикутники</h2>
+        <p>Дахи, дорожні знаки й конструкції мають трикутні форми. Ти вже вмієш розрізняти трикутники за сторонами та
+          кутами!</p>
+      </div><a class="button button-light" href="../../../index.html">На головну <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+  <footer class="site-footer" aria-label="Підвал навчальної сторінки">
+    <div class="footer-brand"><span class="footer-mark" aria-hidden="true">✦</span><span
+        class="footer-brand-copy"><strong>Навчальна лабораторія</strong><small>Математика · 5 клас</small></span></div>
+    <p class="footer-motto">Досліджуй. Практикуйся. Відкривай нове.</p><span class="footer-status"><span
+        class="footer-status-dot" aria-hidden="true"></span> Навчайся досліджуючи</span>
+  </footer>
+</body>
+
+</html>

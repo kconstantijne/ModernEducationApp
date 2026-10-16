@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f5f6ff">
+  <meta name="description" content="Інтерактивний урок математики для 5 класу: відсотки, частини цілого та практичні обчислення.">
+  <title>Відсотки — навчальна лабораторія</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../../css/lesson-standard.css">
+  <script src="../../../js/theme.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти до уроку</a>
+  <header class="topbar">
+      <a class="back-link" href="../../../subjects/mathematics.html" aria-label="Повернутися до каталогу уроків">
+        <span aria-hidden="true">←</span>
+        <span>Математика</span>
+      </a>
+    <!-- <div class="topbar-right"><span class="lab-brand"><span class="lab-brand-dot"></span>Навчальна лабораторія</span><button class="lesson-theme-button" type="button" data-theme-toggle aria-label="Увімкнути темну тему" title="Змінити тему"><span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Тема</span></button>
+    </div> -->
+  </header>
+  <main id="main" class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> МАТЕМАТИКА <span class="eyebrow-separator">/</span> ЧИСЛА Й ВЕЛИЧИНИ</div>
+        <h1>Відсотки <span class="title-accent">навколо нас</span></h1>
+        <p class="hero-description">Дізнайся, що означає знак %, як знайти частину від числа та де відсотки допомагають у покупках, спорті й повсякденному житті.</p>
+        <div class="hero-meta"><span><span aria-hidden="true">◷</span> 20–25 хв</span><span><span aria-hidden="true">✦</span> Інтерактивний урок</span><span><span aria-hidden="true">⌘</span> Практика + тест</span></div>
+        <a class="primary-button hero-button" href="#concepts">Почати дослідження <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-art percent-hero-art" role="img" aria-label="Ілюстрація відсотків зі стовпчиком заповнення, знаком відсотка та картками обчислень">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <div class="art-card art-card-top"><span class="mini-block block-yellow"></span><span>25% від 80</span></div>
+        <div class="art-card art-card-mid"><span class="mini-block block-blue"></span><span>¼ = 25%</span></div>
+        <div class="art-card art-card-bottom"><span class="mini-block block-purple"></span><span>100% — ціле</span></div>
+        <div class="art-spark spark-a">✦</div><div class="art-spark spark-b">✳</div>
+        <div class="percent-art-center"><span>%</span><div class="percent-art-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="concepts">
+      <div class="section-heading"><div><div class="section-kicker">КРОК 01</div><h2>Знайомся з поняттями</h2></div><p>Обери картку, щоб дослідити її в лабораторії.</p></div>
+      <div class="concept-grid" id="conceptGrid">
+        <button class="concept-card is-active" type="button" data-concept="percent" aria-pressed="true"><span class="concept-icon icon-algorithm"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="25" fill="#d9d5ff"/><text x="32" y="42" text-anchor="middle" font-size="31" font-weight="800" fill="#6556c8">%</text></svg></span><span class="concept-name">Відсоток</span><span class="concept-subtitle">Одна сота частина цілого</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="whole" aria-pressed="false"><span class="concept-icon icon-executor"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="13" width="48" height="38" rx="9" fill="#b9e5ff"/><path d="M8 23h48M20 13v38M32 13v38M44 13v38M8 32h48M8 41h48" stroke="#4b9ed6" stroke-width="2"/><rect x="8" y="13" width="48" height="10" rx="6" fill="#5aa9df"/></svg></span><span class="concept-name">Ціле — 100%</span><span class="concept-subtitle">Уся величина повністю</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="part" aria-pressed="false"><span class="concept-icon icon-command"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="40" rx="8" fill="#fff0c7"/><path d="M8 32h48M24 12v40M40 12v40" stroke="#d8a33b" stroke-width="2"/><rect x="8" y="12" width="16" height="40" rx="5" fill="#f4c65e"/><rect x="24" y="12" width="16" height="40" fill="#f4c65e"/></svg></span><span class="concept-name">Частина цілого</span><span class="concept-subtitle">Скільки становить певний відсоток</span><span class="card-arrow">↗</span></button>
+        <button class="concept-card" type="button" data-concept="fraction" aria-pressed="false"><span class="concept-icon icon-scratch"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24" fill="#d9f5e8"/><path d="M32 8A24 24 0 0 1 56 32H32Z" fill="#55b994"/><path d="M32 32 32 8A24 24 0 0 0 8 32Z" fill="#9bdcc4"/><path d="M32 32h24A24 24 0 0 1 32 56Z" fill="#c0ebd9"/></svg></span><span class="concept-name">Дріб і відсоток</span><span class="concept-subtitle">Як пов’язані частини</span><span class="card-arrow">↗</span></button>
+      </div>
+    </section>
+
+    <section class="section lab-section" id="laboratory">
+      <div class="section-heading"><div><div class="section-kicker">КРОК 02</div><h2>Інтерактивна лабораторія</h2></div><span class="live-pill"><span></span> Модель працює</span></div>
+      <div class="lab-card">
+        <div class="lab-header"><div><div class="lab-label">КАЛЬКУЛЯТОР ВІДСОТКІВ</div><h3 id="labTitle">Відсоток — одна сота частина</h3></div><button class="icon-button" id="resetModel" type="button" title="Скинути модель" aria-label="Скинути модель">↻</button></div>
+        <p class="lab-description" id="labDescription">Відсоток показує, скільки частин зі ста ми розглядаємо. 1% — це одна сота цілого, а 100% — усе ціле.</p>
+        <div class="percent-model-layout">
+          <div class="model-stage percent-stage">
+            <div class="stage-topline"><span>ВІЗУАЛЬНА МОДЕЛЬ</span><span class="stage-badge" id="barBadge">25% від цілого</span></div>
+            <div class="percent-whole-labels"><span>0%</span><strong id="highlightPercent">25%</strong><span>100%</span></div>
+            <div class="percent-bar" id="percentBar" role="img" aria-label="Смуга показує 25 відсотків від цілого"><div class="percent-bar-fill" id="percentBarFill"></div></div>
+            <div class="percent-ticks" aria-hidden="true"><span>0</span><span>¼</span><span>½</span><span>¾</span><span>1 ціле</span></div>
+            <div class="percent-result-panel"><span class="percent-result-icon" aria-hidden="true">＝</span><div><span class="percent-result-caption" id="resultCaption">25% від 80 дорівнює</span><strong id="modelResult">20</strong></div></div>
+            <div class="stage-status" id="modelStatus" aria-live="polite"><span class="status-dot"></span> Зміни значення та натисни «Обчислити».</div>
+          </div>
+          <div class="program-panel percent-controls">
+            <div class="program-panel-heading"><h4>Налаштуй обчислення</h4><span class="count-badge">Практика</span></div>
+            <label class="percent-label" for="calculationMode">Що потрібно знайти?</label>
+            <select id="calculationMode" class="percent-select"><option value="part">Знайти відсоток від числа</option><option value="percent">Знайти, скільки відсотків становить частина</option></select>
+            <label class="percent-label" for="wholeInput" id="wholeLabel">Усе число (100%)</label><input id="wholeInput" class="percent-input" type="number" min="1" max="10000" step="1" value="80" inputmode="numeric">
+            <label class="percent-label" for="percentInput" id="percentLabel">Відсоток (%)</label><input id="percentInput" class="percent-input" type="number" min="0" max="100" step="1" value="25" inputmode="decimal">
+            <div class="percent-presets" aria-label="Швидкий вибір відсотка"><button type="button" data-preset="10">10%</button><button type="button" data-preset="25">25%</button><button type="button" data-preset="50">50%</button><button type="button" data-preset="75">75%</button></div>
+            <button class="primary-button percent-calculate" id="calculatePercent" type="button">Обчислити <span aria-hidden="true">→</span></button>
+            <button class="secondary-button percent-reset" id="resetCalculation" type="button">Повернути приклад</button>
+            <div class="hint-box"><span aria-hidden="true">💡</span><p><strong>Підказка:</strong> щоб знайти 25% від 80, обчисли 80 ÷ 100 × 25 = 20. 25% — це чверть цілого.</p></div>
+          </div>
+        </div>
+        <div class="lab-concept-note" id="conceptNote"><span class="note-icon">✦</span><span><strong>Пам’ятай:</strong> відсоток — це частина зі ста рівних частин. 100% завжди означає все ціле.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="cheatsheet"><div class="section-heading"><div><div class="section-kicker">КРОК 03</div><h2>Шпаргалка дослідника</h2></div><p>Найважливіше — коротко й на прикладах.</p></div>
+      <div class="cheat-grid">
+        <article class="cheat-card"><div class="cheat-icon purple">％</div><h3>Що означає %</h3><p>Слово «відсоток» означає одну соту частину цілого.</p><div class="example-chip">1% = 1/100</div></article>
+        <article class="cheat-card"><div class="cheat-icon blue">▦</div><h3>Усе ціле — 100%</h3><p>Якщо розглядаємо всю величину, це 100 відсотків.</p><div class="example-chip">100% від 60 = 60</div></article>
+        <article class="cheat-card"><div class="cheat-icon yellow">¼</div><h3>Зручні частини</h3><p>50% — половина, 25% — чверть, 75% — три чверті.</p><div class="example-chip">50% від 40 = 20</div></article>
+        <article class="cheat-card"><div class="cheat-icon mint">×</div><h3>Знайти відсоток від числа</h3><p>Поділи число на 100 і помнож на кількість відсотків.</p><div class="example-chip">20% від 50 = 50 ÷ 100 × 20 = 10</div></article>
+        <article class="cheat-card"><div class="cheat-icon pink">↗</div><h3>Знайти відсоткове відношення</h3><p>Поділи частину на ціле та помнож результат на 100%.</p><div class="example-chip">15 із 60: 15 ÷ 60 × 100% = 25%</div></article>
+      </div>
+    </section>
+
+    <section class="section level-section" id="levels"><div class="section-heading"><div><div class="section-kicker">КРОК 04</div><h2>Обери свій рівень</h2></div><p>Складність визначає запитання мінітесту.</p></div>
+      <div class="level-grid" role="group" aria-label="Вибір рівня складності">
+        <button type="button" class="level-card is-selected" data-level="easy" aria-pressed="true"><span class="level-top"><span class="level-emoji">🌱</span><span class="level-tag">Старт</span></span><strong>Простий</strong><span class="level-description">Впізнавай поняття та розумій значення відсотка.</span><span class="level-bottom"><span>4 запитання</span><span>✦ +10 компʼюшок</span></span></button>
+        <button type="button" class="level-card" data-level="medium" aria-pressed="false"><span class="level-top"><span class="level-emoji">🚀</span><span class="level-tag">Практика</span></span><strong>Середній</strong><span class="level-description">Обчислюй частини числа та розв’язуй життєві задачі.</span><span class="level-bottom"><span>6 запитань</span><span>✦ +15 компʼюшок</span></span></button>
+        <button type="button" class="level-card" data-level="hard" aria-pressed="false"><span class="level-top"><span class="level-emoji">🧠</span><span class="level-tag">Виклик</span></span><strong>Складний</strong><span class="level-description">Аналізуй умови, знаходь помилки та розв’язуй задачі в кілька кроків.</span><span class="level-bottom"><span>8 запитань</span><span>✦ +20 компʼюшок</span></span></button>
+      </div>
+    </section>
+
+    <section class="section quiz-section" id="quiz"><div class="section-heading"><div><div class="section-kicker">КРОК 05</div><h2>Перевір свої знання</h2></div><span class="quiz-level-label" id="quizLevelLabel">Простий рівень</span></div>
+      <div class="quiz-card" id="quizCard"><div id="quizActive"><div class="quiz-progress-row"><span id="questionCounter">Запитання 1 із 4</span><span class="score-counter">Правильних: <strong id="correctCounter">0</strong></span></div><div class="progress-track" role="progressbar" aria-label="Прогрес тесту" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" id="progressTrack"><div class="progress-fill" id="progressFill" style="width:25%"></div></div><div class="question-area"><div class="question-number" id="questionNumber">01</div><h3 id="questionText">Що означає 1%?</h3></div><div class="answer-list" id="answerList"></div><div class="feedback-box" id="feedbackBox" aria-live="polite" hidden></div><div class="quiz-footer"><span class="small-muted">Не поспішай — уважно прочитай варіанти.</span><button type="button" class="primary-button" id="nextQuestion" disabled>Наступне <span aria-hidden="true">→</span></button></div></div>
+        <div id="quizResult" class="result-screen" hidden><div class="result-illustration" aria-hidden="true">✦</div><div class="result-kicker">МІСІЮ ВИКОНАНО</div><h3 id="resultTitle">Чудова робота!</h3><p id="resultMessage">Ти завершив мінітест.</p><div class="result-stats"><div><strong id="finalCorrect">0/4</strong><span>Правильних відповідей</span></div><div><strong id="finalPercent">0%</strong><span>Твій результат</span></div><div><strong id="earnedStars">+10</strong><span>Компʼюшок за спробу</span></div></div><div class="result-actions"><button type="button" class="primary-button" id="claimReward">Отримати компʼюшки <span aria-hidden="true">✦</span></button><button type="button" class="secondary-button" id="retryQuiz">Пройти ще раз ↻</button></div><p class="reward-note" id="rewardNote" aria-live="polite">Компʼюшки нараховуються один раз за завершену спробу.</p><a class="home-link" href="#main">← Повернутися на початок уроку</a></div>
+      </div>
+    </section>
+    <section class="finish-banner" aria-labelledby="finish-title"><div class="finish-sparkle">✦</div><div><p class="section-kicker">ВІДСОТКИ Є ВСЮДИ</p><h2 id="finish-title">Тепер ти бачиш частини цілого</h2><p>Знижки, результати спортивних команд і статистика часто говорять мовою відсотків. Ти вже знаєш, як її розуміти!</p></div><a class="button button-light" href="../../../index.html">На головну <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="site-footer" aria-label="Підвал навчальної сторінки"><div class="footer-brand"><span class="footer-mark" aria-hidden="true">✦</span><span class="footer-brand-copy"><strong>Навчальна лабораторія</strong><small>Математика · 5 клас</small></span></div><p class="footer-motto">Досліджуй. Практикуйся. Відкривай нове.</p><span class="footer-status"><span class="footer-status-dot" aria-hidden="true"></span> Навчайся досліджуючи</span></footer>
+</body>
+</html>

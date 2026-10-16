@@ -49,6 +49,24 @@
       "difficulty": "3 рівні"
     },
 
+     {
+      "id": "triangle",
+      "title": "Трикутник",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Досліджуй властивості трикутника та навчися розрізняти його типи.",
+      "tag": "ГЕОМЕТРІЯ",
+      "duration": "10 хв",
+      "url": "lessons/math/triangle/index.html",
+      "visual": "geometry",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 10,
+      "difficulty": "3 рівні"
+    },
+
     {
       "id": "angles-measurement",
       "title": "Кути та їх вимірювання",
@@ -86,6 +104,25 @@
       "coins": 10,
       "difficulty": "Середній"
     },
+
+    {
+      "id": "percentage",
+      "title": "Відсотки",
+      "subject": "Математика",
+      "category": "math",
+      "description": "Навчися обчислювати відсотки та застосовувати їх у практичних задачах.",
+      "tag": "ЧИСЛА",
+      "duration": "15 хв",
+      "url": "lessons/math/percentage/index.html",
+      "visual": "geometry",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": 10,
+      "difficulty": "3 рівні"
+    },
+
     {
       "id": "computer-components",
       "title": "Складові комп’ютера",
@@ -146,6 +183,40 @@
       "tag": "ІНЖЕНЕРІЯ",
       "duration": "15 хв",
       "url": "lessons/stem/automatic-plant-watering-system/index.html",
+      "visual": "code",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": "",
+      "difficulty": "3 рівні"
+    },
+      {
+      "id": "design-and-testing-of-gliders",
+      "title": "Проєктування та тестування планерів",
+      "subject": "STEM",
+      "category": "stem",
+      "description": "Досліджуй принципи аеродинаміки та створюй власні планери для тестування.",
+      "tag": "ІНЖЕНЕРІЯ",
+      "duration": "15 хв",
+      "url": "lessons/stem/design-and-testing-of-gliders/index.html",
+      "visual": "code",
+      "grades": [
+        5,
+        6
+      ],
+      "coins": "",
+      "difficulty": "3 рівні"
+    },
+      {
+      "id": "engineering-design-in-tinkercad",
+      "title": "Інженерне проектування в Tinkercad",
+      "subject": "STEM",
+      "category": "stem",
+      "description": "Вивчай основи інженерного проектування через платформу Tinkercad.",
+      "tag": "ІНЖЕНЕРІЯ",
+      "duration": "15 хв",
+      "url": "lessons/stem/engineering-design-in-tinkercad/index.html",
       "visual": "code",
       "grades": [
         5,
