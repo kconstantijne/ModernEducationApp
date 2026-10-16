@@ -95,3 +95,165 @@
   .achievements-section .achievement { transition: none; }
   .achievements-section .achievement:hover { transform: none; }
 }
+
+/* Combined achievements + learning rewards, using the achievements page visual language. */
+.reward-shop-section { scroll-margin-top: 24px; }
+.reward-info-note {
+  margin: 18px 0;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--surface), rgba(143, 166, 255, .08));
+  color: var(--text);
+}
+.reward-info-note p { margin: 6px 0 0; color: var(--muted); line-height: 1.55; }
+.reward-grid { gap: 14px; }
+.reward-grid .reward-item { align-items: flex-start; }
+.reward-cost { display: inline-block; margin-top: 7px; color: var(--muted); font-size: .82rem; font-weight: 750; }
+.reward-open-button {
+  flex: 0 0 auto;
+  align-self: center;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 13px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+.reward-open-button:not(:disabled):hover { border-color: rgba(104, 126, 220, .65); transform: translateY(-1px); }
+.reward-open-button:disabled { opacity: .7; cursor: default; }
+.reward-error { border-color: rgba(210, 82, 82, .45); }
+.owned-rewards-block { margin-top: 30px; }
+.owned-rewards-block .section-heading { margin-bottom: 12px; }
+.owned-rewards-block h3 { margin: 0; font-size: 1.15rem; }
+.owned-rewards-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.owned-reward { display: flex; align-items: center; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.owned-reward > span { font-size: 1.5rem; }
+.owned-reward strong { display: block; }
+.owned-reward p { margin: 4px 0 0; color: var(--muted); font-size: .8rem; }
+@media (max-width: 620px) {
+  .reward-grid .reward-item { align-items: flex-start; }
+  .reward-open-button { margin-left: 58px; align-self: flex-start; }
+}
+
+/* Achievement carousel: one page contains exactly eight cards. */
+.achievement-carousel { min-width: 0; }
+.achievement-carousel .achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(124px, auto));
+  gap: 12px;
+}
+.achievement-carousel .achievement {
+  min-width: 0;
+  height: 100%;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  overflow: hidden;
+}
+.achievement-carousel .achievement.locked {
+  opacity: .56;
+  filter: saturate(.48);
+  background: linear-gradient(135deg, var(--surface), rgba(120, 130, 150, .035));
+}
+.achievement-carousel .achievement.locked .achievement-icon {
+  filter: grayscale(.75) blur(.55px);
+  opacity: .72;
+}
+.achievement-carousel .achievement-copy { min-width: 0; overflow-wrap: anywhere; }
+.achievement-carousel .achievement strong { overflow-wrap: anywhere; }
+.achievement-carousel .achievement p { font-size: .78rem; }
+.achievement-carousel .achievement-state {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  margin: 0 0 0 auto;
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  white-space: normal;
+  font-size: .65rem;
+  line-height: 1.25;
+}
+.achievement-carousel .achievement.earned .achievement-state {
+  color: #27805d;
+  background: rgba(80, 190, 135, .13);
+  border-color: rgba(80, 190, 135, .25);
+}
+.achievement-carousel .achievement.locked .achievement-state { color: var(--muted); }
+.carousel-controls { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 18px; }
+.carousel-arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--text);
+  background: var(--surface);
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease;
+}
+.carousel-arrow:not(:disabled):hover { background: var(--surface-2); transform: translateY(-1px); }
+.carousel-arrow:disabled { opacity: .35; cursor: not-allowed; }
+.carousel-page { min-width: 52px; color: var(--muted); text-align: center; font-size: .84rem; font-variant-numeric: tabular-nums; }
+
+/* Toasts are temporary overlays, never permanent content in the layout. */
+.reward-toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 10000;
+  width: max-content;
+  max-width: min(390px, calc(100vw - 32px));
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 14px 42px rgba(20, 30, 60, .2);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease;
+  pointer-events: none;
+}
+.reward-toast.toast-visible { opacity: 1; transform: translateY(0); }
+.reward-toast.reward-success { border-color: rgba(70, 170, 120, .45); }
+.reward-toast.reward-error { border-color: rgba(210, 82, 82, .5); }
+.reward-cost, .reward-quantity { display: inline-block; margin: 7px 8px 0 0; }
+.reward-quantity { color: var(--muted); font-size: .78rem; font-weight: 750; }
+.reward-grid .reward-item { display: flex; flex-wrap: wrap; align-content: flex-start; min-width: 0; }
+.reward-grid .reward-item .achievement-copy { flex: 1 1 140px; min-width: 0; overflow-wrap: anywhere; }
+.reward-grid .reward-item .achievement-copy strong,
+.reward-grid .reward-item .achievement-copy p { overflow-wrap: anywhere; word-break: normal; }
+.reward-open-button {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 10px 0 0;
+  align-self: stretch;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  line-height: 1.25;
+  text-align: center;
+  transition: background .18s ease, transform .18s ease;
+}
+@media (max-width: 1100px) {
+  .achievement-carousel .achievement-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(120px, auto)); }
+}
+@media (max-width: 620px) {
+  .achievement-carousel .achievement-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .achievement-carousel .achievement { min-height: 104px; }
+  .achievement-carousel .achievement-state { margin-left: auto; }
+  .reward-toast { right: 16px; bottom: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel-arrow, .reward-toast, .reward-open-button { transition: none; }
+}

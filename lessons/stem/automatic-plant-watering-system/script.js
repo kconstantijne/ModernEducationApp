@@ -92,14 +92,26 @@
   }
   function showResult() {
     state.completed = true; $id("quizActive").hidden = true; $id("quizResult").hidden = false; const total = questions[state.level].length; const percent = Math.round(state.correct / total * 100);
-    $id("finalCorrect").textContent = `${state.correct}/${total}`; $id("finalPercent").textContent = `${percent}%`; $id("earnedStars").textContent = `+${rewardByLevel[state.level]}`;
+$id("finalCorrect").textContent = `${state.correct}/${total}`; $id("finalPercent").textContent = `${percent}%`; $id("earnedStars").textContent = `+${rewardByLevel[state.level]}`;
     if (percent === 100) { $id("resultTitle").textContent = "Безпомилково! 🌟"; $id("resultMessage").textContent = "Ти чудово розумієш принципи мінісистеми автополиву й мислиш як екоінженер."; }
     else if (percent >= 70) { $id("resultTitle").textContent = "Чудова робота!"; $id("resultMessage").textContent = "Ти добре засвоїв матеріал. Переглянь пояснення до помилок і продовжуй дослідження."; }
     else if (percent >= 40) { $id("resultTitle").textContent = "Гарний початок!"; $id("resultMessage").textContent = "Ти вже розумієш основи. Повтори шпаргалку та спробуй ще раз."; }
     else { $id("resultTitle").textContent = "Час для нового досліду!"; $id("resultMessage").textContent = "Повернися до понять, досліди модель і спробуй тест ще раз — кожна спроба допомагає."; }
     $id("claimReward").disabled = false; $id("claimReward").innerHTML = 'Отримати зірочки <span aria-hidden="true">✦</span>'; $id("rewardNote").textContent = "Зірочки нараховуються один раз за завершену спробу.";
-  }
-  function claimReward() { if (!state.completed || state.claimed) return; state.claimed = true; const reward = rewardByLevel[state.level]; state.stars += reward; $id("claimReward").disabled = true; $id("claimReward").textContent = "Зірочки отримано ✓"; $id("rewardNote").textContent = `+${reward} зірочок додано до балансу цього уроку. Разом отримано: ${state.stars}.`; }
+  
+    // Єдине нарахування комп’юшок: результат обробляється після відображення підсумку.
+    Promise.resolve().then(() => {
+      const scorePercent = typeof percent !== 'undefined' ? percent : (typeof pct !== 'undefined' ? pct : 0);
+      const rewardResult = window.LearningGamification?.awardTestResult("automatic-plant-watering-system", scorePercent, state.level);
+      const claimButton = document.getElementById('claimReward');
+      if (claimButton) claimButton.hidden = true;
+      const starLabel = document.getElementById('earnedStars');
+      if (starLabel) starLabel.textContent = rewardResult?.passed ? `🪙 ${rewardResult.coinsAwarded} комп’юшок` : 'Потрібно 70% для винагороди';
+      const note = document.getElementById('rewardNote');
+      if (note) note.textContent = rewardResult?.message || 'Комп’юшки нараховуються автоматично після тесту.';
+    });
+}
+function claimReward() { if (!state.completed || state.claimed) return; state.claimed = true; const reward = rewardByLevel[state.level]; state.stars += reward; $id("claimReward").disabled = true; $id("claimReward").textContent = "Зірочки отримано ✓"; $id("rewardNote").textContent = `+${reward} зірочок додано до балансу цього уроку. Разом отримано: ${state.stars}.`; }
 
   $$(".concept-card").forEach(button => button.addEventListener("click", () => selectConcept(button.dataset.concept)));
   $id("initialMoisture").addEventListener("input", event => { state.moisture = Number(event.currentTarget.value); renderModel(); setStatus("Початкову вологість змінено. Запусти полив, щоб побачити результат."); });

@@ -313,7 +313,7 @@
     $("#quizResult").hidden = false;
     const total = questions[state.level].length;
     const percent = Math.round((state.correct / total) * 100);
-    $("#finalCorrect").textContent = `${state.correct}/${total}`;
+$("#finalCorrect").textContent = `${state.correct}/${total}`;
     $("#finalPercent").textContent = `${percent}%`;
     $("#earnedStars").textContent = `+${rewardByLevel[state.level]}`;
     if (percent === 100) {
@@ -332,9 +332,20 @@
     $("#claimReward").disabled = false;
     $("#claimReward").innerHTML = 'Отримати зірочки <span aria-hidden="true">✦</span>';
     $("#rewardNote").textContent = "Зірочки нараховуються один раз за завершену спробу.";
-  }
-
-  function claimReward() {
+  
+    // Єдине нарахування комп’юшок: результат обробляється після відображення підсумку.
+    Promise.resolve().then(() => {
+      const scorePercent = typeof percent !== 'undefined' ? percent : (typeof pct !== 'undefined' ? pct : 0);
+      const rewardResult = window.LearningGamification?.awardTestResult("algorithms-in-scratch", scorePercent, state.level);
+      const claimButton = document.getElementById('claimReward');
+      if (claimButton) claimButton.hidden = true;
+      const starLabel = document.getElementById('earnedStars');
+      if (starLabel) starLabel.textContent = rewardResult?.passed ? `🪙 ${rewardResult.coinsAwarded} комп’юшок` : 'Потрібно 70% для винагороди';
+      const note = document.getElementById('rewardNote');
+      if (note) note.textContent = rewardResult?.message || 'Комп’юшки нараховуються автоматично після тесту.';
+    });
+}
+function claimReward() {
     if (!state.completed || state.claimed) return;
     state.claimed = true;
     const reward = rewardByLevel[state.level];

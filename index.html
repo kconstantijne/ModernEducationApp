@@ -13,6 +13,8 @@
   <script src="js/gamification.js" defer></script>
   <script src="js/catalog.js" defer></script>
   <link rel="stylesheet" href="css/banner-system.css">
+  <link rel="stylesheet" href="css/home-shop.css">
+  <script src="js/home-shop.js" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -34,8 +36,8 @@
             <a class="nav-item" href="subjects/stem.html"><span>⚙︎</span> STEM</a>
           </div>
         </details>
-      
-        <a class="nav-item achievements-nav-item" href="achievements.html"><span>✧</span> Досягнення</a>
+        <a class="nav-item achievements-nav-item" href="achievements.html"><span>✧</span> Досягнення й нагороди</a>
+      <a class="nav-item profile-nav-item" href="profile.html"><span>◉</span> Мій профіль</a>
         <a class="nav-item faq-nav-item" href="faq.html"><span>?</span> Часті питання</a>
         <a class="nav-item about-nav-item" href="about.html"><span>ⓘ</span> Про застосунок</a>
         
@@ -55,7 +57,7 @@
           <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Знайти урок..." aria-label="Знайти урок"></label>
           <label class="grade-filter"><span class="sr-only">Клас</span><select id="gradeFilter" aria-label="Фільтр за класом"><option value="all">Усі класи</option><option value="1">1 клас</option><option value="2">2 клас</option><option value="3">3 клас</option><option value="4">4 клас</option><option value="5">5 клас</option><option value="6">6 клас</option><option value="7">7 клас</option><option value="8">8 клас</option><option value="9">9 клас</option><option value="10">10 клас</option><option value="11">11 клас</option></select></label>
           <button class="icon-button top-theme" data-theme-toggle aria-label="Перемкнути тему">◐</button>
-          <div class="avatar" title="Досягнення"><a href="achievements.html" aria-label="Перейти до досягнень">✦</a></div>
+          <div class="avatar" title="Мій профіль"><a href="profile.html" aria-label="Перейти до профілю">◉</a></div>
         </div>
       </header>
 
@@ -106,6 +108,18 @@
             <span class="subject-bottom">Відкрити теми <span>→</span></span>
           </a>
         </div>
+      </section>
+
+      <section class="section-block reward-section" id="rewards">
+        <div class="section-heading">
+          <div><span class="eyebrow">ТВОЇ ЗНАННЯ — ТВОЇ МОЖЛИВОСТІ</span><h2>Досягнення й нагороди</h2></div>
+          <a class="reward-balance" href="achievements.html#rewards" aria-label="Відкрити досягнення й нагороди">🪙 <span data-coins>0</span> комп’юшок</a>
+        </div>
+        <p class="reward-intro">Заробляй комп’юшки за навчальні досягнення та відкривай приємні бонуси для своєї подорожі.</p>
+        <div class="reward-preview-grid" id="homeRewardGrid" aria-live="polite">
+          <article class="reward-preview reward-preview-featured"><span class="reward-preview-icon">🎁</span><div><h3>Твої наступні відкриття</h3><p>Виконуй уроки, покращуй результати та збирай комп’юшки.</p></div></article>
+        </div>
+        <div class="reward-actions"><a class="button button-primary" href="achievements.html#rewards">Перейти до нагород <span>↗</span></a><span class="reward-note">Лише навчальні комп’юшки — без реальних грошей</span></div>
       </section>
 
       <section class="section-block" id="lessons">

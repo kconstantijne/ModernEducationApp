@@ -568,8 +568,7 @@ function finishQuiz() {
   const percent = Math.round(
     (state.correct / list.length) * 100
   );
-
-  $('quizActive').hidden = true;
+$('quizActive').hidden = true;
   $('quizResult').hidden = false;
 
   $('finalCorrect').textContent =
@@ -608,8 +607,19 @@ function finishQuiz() {
 
   $('progressFill').style.width = '100%';
   $('progressTrack').setAttribute('aria-valuenow', '100');
-}
 
+    // Єдине нарахування комп’юшок: результат обробляється після відображення підсумку.
+    Promise.resolve().then(() => {
+      const scorePercent = typeof percent !== 'undefined' ? percent : (typeof pct !== 'undefined' ? pct : 0);
+      const rewardResult = window.LearningGamification?.awardTestResult("angles-measurement", scorePercent, state.level);
+      const claimButton = document.getElementById('claimReward');
+      if (claimButton) claimButton.hidden = true;
+      const starLabel = document.getElementById('earnedStars');
+      if (starLabel) starLabel.textContent = rewardResult?.passed ? `🪙 ${rewardResult.coinsAwarded} комп’юшок` : 'Потрібно 70% для винагороди';
+      const note = document.getElementById('rewardNote');
+      if (note) note.textContent = rewardResult?.message || 'Комп’юшки нараховуються автоматично після тесту.';
+    });
+}
 function nextQuestion() {
   if (!state.answered || state.finished) return;
 

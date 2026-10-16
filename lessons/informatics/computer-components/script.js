@@ -228,7 +228,7 @@
     $("#result-view").hidden = false;
     const total = state.questions.length;
     const percent = Math.round((state.score / total) * 100);
-    $("#final-score").textContent = `${state.score}/${total}`;
+$("#final-score").textContent = `${state.score}/${total}`;
     $("#final-percent").textContent = `${percent}%`;
     let title = "Гарний старт!";
     let copy = "Переглянь шпаргалку та спробуй ще раз — ти поступово закріпиш усі поняття.";
@@ -253,7 +253,19 @@
     $("#progress-fill").style.width = "100%";
     $("#quiz-progress").setAttribute("aria-valuenow", "100");
     $("#result-view").focus?.();
-  }
+  
+    // Єдине нарахування комп’юшок: результат обробляється після відображення підсумку.
+    Promise.resolve().then(() => {
+      const scorePercent = typeof percent !== 'undefined' ? percent : (typeof pct !== 'undefined' ? pct : 0);
+      const rewardResult = window.LearningGamification?.awardTestResult("computer-components", scorePercent, state.level);
+      const claimButton = document.getElementById('claimReward');
+      if (claimButton) claimButton.hidden = true;
+      const starLabel = document.getElementById('earnedStars');
+      if (starLabel) starLabel.textContent = rewardResult?.passed ? `🪙 ${rewardResult.coinsAwarded} комп’юшок` : 'Потрібно 70% для винагороди';
+      const note = document.getElementById('rewardNote');
+      if (note) note.textContent = rewardResult?.message || 'Комп’юшки нараховуються автоматично після тесту.';
+    });
+}
 
   $("#concept-grid").addEventListener("click", event => {
     const card = event.target.closest("[data-concept]");

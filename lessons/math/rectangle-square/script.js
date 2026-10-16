@@ -598,8 +598,7 @@
     const list = questions[state.level];
     const total = list.length;
     const percent = Math.round((state.correct / total) * 100);
-
-    state.stars = percent >= 90 ? 3
+state.stars = percent >= 90 ? 3
       : percent >= 70 ? 2
       : percent >= 50 ? 1
       : 0;
@@ -645,9 +644,20 @@
     }
 
     announce(`Тест завершено. Правильних відповідей: ${state.correct} із ${total}.`);
-  }
-
-  function restartQuiz() {
+  
+    // Єдине нарахування комп’юшок: результат обробляється після відображення підсумку.
+    Promise.resolve().then(() => {
+      const scorePercent = typeof percent !== 'undefined' ? percent : (typeof pct !== 'undefined' ? pct : 0);
+      const rewardResult = window.LearningGamification?.awardTestResult("rectangle-square", scorePercent, state.level);
+      const claimButton = document.getElementById('claimReward');
+      if (claimButton) claimButton.hidden = true;
+      const starLabel = document.getElementById('earnedStars');
+      if (starLabel) starLabel.textContent = rewardResult?.passed ? `🪙 ${rewardResult.coinsAwarded} комп’юшок` : 'Потрібно 70% для винагороди';
+      const note = document.getElementById('rewardNote');
+      if (note) note.textContent = rewardResult?.message || 'Комп’юшки нараховуються автоматично після тесту.';
+    });
+}
+function restartQuiz() {
     state.questionIndex = 0;
     state.correct = 0;
     state.answered = false;
