@@ -1,204 +1,185 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="uk">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Відповіді на часті питання про Навчальну лабораторію, прогрес і комп’юшки.">
-  <title>Часті питання — Навчальна лабораторія</title>
-  <link rel="stylesheet" href="css/design-system.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/faq.css">
-  <script src="js/theme.js" defer></script>
-  <script src="js/sidebar.js" defer></script>
-  <script src="js/gamification.js" defer></script>
-  <link rel="stylesheet" href="css/banner-system.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Відповіді на часті питання про Навчальну лабораторію, прогрес і комп’юшки." name="description"/>
+<title>Часті питання — Навчальна лабораторія</title>
+<link href="css/design-system.css" rel="stylesheet"/>
+<link href="css/components.css" rel="stylesheet"/>
+<link href="css/faq.css" rel="stylesheet"/>
+<script defer="" src="js/theme.js"></script>
+<script defer="" src="js/sidebar.js"></script>
+<script defer="" src="js/gamification.js"></script>
+<link href="css/banner-system.css" rel="stylesheet"/>
 </head>
-
 <body>
-  <div class="app-shell">
-    <aside class="sidebar glass-panel" id="sidebar">
-      <div class="sidebar-header">
-        <a class="brand" href="index.html" aria-label="Навчальна лабораторія — головна">
-          <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true">
-              <rect x="4" y="4" width="32" height="32" rx="11" fill="currentColor" opacity=".13" />
-              <path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor" stroke-width="2.4"
-                stroke-linecap="round" stroke-linejoin="round" />
-            </svg></span>
-          <span><strong>Навчальна</strong><small>лабораторія</small></span>
-        </a>
-      </div>
-      <div class="side-label">ПРОСТІР НАВЧАННЯ</div>
-      <nav class="main-nav" aria-label="Основна навігація">
-        <a class="nav-item" href="index.html"><span>⌂</span> Головна</a>
-        <details class="nav-dropdown">
-          <summary class="nav-item dropdown-summary"><span>▦</span><span class="dropdown-title">Предмети</span><span
-              class="dropdown-chevron" aria-hidden="true">⌄</span></summary>
-          <div class="nav-submenu">
-            <a class="nav-item" href="subjects/mathematics.html"><span>∑</span> Математика</a>
-            <a class="nav-item" href="subjects/informatics.html"><span>⌘</span> Інформатика</a>
-            <a class="nav-item" href="subjects/stem.html"><span>⚙︎</span> STEM</a>
-          </div>
-        </details>
-      <a class="nav-item achievements-nav-item" href="achievements.html"><span>✧</span> Досягнення й нагороди</a>
-      <a class="nav-item profile-nav-item" href="profile.html"><span>◉</span> Мій профіль</a>
-        <a class="nav-item faq-nav-item active" href="faq.html" aria-current="page"><span>?</span> Часті питання</a>
-        <a class="nav-item about-nav-item" href="about.html"><span>ⓘ</span> Про застосунок</a>
-
-      </nav>
-      <div class="sidebar-bottom">
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Перемкнути тему"><span
-            class="theme-icon" aria-hidden="true">☾</span><span>Змінити тему</span><span
-            class="toggle-track theme-switch-track" aria-hidden="true"><i></i></span></button>
-        <div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong>
-          <p>Досліджуй, пробуй і відкривай нове щодня.</p>
-        </div>
-        <div class="sidebar-foot">Створено для допитливих ✦</div>
-      </div>
-    </aside>
-    <main class="main-content">
-      <header class="topbar">
-        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню"
-          aria-expanded="false"><span></span><span></span><span></span></button>
-        <div class="breadcrumb"><a href="index.html">Головна</a><span>/</span><strong>Часті питання</strong></div>
-        <div class="top-actions"><button class="icon-button top-theme" data-theme-toggle
-            aria-label="Перемкнути тему">◐</button></div>
-      </header>
-      <section class="faq-hero">
-        <span class="eyebrow">ДОВІДКОВИЙ ЦЕНТР</span>
-        <h1>Є питання?<br><em>Знайдемо відповідь.</em></h1>
-        <p>Як користуватися Навчальною лабораторією, збирати комп’юшки та стежити за навчальним прогресом.</p>
-      </section>
-
-      <section class="faq-section">
-        <div class="section-heading">
-          <div><span class="eyebrow">ПОЧАТОК РОБОТИ</span>
-            <h2>Про сервіс</h2>
-          </div>
-        </div>
-        <div class="faq-list">
-          <details class="faq-item" open>
-            <summary>Що таке «Навчальна лабораторія»?</summary>
-            <div class="faq-answer">
-              <p>Це навчальний вебсервіс з інтерактивними уроками, завданнями та елементами гри. Він допомагає вивчати
+<div class="app-shell">
+<aside class="sidebar glass-panel" id="sidebar">
+<div class="sidebar-header">
+<a aria-label="Навчальна лабораторія — головна" class="brand" href="index.html">
+<span class="brand-mark"><svg aria-hidden="true" viewbox="0 0 40 40">
+<rect fill="currentColor" height="32" opacity=".13" rx="11" width="32" x="4" y="4"></rect>
+<path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+</svg></span>
+<span><strong>Навчальна</strong><small>лабораторія</small></span>
+</a>
+</div>
+<div class="side-label">ПРОСТІР НАВЧАННЯ</div>
+<nav aria-label="Основна навігація" class="main-nav"><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>❀</span><span class="dropdown-title">Навчання</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item" href="index.html"><span>⌂</span> Головна</a><details class="nav-dropdown">
+<summary class="nav-item dropdown-summary"><span>❖</span><span class="dropdown-title">Предмети</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary>
+<div class="nav-submenu">
+<a class="nav-item" href="subjects/mathematics.html"><span>∑</span> Математика</a>
+<a class="nav-item" href="subjects/informatics.html"><span>⌘</span> Інформатика</a>
+<a class="nav-item" href="subjects/stem.html"><span>⚙︎</span> STEM</a>
+</div>
+</details></div></details><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>✧</span><span class="dropdown-title">Мій результат</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item profile-nav-item" href="profile.html"><span>◉</span> Мій профіль</a><a class="nav-item achievements-nav-item" href="achievements.html"><span>✧</span> Досягнення й нагороди</a></div></details><details class="nav-dropdown nav-category" open=""><summary class="nav-item dropdown-summary"><span>ⓘ</span><span class="dropdown-title">Довідка</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a aria-current="page" class="nav-item faq-nav-item active" href="faq.html"><span>?</span> Часті питання</a><a class="nav-item about-nav-item" href="about.html"><span>ⓘ</span> Про застосунок</a></div></details></nav>
+<div class="sidebar-bottom">
+<button aria-label="Перемкнути тему" class="theme-toggle" data-theme-toggle="" type="button"><span aria-hidden="true" class="theme-icon">☾</span><span>Змінити тему</span><span aria-hidden="true" class="toggle-track theme-switch-track"><i></i></span></button>
+<div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong>
+<p>Досліджуй, пробуй і відкривай нове щодня.</p>
+</div>
+<div class="sidebar-foot">Створено для допитливих ✦</div>
+</div>
+</aside>
+<main class="main-content">
+<header class="topbar">
+<button aria-expanded="false" aria-label="Відкрити меню" class="mobile-menu icon-button" id="mobileMenu"><span></span><span></span><span></span></button>
+<div class="breadcrumb"><a href="index.html">Головна</a><span>/</span><strong>Часті питання</strong></div>
+<div class="top-actions"><button aria-label="Перемкнути тему" class="icon-button top-theme" data-theme-toggle="">◐</button></div>
+</header>
+<section class="faq-hero">
+<span class="eyebrow">ДОВІДКОВИЙ ЦЕНТР</span>
+<h1>Є питання?<br/><em>Знайдемо відповідь.</em></h1>
+<p>Як користуватися Навчальною лабораторією, збирати комп’юшки та стежити за навчальним прогресом.</p>
+</section>
+<section class="faq-section">
+<div class="section-heading">
+<div><span class="eyebrow">ПОЧАТОК РОБОТИ</span>
+<h2>Про сервіс</h2>
+</div>
+</div>
+<div class="faq-list">
+<details class="faq-item" open="">
+<summary>Що таке «Навчальна лабораторія»?</summary>
+<div class="faq-answer">
+<p>Це навчальний вебсервіс з інтерактивними уроками, завданнями та елементами гри. Він допомагає вивчати
                 різні предмети у власному темпі.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Як почати навчання?</summary>
-            <div class="faq-answer">
-              <p>На головній сторінці обери предмет, відкрий потрібний урок і виконуй завдання послідовно. Якщо
+</div>
+</details>
+<details class="faq-item">
+<summary>Як почати навчання?</summary>
+<div class="faq-answer">
+<p>На головній сторінці обери предмет, відкрий потрібний урок і виконуй завдання послідовно. Якщо
                 доступний фільтр за класом, скористайся ним, щоб швидше знайти відповідний матеріал.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Чи потрібно створювати обліковий запис?</summary>
-            <div class="faq-answer">
-              <p>У поточній версії прогрес зберігається локально у браузері цього пристрою. Повноцінні профілі та
+</div>
+</details>
+<details class="faq-item">
+<summary>Чи потрібно створювати обліковий запис?</summary>
+<div class="faq-answer">
+<p>У поточній версії прогрес зберігається локально у браузері цього пристрою. Повноцінні профілі та
                 синхронізація між пристроями залежать від майбутнього підключення хмарного сховища.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Де подивитися свій прогрес?</summary>
-            <div class="faq-answer">
-              <p>На головній сторінці є блок прогресу та досягнень. Там відображаються завершені уроки, баланс комп’юшок
+</div>
+</details>
+<details class="faq-item">
+<summary>Де подивитися свій прогрес?</summary>
+<div class="faq-answer">
+<p>На головній сторінці є блок прогресу та досягнень. Там відображаються завершені уроки, баланс комп’юшок
                 і доступні нагороди, якщо відповідні елементи присутні у версії сторінки.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Що робити, якщо урок не відкривається або прогрес не оновлюється?</summary>
-            <div class="faq-answer">
-              <p>Онови сторінку, перевір підключення до інтернету та відкрий сайт у сучасному браузері. Не очищуй дані
+</div>
+</details>
+<details class="faq-item">
+<summary>Що робити, якщо урок не відкривається або прогрес не оновлюється?</summary>
+<div class="faq-answer">
+<p>Онови сторінку, перевір підключення до інтернету та відкрий сайт у сучасному браузері. Не очищуй дані
                 сайту, якщо хочеш зберегти локальний прогрес. Якщо проблема повторюється, повідом учителя й зазнач назву
                 уроку та пристрій.</p>
-            </div>
-          </details>
-        </div>
-      </section>
-
-      <section class="faq-section">
-        <div class="section-heading">
-          <div><span class="eyebrow">НАВЧАЛЬНІ БАЛИ</span>
-            <h2>Комп’юшки: як отримувати й використовувати</h2>
-          </div>
-        </div>
-        <div class="coin-intro glass-panel"><span class="coin-big">🪙</span>
-          <div>
-            <h3>Комп’юшки — винагорода за навчання</h3>
-            <p>Вони заохочують проходити уроки, практикуватися та перевіряти свої знання.</p>
-          </div>
-        </div>
-        <div class="faq-list">
-          <details class="faq-item" open>
-            <summary>Як отримувати комп’юшки?</summary>
-            <div class="faq-answer">
-              <ul>
-                <li><strong>🪙 +5 комп’юшок</strong> — за перше успішне проходження уроку на простому рівні.</li>
-                <li><strong>🪙 +10 комп’юшок</strong> — на середньому рівні.</li>
-                <li><strong>🪙 +20 комп’юшок</strong> — на складному рівні.</li>
-                <li>За повторне проходження можна отримати додаткові комп’юшки лише тоді, коли покращено найкращий результат уроку. Бонус залежить від величини покращення.</li>
-              </ul>
-              <p>Для отримання базової винагороди потрібно набрати щонайменше 70%. Окремого бонусу за 100% немає. Базова винагорода нараховується лише один раз за урок.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Де побачити баланс?</summary>
-            <div class="faq-answer">
-              <p>Баланс відображається у блоці прогресу/досягнень на сторінці, де він передбачений. Дані зберігаються
+</div>
+</details>
+</div>
+</section>
+<section class="faq-section">
+<div class="section-heading">
+<div><span class="eyebrow">НАВЧАЛЬНІ БАЛИ</span>
+<h2>Комп’юшки: як отримувати й використовувати</h2>
+</div>
+</div>
+<div class="coin-intro glass-panel"><span class="coin-big">🪙</span>
+<div>
+<h3>Комп’юшки — винагорода за навчання</h3>
+<p>Вони заохочують проходити уроки, практикуватися та перевіряти свої знання.</p>
+</div>
+</div>
+<div class="faq-list">
+<details class="faq-item" open="">
+<summary>Як отримувати комп’юшки?</summary>
+<div class="faq-answer">
+<ul>
+<li><strong>🪙 +5 комп’юшок</strong> — за перше успішне проходження уроку на простому рівні.</li>
+<li><strong>🪙 +10 комп’юшок</strong> — на середньому рівні.</li>
+<li><strong>🪙 +20 комп’юшок</strong> — на складному рівні.</li>
+<li>За повторне проходження можна отримати додаткові комп’юшки лише тоді, коли покращено найкращий результат уроку. Бонус залежить від величини покращення.</li>
+</ul>
+<p>Для отримання базової винагороди потрібно набрати щонайменше 70%. Окремого бонусу за 100% немає. Базова винагорода нараховується лише один раз за урок.</p>
+</div>
+</details>
+<details class="faq-item">
+<summary>Де побачити баланс?</summary>
+<div class="faq-answer">
+<p>Баланс відображається у блоці прогресу/досягнень на сторінці, де він передбачений. Дані зберігаються
                 локально в браузері.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>На що можна використовувати комп’юшки?</summary>
-            <div class="faq-answer">
-              <p>У розділі «Досягнення й нагороди» можна відкривати декоративні та навчальні нагороди за комп’юшки. Це внутрішні бали платформи, вони не мають грошової вартості.</p>
-              <p>Набір доступних нагород і їхні ціни в 🪙 комп’юшках відображаються безпосередньо в каталозі.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Чи зникнуть мої комп’юшки, якщо змінити пристрій?</summary>
-            <div class="faq-answer">
-              <p>Оскільки зараз дані зберігаються локально, вони не синхронізуються автоматично між пристроями або
+</div>
+</details>
+<details class="faq-item">
+<summary>На що можна використовувати комп’юшки?</summary>
+<div class="faq-answer">
+<p>У розділі «Досягнення й нагороди» можна відкривати декоративні та навчальні нагороди за комп’юшки. Це внутрішні бали платформи, вони не мають грошової вартості.</p>
+<p>Набір доступних нагород і їхні ціни в 🪙 комп’юшках відображаються безпосередньо в каталозі.</p>
+</div>
+</details>
+<details class="faq-item">
+<summary>Чи зникнуть мої комп’юшки, якщо змінити пристрій?</summary>
+<div class="faq-answer">
+<p>Оскільки зараз дані зберігаються локально, вони не синхронізуються автоматично між пристроями або
                 браузерами. Не очищуй дані сайту без потреби. Хмарна синхронізація потребуватиме окремої інтеграції.</p>
-            </div>
-          </details>
-        </div>
-      </section>
-
-      <section class="faq-section">
-        <div class="section-heading">
-          <div><span class="eyebrow">НАВЧАННЯ ТА ДОСЯГНЕННЯ</span>
-            <h2>Ще кілька відповідей</h2>
-          </div>
-        </div>
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary>Чи можна проходити уроки у власному темпі?</summary>
-            <div class="faq-answer">
-              <p>Так. Обирай доступні уроки й повертайся до навчання у зручний час. Якщо урок містить інтерактивні
+</div>
+</details>
+</div>
+</section>
+<section class="faq-section">
+<div class="section-heading">
+<div><span class="eyebrow">НАВЧАННЯ ТА ДОСЯГНЕННЯ</span>
+<h2>Ще кілька відповідей</h2>
+</div>
+</div>
+<div class="faq-list">
+<details class="faq-item">
+<summary>Чи можна проходити уроки у власному темпі?</summary>
+<div class="faq-answer">
+<p>Так. Обирай доступні уроки й повертайся до навчання у зручний час. Якщо урок містить інтерактивні
                 вправи, виконуй їх за інструкціями на сторінці.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Що таке досягнення?</summary>
-            <div class="faq-answer">
-              <p>Це відзнаки за навчальні кроки — наприклад, перший завершений урок, кілька пройдених уроків або
+</div>
+</details>
+<details class="faq-item">
+<summary>Що таке досягнення?</summary>
+<div class="faq-answer">
+<p>Це відзнаки за навчальні кроки — наприклад, перший завершений урок, кілька пройдених уроків або
                 ідеальний результат. Перелік доступних досягнень визначається реалізацією сервісу.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Чи замінюють комп’юшки оцінки?</summary>
-            <div class="faq-answer">
-              <p>Ні. Комп’юшки — це ігрова винагорода за активність і результат, а не шкільна оцінка. Вони не повинні
+</div>
+</details>
+<details class="faq-item">
+<summary>Чи замінюють комп’юшки оцінки?</summary>
+<div class="faq-answer">
+<p>Ні. Комп’юшки — це ігрова винагорода за активність і результат, а не шкільна оцінка. Вони не повинні
                 замінювати зворотний зв’язок учителя.</p>
-            </div>
-          </details>
-        </div>
-      </section>
-      <footer class="page-footer"><a href="index.html">← На головну</a><span>Навчальна лабораторія ✦</span></footer>
-    </main>
-  </div>
-  <div class="mobile-scrim" id="mobileScrim"></div>
+</div>
+</details>
+</div>
+</section>
+<footer class="page-footer"><a href="index.html">← На головну</a><span>Навчальна лабораторія ✦</span></footer>
+</main>
+</div>
+<div class="mobile-scrim" id="mobileScrim"></div>
 </body>
-
 </html>

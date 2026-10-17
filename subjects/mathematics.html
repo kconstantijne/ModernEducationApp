@@ -1,100 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="uk">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Математика — Навчальна лабораторія</title>
-  <link rel="stylesheet" href="../css/design-system.css">
-  <link rel="stylesheet" href="../css/components.css">
-  <script src="../js/theme.js" defer></script>
-  <script src="../js/sidebar.js" defer></script>
-  <script src="../js/gamification.js" defer></script>
-  <script src="../js/catalog.js" defer></script>
-  <link rel="stylesheet" href="../css/banner-system.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Математика — Навчальна лабораторія</title>
+<link href="../css/design-system.css" rel="stylesheet"/>
+<link href="../css/components.css" rel="stylesheet"/>
+<script defer="" src="../js/theme.js"></script>
+<script defer="" src="../js/sidebar.js"></script>
+<script defer="" src="../js/gamification.js"></script>
+<script defer="" src="../js/catalog.js"></script>
+<link href="../css/banner-system.css" rel="stylesheet"/>
 </head>
-
 <body data-subject="math">
-  <div class="app-shell">
-    <aside class="sidebar glass-panel" id="sidebar">
-      <div class="sidebar-header"><a class="brand" href="../index.html" aria-label="Навчальна лабораторія — головна">
-          <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true">
-              <rect x="4" y="4" width="32" height="32" rx="11" fill="currentColor" opacity=".13" />
-              <path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor" stroke-width="2.4"
-                stroke-linecap="round" stroke-linejoin="round" />
-            </svg></span>
-          <span><strong>Навчальна</strong><small>лабораторія</small></span></a></div>
-      <div class="side-label">ПРОСТІР НАВЧАННЯ</div>
-      <nav class="main-nav" aria-label="Основна навігація">
-        <a class="nav-item" href="../index.html"><span>⌂</span> Головна</a>
-        <details class="nav-dropdown" open>
-          <summary class="nav-item dropdown-summary"><span>▦</span><span class="dropdown-title">Предмети</span><span class="dropdown-chevron" aria-hidden="true">⌄</span></summary>
-          <div class="nav-submenu">
-            <a class="nav-item active" href="../subjects/mathematics.html" aria-current="page"><span>∑</span> Математика</a>
-            <a class="nav-item" href="../subjects/informatics.html"><span>⌘</span> Інформатика</a>
-            <a class="nav-item" href="../subjects/stem.html"><span>⚙︎</span> STEM</a>
-          </div>
-        </details>
-      <a class="nav-item achievements-nav-item" href="../achievements.html"><span>✧</span> Досягнення й нагороди</a>
-      <a class="nav-item profile-nav-item" href="../profile.html"><span>◉</span> Мій профіль</a>
-        <a class="nav-item faq-nav-item" href="../faq.html"><span>?</span> Часті питання</a>
-        <a class="nav-item about-nav-item" href="../about.html"><span>ⓘ</span> Про застосунок</a>
-        
-      </nav>
-      <div class="sidebar-bottom">
-                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Перемкнути тему"><span class="theme-icon" aria-hidden="true">☾</span><span>Змінити тему</span><span class="toggle-track theme-switch-track" aria-hidden="true"><i></i></span></button>
-        <div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong>
-          <p>Досліджуй, пробуй і відкривай нове щодня.</p>
-        </div>
-        <div class="sidebar-foot">Створено для допитливих ✦</div>
-      </div>
-    </aside>
-    <main class="main-content">
-      <header class="topbar"><button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню"
-          aria-expanded="false"><span></span><span></span><span></span></button>
-        <div class="breadcrumb"><a href="../index.html">Головна</a><span>/</span><strong>Математика</strong></div>
-        <div class="top-actions"><label class="search-box"><span>⌕</span><input id="searchInput"
-              placeholder="Знайти урок..." aria-label="Знайти урок"></label><button class="icon-button top-theme"
-            data-theme-toggle>◐</button></div>
-      </header>
-      <section class="welcome-banner">
-        <div class="welcome-copy"><span class="eyebrow">ДОСЛІДЖУЙ СВІТ ЧИСЕЛ І ФОРМ</span>
-          <h1>Математика —<br><em>це цікаво!</em></h1>
-          <p>Відкривай закономірності, досліджуй фігури та розв'язуй завдання крок за кроком.</p>
-        </div>
-        <div class="hero-art">
-          <div class="hero-glass-card"><span class="hero-card-icon">∑</span><strong>Логіка
-              +<br>Уява</strong><small>Знайди власний шлях</small></div>
-          <div class="orbit orbit-one"></div>
-        </div>
-      </section>
-      <section class="section-block">
-        <div class="section-heading">
-          <div><span class="eyebrow">ТВОЯ НАВЧАЛЬНА МАНДРІВКА</span>
-            <h2>Уроки з математики</h2>
-          </div><span class="lesson-count" id="lessonCount"></span>
-        </div><label class="grade-filter subject-grade-filter"><span>Клас:</span><select id="gradeFilter"
-            aria-label="Фільтр за класом">
-            <option value="all">Усі класи</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-          </select></label>
-        <div class="lesson-grid" id="lessonGrid"></div>
-        <p class="empty-state hidden" id="emptyState">Нічого не знайдено.</p>
-      </section>
-      <footer class="page-footer"><a href="../index.html">← На головну</a><span>Навчальна лабораторія ✦</span></footer>
-    </main>
-  </div>
-  <div class="mobile-scrim" id="mobileScrim"></div>
+<div class="app-shell">
+<aside class="sidebar glass-panel" id="sidebar">
+<div class="sidebar-header"><a aria-label="Навчальна лабораторія — головна" class="brand" href="../index.html">
+<span class="brand-mark"><svg aria-hidden="true" viewbox="0 0 40 40">
+<rect fill="currentColor" height="32" opacity=".13" rx="11" width="32" x="4" y="4"></rect>
+<path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
+</svg></span>
+<span><strong>Навчальна</strong><small>лабораторія</small></span></a></div>
+<div class="side-label">ПРОСТІР НАВЧАННЯ</div>
+<nav aria-label="Основна навігація" class="main-nav"><details class="nav-dropdown nav-category" open=""><summary class="nav-item dropdown-summary"><span>❀</span><span class="dropdown-title">Навчання</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item" href="../index.html"><span>⌂</span> Головна</a><details class="nav-dropdown" open="">
+<summary class="nav-item dropdown-summary"><span>❖</span><span class="dropdown-title">Предмети</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary>
+<div class="nav-submenu">
+<a aria-current="page" class="nav-item active" href="../subjects/mathematics.html"><span>∑</span> Математика</a>
+<a class="nav-item" href="../subjects/informatics.html"><span>⌘</span> Інформатика</a>
+<a class="nav-item" href="../subjects/stem.html"><span>⚙︎</span> STEM</a>
+</div>
+</details></div></details><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>✧</span><span class="dropdown-title">Мій результат</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item profile-nav-item" href="../profile.html"><span>◉</span> Мій профіль</a><a class="nav-item achievements-nav-item" href="../achievements.html"><span>✧</span> Досягнення й нагороди</a></div></details><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>ⓘ</span><span class="dropdown-title">Довідка</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item faq-nav-item" href="../faq.html"><span>?</span> Часті питання</a><a class="nav-item about-nav-item" href="../about.html"><span>ⓘ</span> Про застосунок</a></div></details></nav>
+<div class="sidebar-bottom">
+<button aria-label="Перемкнути тему" class="theme-toggle" data-theme-toggle="" type="button"><span aria-hidden="true" class="theme-icon">☾</span><span>Змінити тему</span><span aria-hidden="true" class="toggle-track theme-switch-track"><i></i></span></button>
+<div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong>
+<p>Досліджуй, пробуй і відкривай нове щодня.</p>
+</div>
+<div class="sidebar-foot">Створено для допитливих ✦</div>
+</div>
+</aside>
+<main class="main-content">
+<header class="topbar"><button aria-expanded="false" aria-label="Відкрити меню" class="mobile-menu icon-button" id="mobileMenu"><span></span><span></span><span></span></button>
+<div class="breadcrumb"><a href="../index.html">Головна</a><span>/</span><strong>Математика</strong></div>
+<div class="top-actions"><label class="search-box"><span>⌕</span><input aria-label="Знайти урок" id="searchInput" placeholder="Знайти урок..."/></label><button class="icon-button top-theme" data-theme-toggle="">◐</button></div>
+</header>
+<section class="welcome-banner">
+<div class="welcome-copy"><span class="eyebrow">ДОСЛІДЖУЙ СВІТ ЧИСЕЛ І ФОРМ</span>
+<h1>Математика —<br/><em>це цікаво!</em></h1>
+<p>Відкривай закономірності, досліджуй фігури та розв'язуй завдання крок за кроком.</p>
+</div>
+<div class="hero-art">
+<div class="hero-glass-card"><span class="hero-card-icon">∑</span><strong>Логіка
+              +<br/>Уява</strong><small>Знайди власний шлях</small></div>
+<div class="orbit orbit-one"></div>
+</div>
+</section>
+<section class="section-block">
+<div class="section-heading">
+<div><span class="eyebrow">ТВОЯ НАВЧАЛЬНА МАНДРІВКА</span>
+<h2>Уроки з математики</h2>
+</div><span class="lesson-count" id="lessonCount"></span>
+</div><label class="grade-filter subject-grade-filter"><span>Клас:</span><select aria-label="Фільтр за класом" id="gradeFilter">
+<option value="all">Усі класи</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+</select></label>
+<div class="lesson-grid" id="lessonGrid"></div>
+<p class="empty-state hidden" id="emptyState">Нічого не знайдено.</p>
+</section>
+<footer class="page-footer"><a href="../index.html">← На головну</a><span>Навчальна лабораторія ✦</span></footer>
+</main>
+</div>
+<div class="mobile-scrim" id="mobileScrim"></div>
 </body>
-
 </html>

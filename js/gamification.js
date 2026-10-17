@@ -33,8 +33,8 @@
     { id: 'big-journey', title: 'Велика мандрівка', description: 'Заверши 12 уроків', icon: '🚀', test: p => p.completed.length >= 12 }
   ];
   function evaluate(all) { const p = read(); let changed = false; achievements.forEach(a => { if (!p.achievements.includes(a.id) && a.test(p, all)) { p.achievements.push(a.id); changed = true } }); if (changed) save(p); return p; }
-  // За урок нараховується винагорода відповідно до найвищої успішно пройденої складності.
-  // Підвищення складності додає лише різницю між новою та вже отриманою винагородою.
+  // Винагорода накопичується до вартості найвищої успішно пройденої складності.
+  // Підвищення складності видає лише різницю; покращення найкращого результату має окремий бонус.
   const BASE_REWARDS = { simple: 5, medium: 10, hard: 20 };
   const SHOP_ITEMS = [
     { id: 'avatar-neon', title: 'Неоновий аватар', description: 'Косметичне оформлення профілю', price: 30, type: 'cosmetic' },
@@ -67,73 +67,68 @@
     if (!id || !Number.isFinite(Number(scorePercent))) return { success: false, reason: 'invalid-result', coinsAwarded: 0 };
     const score = Math.max(0, Math.min(100, Math.round(Number(scorePercent))));
     const level = normalizeDifficulty(difficulty);
+    const levelRank = { simple: 1, medium: 2, hard: 3 };
     const p = ensureProfile(read());
     const previous = p.lessonResults[id] || { bestScore: null, baseAwarded: false, baseReward: 0 };
-    const previousBest = previous.bestScore === null ? null : Number(previous.bestScore);
+    const previousBest = previous.bestScore === null || previous.bestScore === undefined ? null : Number(previous.bestScore);
     if (score < 70) {
       return { success: true, passed: false, coinsAwarded: 0, score, message: 'Потрібно набрати щонайменше 70%, щоб отримати базову винагороду.' };
     }
+
+    // Міграція старих записів: раніше зберігався лише факт базової нагороди.
+    let highestRewardedLevel = previous.highestRewardedLevel || (previous.baseAwarded
+      ? (previous.lastDifficulty || (Number(previous.baseReward) >= 20 ? 'hard' : Number(previous.baseReward) >= 10 ? 'medium' : 'simple'))
+      : null);
+    if (highestRewardedLevel && !BASE_REWARDS[highestRewardedLevel]) highestRewardedLevel = normalizeDifficulty(highestRewardedLevel);
+
     let coinsAwarded = 0;
     let baseAward = 0;
-    let difficultyUpgradeAward = 0;
     let improvementBonus = 0;
-    const previouslyEarnedBase = Math.max(0, Number(previous.baseReward) || 0);
-    const targetReward = BASE_REWARDS[level];
+    const currentRank = levelRank[level];
+    const previousRank = highestRewardedLevel ? levelRank[highestRewardedLevel] : 0;
 
-    if (!previous.baseAwarded || targetReward > previouslyEarnedBase) {
-      // Нараховуємо лише різницю: simple 5 → medium +5 → hard +10.
-      baseAward = Math.max(0, targetReward - previouslyEarnedBase);
-      difficultyUpgradeAward = previous.baseAwarded ? baseAward : 0;
-      previous.baseAwarded = true;
-      previous.baseReward = Math.max(previouslyEarnedBase, targetReward);
+    if (currentRank > previousRank) {
+      // Нараховуємо лише різницю між новою і вже отриманою винагородою.
+      baseAward = BASE_REWARDS[level] - (BASE_REWARDS[highestRewardedLevel] || 0);
       if (baseAward > 0) {
         coinsAwarded += baseAward;
-        const isUpgrade = previouslyEarnedBase > 0;
-        pushLedger(p, {
-          type: isUpgrade ? 'lesson-upgrade' : 'lesson-base',
-          lessonId: id,
-          amount: baseAward,
-          totalReward: previous.baseReward,
-          score,
-          difficulty: level,
-          description: isUpgrade
-            ? `Доплата за складність «${level}» (різниця винагород)`
-            : `Базова винагорода за урок (${level})`
-        });
+        highestRewardedLevel = level;
+        previous.highestRewardedLevel = level;
+        previous.baseAwarded = true;
+        previous.baseReward = BASE_REWARDS[level];
+        if (!p.completed.includes(id)) p.completed.push(id);
+        pushLedger(p, { type: 'lesson-base', lessonId: id, amount: baseAward, score, difficulty: level, description: `Доплата за рівень складності (${level})` });
       }
-      if (!p.completed.includes(id)) p.completed.push(id);
     }
 
     if (previousBest !== null && score > previousBest) {
       const delta = score - previousBest;
-      // Окремий невеликий бонус за новий найкращий відсотковий результат.
       improvementBonus = Math.max(1, Math.round((previous.baseReward || BASE_REWARDS[level]) * delta / 100));
       coinsAwarded += improvementBonus;
-      pushLedger(p, { type: 'lesson-improvement', lessonId: id, amount: improvementBonus, previousScore: previousBest, score, description: `Бонус за покращення результату на ${delta} в. п.` });
+      pushLedger(p, { type: 'lesson-improvement', lessonId: id, amount: improvementBonus, previousScore: previousBest, score, difficulty: level, description: `Бонус за покращення результату на ${delta} в. п.` });
     }
+
     if (previousBest === null || score > previousBest) previous.bestScore = score;
     previous.lastScore = score;
     previous.lastDifficulty = level;
     previous.lastAttemptAt = new Date().toISOString();
+    previous.highestRewardedLevel = highestRewardedLevel;
+    previous.baseAwarded = Boolean(highestRewardedLevel);
+    previous.baseReward = highestRewardedLevel ? BASE_REWARDS[highestRewardedLevel] : 0;
     p.lessonResults[id] = previous;
     p.coins += coinsAwarded;
     if (score === 100 && !p.perfect.includes(id)) p.perfect.push(id);
-    if (coinsAwarded === 0 && previous.baseAwarded) {
-      // No ledger entry for an identical or lower score: prevents repeated-test farming.
-    }
     save(p);
     const all = window.lessonCatalog || [];
     const latest = evaluate(all);
     renderProfile(all);
-    const message = baseAward && difficultyUpgradeAward
-      ? `🪙 +${baseAward} комп’юшок — доплата за вищу складність!`
-      : baseAward
-        ? `🪙 +${baseAward} комп’юшок за урок!`
-        : improvementBonus
-          ? `🪙 +${improvementBonus} комп’юшок за покращення результату!`
-          : 'Нових комп’юшок цього разу немає. Покращуй свій найкращий результат!';
+    const message = baseAward
+      ? `🪙 +${baseAward} комп’юшок за перехід на рівень «${level === 'simple' ? 'Легкий' : level === 'medium' ? 'Середній' : 'Важкий'}»!`
+      : improvementBonus
+        ? `🪙 +${improvementBonus} комп’юшок за покращення результату!`
+        : 'Нових комп’юшок цього разу немає. Покращуй свій найкращий результат!';
     showRewardNotice(message, coinsAwarded);
-    return { success: true, passed: true, coinsAwarded, baseAward, difficultyUpgradeAward, improvementBonus, score, bestScore: previous.bestScore, highestRewardedDifficulty: Object.keys(BASE_REWARDS).find(key => BASE_REWARDS[key] === previous.baseReward) || level, profile: latest, message };
+    return { success: true, passed: true, coinsAwarded, baseAward, improvementBonus, score, bestScore: previous.bestScore, highestRewardedLevel, profile: latest, message };
   }
   let rewardNoticeTimer = null;
   function showRewardNotice(message, amount) {

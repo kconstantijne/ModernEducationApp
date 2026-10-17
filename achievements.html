@@ -1,64 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="uk">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f6fb">
-  <meta name="description" content="Відкривай нагороди за навчальні перемоги в Навчальній лабораторії.">
-  <title>Досягнення й нагороди — Навчальна лабораторія</title>
-  <link rel="stylesheet" href="css/design-system.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/banner-system.css">
-  <link rel="stylesheet" href="css/achievements.css">
-  <script src="js/theme.js" defer></script>
-  <script src="js/sidebar.js" defer></script>
-  <script src="js/gamification.js" defer></script>
-  <script src="js/shop.js" defer></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f4f6fb" name="theme-color"/>
+<meta content="Відкривай нагороди за навчальні перемоги в Навчальній лабораторії." name="description"/>
+<title>Досягнення й нагороди — Навчальна лабораторія</title>
+<link href="css/design-system.css" rel="stylesheet"/>
+<link href="css/components.css" rel="stylesheet"/>
+<link href="css/banner-system.css" rel="stylesheet"/>
+<link href="css/achievements.css" rel="stylesheet"/>
+<script defer="" src="js/theme.js"></script>
+<script defer="" src="js/sidebar.js"></script>
+<script defer="" src="js/gamification.js"></script>
+<script defer="" src="js/shop.js"></script>
 </head>
 <body>
 <div class="app-shell">
-  <aside class="sidebar glass-panel" id="sidebar">
-    <div class="sidebar-header"><a class="brand" href="index.html" aria-label="Навчальна лабораторія — головна">
-      <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="4" width="32" height="32" rx="11" fill="currentColor" opacity=".13"/><path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span><strong>Навчальна</strong><small>лабораторія</small></span></a></div>
-    <div class="side-label">ПРОСТІР НАВЧАННЯ</div>
-    <nav class="main-nav" aria-label="Основна навігація">
-      <a class="nav-item" href="index.html"><span>⌂</span> Головна</a>
-      <details class="nav-dropdown"><summary class="nav-item dropdown-summary"><span>▦</span><span class="dropdown-title">Предмети</span><span class="dropdown-chevron" aria-hidden="true">⌄</span></summary>
-        <div class="nav-submenu"><a class="nav-item" href="subjects/mathematics.html"><span>∑</span> Математика</a><a class="nav-item" href="subjects/informatics.html"><span>⌘</span> Інформатика</a><a class="nav-item" href="subjects/stem.html"><span>⚙︎</span> STEM</a></div>
-      </details>
-      <a class="nav-item achievements-nav-item active" href="achievements.html" aria-current="page"><span>✧</span> Досягнення й нагороди</a>
-      <a class="nav-item profile-nav-item" href="profile.html"><span>◉</span> Мій профіль</a>
-      <a class="nav-item faq-nav-item" href="faq.html"><span>?</span> Часті питання</a>
-      <a class="nav-item about-nav-item" href="about.html"><span>ⓘ</span> Про застосунок</a>
-    </nav>
-    <div class="sidebar-bottom"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Перемкнути тему"><span class="theme-icon" aria-hidden="true">☾</span><span>Змінити тему</span><span class="toggle-track theme-switch-track" aria-hidden="true"><i></i></span></button>
-      <div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong><p>Досліджуй, пробуй і відкривай нове щодня.</p></div><div class="sidebar-foot">Створено для допитливих ✦</div></div>
-  </aside>
-  <main class="main-content">
-    <header class="topbar"><button class="mobile-menu icon-button" id="mobileMenu" aria-label="Відкрити меню" aria-expanded="false"><span></span><span></span><span></span></button><div class="breadcrumb"><a href="index.html">Головна</a><span>/</span><strong>Досягнення й нагороди</strong></div><div class="top-actions"><button class="icon-button top-theme" data-theme-toggle aria-label="Перемкнути тему">◐</button></div></header>
-    <section class="welcome-banner achievements-hero"><div class="welcome-copy"><span class="eyebrow"><span class="live-dot"></span> КОЖЕН КРОК — ЦЕ ПЕРЕМОГА</span><h1>Твій прогрес<br><em>і нагороди</em> ✦</h1><p>Відстежуй навчальні перемоги, збирай комп’юшки за результати тестів і відкривай нагороди. Комп’юшки — лише внутрішні навчальні бали, без грошової вартості.</p></div><div class="hero-art"><div class="hero-glass-card"><span class="hero-card-icon">🏆</span><strong>Мисли.<br>Досліджуй.</strong><small>Збирай свої перемоги</small></div><div class="orbit orbit-one"></div></div></section>
-    <section class="achievement-summary" aria-label="Твій прогрес">
-      <article class="summary-card glass-panel"><span class="summary-icon">🏆</span><div><strong id="earnedCount">0</strong><span>досягнень відкрито</span></div></article>
-      <article class="summary-card glass-panel"><span class="summary-icon">🪙</span><div><strong data-coins>0</strong><span>баланс комп’юшок</span></div></article>
-      <article class="summary-card glass-panel"><span class="summary-icon">📚</span><div><strong data-completed>0</strong><span>уроків завершено</span></div></article>
-    </section>
-    <section class="section-block achievements-section"><div class="section-heading"><div><span class="eyebrow">ТВОЯ НАВЧАЛЬНА МАНДРІВКА</span><h2>Навчальні досягнення</h2><p class="achievement-intro">Відкриті досягнення підсвічуються. Інші чекають на свою мить!</p></div><span class="lesson-count" id="achievementProgress">0 / 25</span></div><div class="achievement-carousel" id="achievementCarousel">
-        <div class="achievement-grid" id="achievementList" aria-live="polite"></div>
-        <div class="carousel-controls" aria-label="Керування каруселлю досягнень">
-          <button class="carousel-arrow" type="button" id="achievementPrev" aria-label="Попередні 8 досягнень" disabled>←</button>
-          <span class="carousel-page" id="achievementPage" aria-live="polite">1 / 4</span>
-          <button class="carousel-arrow" type="button" id="achievementNext" aria-label="Наступні 8 досягнень">→</button>
-        </div>
-      </div></section>
-    <section class="section-block achievements-section reward-shop-section" id="rewards">
-      <div class="section-heading"><div><span class="eyebrow">ТВОЇ ЗНАННЯ — ТВОЇ МОЖЛИВОСТІ</span><h2>Простір нагород</h2><p class="achievement-intro">Виконуй уроки, заробляй комп’юшки та відкривай бонуси для своєї навчальної подорожі.</p></div><span class="lesson-count">🪙 <span data-coins>0</span> комп’юшок</span></div>
-      <div class="reward-info-note"><strong>Що таке комп’юшки?</strong><p>Це навчальні бали платформи. Вони не мають грошової вартості, не купуються за реальні гроші й нараховуються за успішне проходження тестів та покращення результатів.</p></div>
-      <div id="shopMessage" class="reward-toast" role="status" aria-live="polite" hidden></div>
-      <div class="achievement-grid reward-grid" id="shopGrid" aria-live="polite"></div>
-      <div class="owned-rewards-block"><div class="section-heading"><div><span class="eyebrow">ТВОЇ ВІДКРИТТЯ</span><h3>Відкриті нагороди</h3><p class="achievement-intro">Усі нагороди, які ти вже відкрив.</p></div></div><div class="owned-rewards-carousel" id="ownedCarousel" data-page="0"><div id="ownedItems" class="owned-rewards-list" aria-live="polite">Поки що нагород не відкрито.</div><div class="carousel-controls" aria-label="Керування каруселлю відкритих нагород"><button class="carousel-arrow" type="button" id="ownedPrev" aria-label="Попередні нагороди" disabled>←</button><span class="carousel-page" id="ownedPage" aria-live="polite">1 / 1</span><button class="carousel-arrow" type="button" id="ownedNext" aria-label="Наступні нагороди" disabled>→</button></div></div></div>
-    </section>
-    <footer class="page-footer"><span>Навчальна лабораторія</span><span>Створюй. Досліджуй. Навчайся. <b>✦</b></span></footer>
-  </main>
+<aside class="sidebar glass-panel" id="sidebar">
+<div class="sidebar-header"><a aria-label="Навчальна лабораторія — головна" class="brand" href="index.html">
+<span class="brand-mark"><svg aria-hidden="true" viewbox="0 0 40 40"><rect fill="currentColor" height="32" opacity=".13" rx="11" width="32" x="4" y="4"></rect><path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path></svg></span>
+<span><strong>Навчальна</strong><small>лабораторія</small></span></a></div>
+<div class="side-label">ПРОСТІР НАВЧАННЯ</div>
+<nav aria-label="Основна навігація" class="main-nav"><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>❀</span><span class="dropdown-title">Навчання</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item" href="index.html"><span>⌂</span> Головна</a><details class="nav-dropdown"><summary class="nav-item dropdown-summary"><span>❖</span><span class="dropdown-title">Предмети</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary>
+<div class="nav-submenu"><a class="nav-item" href="subjects/mathematics.html"><span>∑</span> Математика</a><a class="nav-item" href="subjects/informatics.html"><span>⌘</span> Інформатика</a><a class="nav-item" href="subjects/stem.html"><span>⚙︎</span> STEM</a></div>
+</details></div></details><details class="nav-dropdown nav-category" open=""><summary class="nav-item dropdown-summary"><span>✧</span><span class="dropdown-title">Мій результат</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item profile-nav-item" href="profile.html"><span>◉</span> Мій профіль</a><a aria-current="page" class="nav-item achievements-nav-item active" href="achievements.html"><span>✧</span> Досягнення й нагороди</a></div></details><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>ⓘ</span><span class="dropdown-title">Довідка</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item faq-nav-item" href="faq.html"><span>?</span> Часті питання</a><a class="nav-item about-nav-item" href="about.html"><span>ⓘ</span> Про застосунок</a></div></details></nav>
+<div class="sidebar-bottom"><button aria-label="Перемкнути тему" class="theme-toggle" data-theme-toggle="" type="button"><span aria-hidden="true" class="theme-icon">☾</span><span>Змінити тему</span><span aria-hidden="true" class="toggle-track theme-switch-track"><i></i></span></button>
+<div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong><p>Досліджуй, пробуй і відкривай нове щодня.</p></div><div class="sidebar-foot">Створено для допитливих ✦</div></div>
+</aside>
+<main class="main-content">
+<header class="topbar"><button aria-expanded="false" aria-label="Відкрити меню" class="mobile-menu icon-button" id="mobileMenu"><span></span><span></span><span></span></button><div class="breadcrumb"><a href="index.html">Головна</a><span>/</span><strong>Досягнення й нагороди</strong></div><div class="top-actions"><button aria-label="Перемкнути тему" class="icon-button top-theme" data-theme-toggle="">◐</button></div></header>
+<section class="welcome-banner achievements-hero"><div class="welcome-copy"><span class="eyebrow"><span class="live-dot"></span> КОЖЕН КРОК — ЦЕ ПЕРЕМОГА</span><h1>Твій прогрес<br/><em>і нагороди</em> ✦</h1><p>Відстежуй навчальні перемоги, збирай комп’юшки за результати тестів і відкривай нагороди. Комп’юшки — лише внутрішні навчальні бали, без грошової вартості.</p></div><div class="hero-art"><div class="hero-glass-card"><span class="hero-card-icon">🏆</span><strong>Мисли.<br/>Досліджуй.</strong><small>Збирай свої перемоги</small></div><div class="orbit orbit-one"></div></div></section>
+<section aria-label="Твій прогрес" class="achievement-summary">
+<article class="summary-card glass-panel"><span class="summary-icon">🏆</span><div><strong id="earnedCount">0</strong><span>досягнень відкрито</span></div></article>
+<article class="summary-card glass-panel"><span class="summary-icon">🪙</span><div><strong data-coins="">0</strong><span>баланс комп’юшок</span></div></article>
+<article class="summary-card glass-panel"><span class="summary-icon">📚</span><div><strong data-completed="">0</strong><span>уроків завершено</span></div></article>
+</section>
+<section class="section-block achievements-section"><div class="section-heading"><div><span class="eyebrow">ТВОЯ НАВЧАЛЬНА МАНДРІВКА</span><h2>Навчальні досягнення</h2><p class="achievement-intro">Відкриті досягнення підсвічуються. Інші чекають на свою мить!</p></div><span class="lesson-count" id="achievementProgress">0 / 25</span></div><div class="achievement-carousel" id="achievementCarousel">
+<div aria-live="polite" class="achievement-grid" id="achievementList"></div>
+<div aria-label="Керування каруселлю досягнень" class="carousel-controls">
+<button aria-label="Попередні 8 досягнень" class="carousel-arrow" disabled="" id="achievementPrev" type="button">←</button>
+<span aria-live="polite" class="carousel-page" id="achievementPage">1 / 4</span>
+<button aria-label="Наступні 8 досягнень" class="carousel-arrow" id="achievementNext" type="button">→</button>
+</div>
+</div></section>
+<section class="section-block achievements-section reward-shop-section" id="rewards">
+<div class="section-heading"><div><span class="eyebrow">ТВОЇ ЗНАННЯ — ТВОЇ МОЖЛИВОСТІ</span><h2>Простір нагород</h2><p class="achievement-intro">Виконуй уроки, заробляй комп’юшки та відкривай бонуси для своєї навчальної подорожі.</p></div><span class="lesson-count">🪙 <span data-coins="">0</span> комп’юшок</span></div>
+<div class="reward-info-note"><strong>Що таке комп’юшки?</strong><p>Це навчальні бали платформи. Вони не мають грошової вартості, не купуються за реальні гроші й нараховуються за успішне проходження тестів та покращення результатів.</p></div>
+<div aria-live="polite" class="reward-toast" hidden="" id="shopMessage" role="status"></div>
+<div aria-live="polite" class="achievement-grid reward-grid" id="shopGrid"></div>
+<div class="owned-rewards-block"><div class="section-heading"><div><span class="eyebrow">ТВОЇ ВІДКРИТТЯ</span><h3>Відкриті нагороди</h3><p class="achievement-intro">Усі нагороди, які ти вже відкрив.</p></div></div><div class="owned-rewards-carousel" data-page="0" id="ownedCarousel"><div aria-live="polite" class="owned-rewards-list" id="ownedItems">Поки що нагород не відкрито.</div><div aria-label="Керування каруселлю відкритих нагород" class="carousel-controls"><button aria-label="Попередні нагороди" class="carousel-arrow" disabled="" id="ownedPrev" type="button">←</button><span aria-live="polite" class="carousel-page" id="ownedPage">1 / 1</span><button aria-label="Наступні нагороди" class="carousel-arrow" disabled="" id="ownedNext" type="button">→</button></div></div></div>
+</section>
+<footer class="page-footer"><span>Навчальна лабораторія</span><span>Створюй. Досліджуй. Навчайся. <b>✦</b></span></footer>
+</main>
 </div><div class="mobile-scrim" id="mobileScrim"></div>
 </body></html>

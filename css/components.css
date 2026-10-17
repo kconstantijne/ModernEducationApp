@@ -2151,3 +2151,16 @@ html, body, .app-shell, .sidebar, .main-content, .about-card, .author-card,
   border-color: rgba(255, 255, 255, .13) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, .10);
 }
+
+
+/* Group labels for the organized sidebar navigation */
+.nav-group-label { padding: 13px 10px 5px; margin-top: 5px; }
+.nav-group-label:first-child { margin-top: 0; }
+
+
+/* Category dropdowns for the sidebar navigation */
+.nav-category > .dropdown-summary { border-radius: 10px; }
+.nav-category > .dropdown-summary .dropdown-title { text-transform: none; }
+.nav-category > .nav-submenu { padding-left: 12px; margin-left: 12px; }
+.nav-category > .nav-submenu > .nav-dropdown { margin: 2px 0; }
+.nav-category > .nav-submenu > .nav-dropdown > .dropdown-summary { padding-left: 10px; }

@@ -2,7 +2,7 @@
   const $ = (id) => document.getElementById(id);
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const activityIcon = (entry) => entry.type === 'shop-purchase' ? '🎁' : entry.type === 'lesson-improvement' ? '📈' : '🪙';
-  const activityTitle = (entry) => entry.type === 'shop-purchase' ? 'Відкрито нагороду' : entry.type === 'lesson-improvement' ? 'Покращено результат уроку' : entry.type === 'lesson-upgrade' ? 'Підвищено складність уроку' : entry.type === 'lesson-base' ? 'Успішно завершено урок' : 'Навчальна активність';
+  const activityTitle = (entry) => entry.type === 'shop-purchase' ? 'Відкрито нагороду' : entry.type === 'lesson-improvement' ? 'Покращено результат уроку' : entry.type === 'lesson-base' ? 'Успішно завершено урок' : 'Навчальна активність';
   const PROFILE_KEY = 'learningLabLocalProfile';
   const GOALS_KEY = 'learning-lab-weekly-goals-v1';
   let lessons = [];
