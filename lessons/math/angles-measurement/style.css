@@ -3416,3 +3416,147 @@ html[data-theme="dark"] .finish-banner {
 .answer-option:disabled { cursor:default; }
 @media(max-width:900px) { .triangle-model-layout { grid-template-columns:1fr; } .triangle-svg-wrap { max-width:440px; } }
 @media(max-width:520px) { .triangle-classification { grid-template-columns:1fr; } .triangle-presets button { flex:1 1 40%; } .triangle-svg-wrap { margin-top:16px; } }
+
+/* ============================================================
+   Contrast safety patch — lesson feedback and interactive states
+   Ensures readable text in both themes, including dynamically
+   inserted feedback/result messages.
+   ============================================================ */
+.feedback.correct,
+.feedback-box.good,
+.feedback-box.is-correct,
+.answer-feedback.good,
+.answer-feedback.correct,
+.stage-status.is-success,
+.feedback.success {
+  color: #176447 !important;
+  background: #e8f8f0 !important;
+  border-color: #b8e7d0 !important;
+}
+.feedback.incorrect,
+.feedback-box.bad,
+.feedback-box.is-wrong,
+.answer-feedback.bad,
+.answer-feedback.incorrect,
+.stage-status.is-error,
+.feedback.error {
+  color: #8b2636 !important;
+  background: #fff0f1 !important;
+  border-color: #f0c4ca !important;
+}
+.feedback, .feedback-box, .answer-feedback, .hint-box, .stage-status {
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+html[data-theme="dark"] .feedback.correct,
+html[data-theme="dark"] .feedback-box.good,
+html[data-theme="dark"] .feedback-box.is-correct,
+html[data-theme="dark"] .answer-feedback.good,
+html[data-theme="dark"] .answer-feedback.correct,
+html[data-theme="dark"] .stage-status.is-success,
+html[data-theme="dark"] .feedback.success {
+  color: #baf7d8 !important;
+  background: #173b31 !important;
+  border-color: #2d6b55 !important;
+}
+html[data-theme="dark"] .feedback.incorrect,
+html[data-theme="dark"] .feedback-box.bad,
+html[data-theme="dark"] .feedback-box.is-wrong,
+html[data-theme="dark"] .answer-feedback.bad,
+html[data-theme="dark"] .answer-feedback.incorrect,
+html[data-theme="dark"] .stage-status.is-error,
+html[data-theme="dark"] .feedback.error {
+  color: #ffd4dc !important;
+  background: #482632 !important;
+  border-color: #804252 !important;
+}
+html[data-theme="dark"] .feedback:not(.correct):not(.incorrect):not(.success):not(.error),
+html[data-theme="dark"] .feedback-box:not(.good):not(.bad):not(.is-correct):not(.is-wrong),
+html[data-theme="dark"] .answer-feedback:not(.good):not(.bad):not(.correct):not(.incorrect),
+html[data-theme="dark"] .hint-box,
+html[data-theme="dark"] .remember-banner,
+html[data-theme="dark"] .finish-banner {
+  color: #e7edff !important;
+  background: #202b40 !important;
+  border-color: #425578 !important;
+}
+html[data-theme="dark"] .feedback *,
+html[data-theme="dark"] .feedback-box *,
+html[data-theme="dark"] .answer-feedback *,
+html[data-theme="dark"] .hint-box *,
+html[data-theme="dark"] .remember-banner *,
+html[data-theme="dark"] .finish-banner * { color: inherit !important; }
+html[data-theme="dark"] .result-screen,
+html[data-theme="dark"] .result-view,
+html[data-theme="dark"] .result-card,
+html[data-theme="dark"] .result-copy,
+html[data-theme="dark"] .result-stats > div {
+  color: #e7edff !important;
+  background-color: #1b2437;
+  border-color: #35425f;
+}
+html[data-theme="dark"] .result-screen p,
+html[data-theme="dark"] .result-screen span,
+html[data-theme="dark"] .result-screen small,
+html[data-theme="dark"] .result-screen label,
+html[data-theme="dark"] .result-view p,
+html[data-theme="dark"] .result-view span,
+html[data-theme="dark"] .result-view small,
+html[data-theme="dark"] .result-card p,
+html[data-theme="dark"] .result-card span,
+html[data-theme="dark"] .result-stats span { color: #c8d2eb !important; }
+html[data-theme="dark"] .result-screen h1,
+html[data-theme="dark"] .result-screen h2,
+html[data-theme="dark"] .result-screen h3,
+html[data-theme="dark"] .result-view h1,
+html[data-theme="dark"] .result-view h2,
+html[data-theme="dark"] .result-view h3,
+html[data-theme="dark"] .result-card strong,
+html[data-theme="dark"] .result-stats strong { color: #f3f6ff !important; }
+html[data-theme="dark"] .concept-card,
+html[data-theme="dark"] .level-card,
+html[data-theme="dark"] .quiz-card,
+html[data-theme="dark"] .lab-card,
+html[data-theme="dark"] .lab-sidebar,
+html[data-theme="dark"] .explorer,
+html[data-theme="dark"] .quiz-panel,
+html[data-theme="dark"] .cheat-card,
+html[data-theme="dark"] .cheatsheet-card,
+html[data-theme="dark"] .task-card,
+html[data-theme="dark"] .practice-card {
+  background-color: #1b2437;
+  color: #e7edff;
+  border-color: #35425f;
+}
+html[data-theme="dark"] .concept-card p,
+html[data-theme="dark"] .level-card p,
+html[data-theme="dark"] .quiz-card p,
+html[data-theme="dark"] .lab-card p,
+html[data-theme="dark"] .lab-sidebar p,
+html[data-theme="dark"] .explorer p,
+html[data-theme="dark"] .quiz-panel p,
+html[data-theme="dark"] .cheat-card p,
+html[data-theme="dark"] .cheatsheet-card p,
+html[data-theme="dark"] .task-card p,
+html[data-theme="dark"] .practice-card p { color: #c8d2eb !important; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .feedback.correct,
+  :root:not([data-theme="light"]) .feedback-box.good,
+  :root:not([data-theme="light"]) .feedback-box.is-correct,
+  :root:not([data-theme="light"]) .answer-feedback.good,
+  :root:not([data-theme="light"]) .answer-feedback.correct,
+  :root:not([data-theme="light"]) .stage-status.is-success,
+  :root:not([data-theme="light"]) .feedback.success { color:#baf7d8 !important; background:#173b31 !important; border-color:#2d6b55 !important; }
+  :root:not([data-theme="light"]) .feedback.incorrect,
+  :root:not([data-theme="light"]) .feedback-box.bad,
+  :root:not([data-theme="light"]) .feedback-box.is-wrong,
+  :root:not([data-theme="light"]) .answer-feedback.bad,
+  :root:not([data-theme="light"]) .answer-feedback.incorrect,
+  :root:not([data-theme="light"]) .stage-status.is-error,
+  :root:not([data-theme="light"]) .feedback.error { color:#ffd4dc !important; background:#482632 !important; border-color:#804252 !important; }
+  :root:not([data-theme="light"]) .feedback:not(.correct):not(.incorrect):not(.success):not(.error),
+  :root:not([data-theme="light"]) .feedback-box:not(.good):not(.bad):not(.is-correct):not(.is-wrong),
+  :root:not([data-theme="light"]) .answer-feedback:not(.good):not(.bad):not(.correct):not(.incorrect),
+  :root:not([data-theme="light"]) .hint-box { color:#e7edff !important; background:#202b40 !important; border-color:#425578 !important; }
+}
+

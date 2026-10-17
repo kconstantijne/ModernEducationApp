@@ -122,6 +122,15 @@
       document.body.appendChild(node);
     }
     node.textContent = `${message} Баланс: 🪙 ${profile().coins} комп’юшок.`;
+    // Lesson stylesheets can contain broad !important color rules. Force an explicit,
+    // theme-aware foreground/background so the toast is readable without selecting it.
+    const darkTheme = document.documentElement.dataset.theme === 'dark';
+    node.style.setProperty('color', darkTheme ? '#f4f6ff' : '#20263a', 'important');
+    node.style.setProperty('-webkit-text-fill-color', darkTheme ? '#f4f6ff' : '#20263a', 'important');
+    node.style.setProperty('background', darkTheme ? '#20283b' : '#ffffff', 'important');
+    node.style.setProperty('border-color', darkTheme ? '#46516c' : '#cbd3e6', 'important');
+    node.style.setProperty('text-shadow', 'none', 'important');
+    node.style.setProperty('user-select', 'text');
     node.hidden = false;
     requestAnimationFrame(() => { node.style.opacity = '1'; node.style.transform = 'translateY(0)'; });
     clearTimeout(rewardNoticeTimer);

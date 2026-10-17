@@ -86,3 +86,66 @@
   .profile-achievements-grid .collection-achievement-card { min-height: 155px; padding: 11px; }
   .profile-account-actions > button { flex: 1 1 100%; }
 }
+
+/* Інтегрований навчальний простір у профілі: компактна сітка без зайвого візуального шуму. */
+.profile-overview-four { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 24px; }
+.profile-overview-four .summary-card { min-width: 0; }
+.profile-overview-four .summary-card strong { overflow-wrap: anywhere; }
+.profile-overview-four .summary-card span:last-child { line-height: 1.35; }
+.profile-learning-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 22px; align-items: start; margin: 28px 0; }
+.profile-learning-grid .section-block { min-width: 0; margin: 0; }
+.profile-goal-form { display: flex; gap: 8px; padding: 10px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+.profile-goal-form input { min-width: 0; flex: 1; padding: 9px 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--text); font: inherit; font-size: .84rem; outline: none; }
+.profile-goal-form input:focus { border-color: var(--accent, #7187e5); box-shadow: 0 0 0 3px rgba(113,135,229,.12); }
+.profile-goal-form .profile-save-button { flex: 0 0 auto; }
+.profile-goal-list { display: grid; gap: 8px; }
+/* Show a scroll area only when the learner has more than two goals. */
+.profile-goal-list.has-scroll { max-height: 148px; overflow-y: auto; overflow-x: hidden; padding-right: 5px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.profile-goal-list.has-scroll::-webkit-scrollbar { width: 6px; }
+.profile-goal-list.has-scroll::-webkit-scrollbar-track { background: transparent; }
+.profile-goal-list.has-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+.profile-goal-list.has-scroll::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+.profile-goal-item { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); }
+.profile-goal-item label { display: flex; align-items: flex-start; flex: 1; min-width: 0; gap: 9px; cursor: pointer; font-size: .84rem; line-height: 1.45; }
+.profile-goal-item input { margin-top: 3px; accent-color: var(--accent, #7187e5); }
+.profile-goal-item label span { overflow-wrap: anywhere; }
+.profile-goal-item.done label span { color: var(--muted); text-decoration: line-through; }
+.profile-goal-item > button { flex: 0 0 28px; width: 28px; height: 28px; border: 0; border-radius: 8px; color: var(--muted); background: var(--surface-2); font-size: 1.1rem; cursor: pointer; }
+.profile-goal-item > button:hover { color: var(--text); }
+.profile-goal-empty { margin: 0; padding: 14px; border: 1px dashed var(--line); border-radius: 13px; }
+.profile-next-card { display: flex; gap: 14px; align-items: flex-start; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
+.profile-next-icon { display: grid; flex: 0 0 46px; width: 46px; height: 46px; place-items: center; border-radius: 14px; background: var(--surface-2); font-size: 1.4rem; }
+.profile-next-card h3 { margin: 2px 0 6px; font-size: .98rem; }
+.profile-next-card p { margin: 0 0 11px; color: var(--muted); font-size: .84rem; line-height: 1.55; }
+.profile-recommendation-note { margin-top: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 13px; color: var(--muted); background: color-mix(in srgb, var(--surface) 76%, transparent); font-size: .8rem; line-height: 1.55; }
+@media (max-width: 1050px) { .profile-overview-four { grid-template-columns: repeat(2, minmax(0, 1fr)); } .profile-learning-grid { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .profile-overview-four { grid-template-columns: repeat(2, minmax(0, 1fr)); } .profile-goal-form { align-items: stretch; flex-direction: column; } .profile-goal-form .profile-save-button { width: 100%; } .profile-next-card { padding: 14px; } }
+
+/* Серія навчання у короткому огляді профілю. */
+.streak-summary-card .summary-icon { background: color-mix(in srgb, #f59e0b 14%, var(--surface-2)); }
+.streak-summary-card strong { white-space: nowrap; }
+.streak-summary-card small { display: block; margin-top: 4px; color: var(--muted); font-size: .72rem; line-height: 1.3; }
+@media (min-width: 1051px) { .profile-overview-four { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+@media (max-width: 1050px) { .profile-overview-four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Навчальні цілі та рекомендація мають однакову ширину й висоту в рядку. */
+.profile-learning-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+}
+.profile-learning-grid > .section-block {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.profile-goals-section .profile-goal-list {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.profile-next-section .profile-next-card {
+  flex: 1 1 auto;
+}
+@media (max-width: 1050px) {
+  .profile-learning-grid { grid-template-columns: 1fr; }
+  .profile-learning-grid > .section-block { height: auto; }
+}

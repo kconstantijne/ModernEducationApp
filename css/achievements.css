@@ -129,7 +129,17 @@
 .owned-rewards-block { margin-top: 30px; }
 .owned-rewards-block .section-heading { margin-bottom: 12px; }
 .owned-rewards-block h3 { margin: 0; font-size: 1.15rem; }
-.owned-rewards-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.owned-rewards-list {
+  display: grid;
+  /* Keep each owned reward a compact card, even when it is the only item. */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 260px));
+  justify-content: start;
+  align-content: start;
+  gap: 12px;
+}
+.owned-reward { min-width: 0; width: 100%; min-height: 82px; box-sizing: border-box; overflow-wrap: anywhere; }
+.owned-reward > div { min-width: 0; }
+.owned-reward strong, .owned-reward p { overflow-wrap: anywhere; }
 .owned-reward { display: flex; align-items: center; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
 .owned-reward > span { font-size: 1.5rem; }
 .owned-reward strong { display: block; }
@@ -215,7 +225,8 @@
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--surface);
-  color: var(--text);
+  color: #20263a;
+  background: #ffffff;
   box-shadow: 0 14px 42px rgba(20, 30, 60, .2);
   opacity: 0;
   transform: translateY(8px);
@@ -253,7 +264,20 @@
   .achievement-carousel .achievement { min-height: 104px; }
   .achievement-carousel .achievement-state { margin-left: auto; }
   .reward-toast { right: 16px; bottom: 16px; }
+  .owned-rewards-list { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 260px)); }
 }
 @media (prefers-reduced-motion: reduce) {
   .carousel-arrow, .reward-toast, .reward-open-button { transition: none; }
+}
+
+/* Keep toast copy readable in both themes. */
+html[data-theme="dark"] .reward-toast {
+  color: #edf0ff !important;
+  background: #20283b !important;
+  border-color: #46516c;
+}
+.reward-toast[hidden] { display: none !important; }
+
+@media (max-width: 620px) {
+  .owned-rewards-list { grid-template-columns: minmax(0, 1fr); }
 }

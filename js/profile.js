@@ -4,6 +4,11 @@
   const activityIcon = (entry) => entry.type === 'shop-purchase' ? '🎁' : entry.type === 'lesson-improvement' ? '📈' : '🪙';
   const activityTitle = (entry) => entry.type === 'shop-purchase' ? 'Відкрито нагороду' : entry.type === 'lesson-improvement' ? 'Покращено результат уроку' : entry.type === 'lesson-base' ? 'Успішно завершено урок' : 'Навчальна активність';
   const PROFILE_KEY = 'learningLabLocalProfile';
+  const GOALS_KEY = 'learning-lab-weekly-goals-v1';
+  let lessons = [];
+  const readGoals = () => { try { const value = JSON.parse(localStorage.getItem(GOALS_KEY) || '[]'); return Array.isArray(value) ? value : []; } catch (_) { return []; } };
+  const writeGoals = goals => { try { localStorage.setItem(GOALS_KEY, JSON.stringify(goals)); return true; } catch (_) { return false; } };
+  const plural = n => n === 1 ? 'ціль' : n >= 2 && n <= 4 ? 'цілі' : 'цілей';
   const tips = [
     ['Твій крок має значення', 'Навіть маленький крок сьогодні наближає до великої мети.'],
     ['Помилятися — це вчитися', 'Кожна помилка підказує, що спробувати наступного разу.'],
@@ -84,20 +89,78 @@
     if ($('profileAchievementPrev')) $('profileAchievementPrev').disabled = achievementPage === 0;
     if ($('profileAchievementNext')) $('profileAchievementNext').disabled = achievementPage >= pageCount - 1;
   }
+  function renderGoals() {
+    const host = $('profileGoalList'); if (!host) return;
+    const goals = readGoals();
+    const done = goals.filter(goal => goal.done).length;
+    if ($('profileGoalCount')) $('profileGoalCount').textContent = `${done}/${goals.length} ${plural(goals.length)}`;
+    host.classList.toggle('has-scroll', goals.length > 2);
+    host.innerHTML = goals.length ? goals.map((goal, index) => `<div class="profile-goal-item ${goal.done ? 'done' : ''}"><label><input type="checkbox" data-profile-goal-check="${index}" ${goal.done ? 'checked' : ''}><span>${esc(goal.text)}</span></label><button type="button" data-profile-goal-delete="${index}" aria-label="Видалити ціль">×</button></div>`).join('') : '<p class="achievement-intro profile-goal-empty">Додай першу ціль, щоб спланувати свій навчальний тиждень.</p>';
+  }
+  $('profileGoalForm')?.addEventListener('submit', event => {
+    event.preventDefault(); const input = $('profileGoalInput'); const value = input?.value.trim(); if (!value) return;
+    const goals = readGoals(); goals.push({ text: value, done: false, createdAt: new Date().toISOString() });
+    if (writeGoals(goals)) { input.value = ''; renderGoals(); }
+  });
+  $('profileGoalList')?.addEventListener('change', event => {
+    const control = event.target.closest('[data-profile-goal-check]'); if (!control) return;
+    const goals = readGoals(), index = Number(control.dataset.profileGoalCheck); if (goals[index]) { goals[index].done = control.checked; writeGoals(goals); renderGoals(); }
+  });
+  $('profileGoalList')?.addEventListener('click', event => {
+    const control = event.target.closest('[data-profile-goal-delete]'); if (!control) return;
+    const goals = readGoals(); goals.splice(Number(control.dataset.profileGoalDelete), 1); writeGoals(goals); renderGoals();
+  });
   function render() {
     const api = window.LearningGamification;
     if (!api) return;
     const p = api.profile();
-    const catalog = window.lessonCatalog || [];
+    const catalog = lessons;
     const completed = p.completed || [];
     const doneCount = catalog.length ? completed.filter(id => catalog.some(l => l.id === id)).length : completed.length;
     const percent = catalog.length ? Math.min(100, Math.round(doneCount / catalog.length * 100)) : 0;
     if ($('profileAchievementCount')) $('profileAchievementCount').textContent = (p.achievements || []).length;
+    // Серія рахується за календарними днями, у які учень уперше успішно завершив урок.
+    const completionDays = [...new Set((p.ledger || [])
+      .filter(entry => entry.type === 'lesson-base' && entry.at)
+      .map(entry => { const date = new Date(entry.at); return Number.isNaN(date.getTime()) ? '' : `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; })
+      .filter(Boolean))].sort();
+    const dayMs = 24 * 60 * 60 * 1000;
+    const localDayKey = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const today = new Date();
+    const todayKey = localDayKey(today);
+    const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+    const yesterdayKey = localDayKey(yesterday);
+    let currentStreak = 0, bestStreak = 0, runningStreak = 0, previousDay = null;
+    const dayNumbers = completionDays.map(key => { const [y, m, d] = key.split('-').map(Number); return Math.floor(new Date(y, m - 1, d).getTime() / dayMs); });
+    dayNumbers.forEach(day => {
+      runningStreak = previousDay !== null && day === previousDay + 1 ? runningStreak + 1 : 1;
+      bestStreak = Math.max(bestStreak, runningStreak);
+      previousDay = day;
+    });
+    if (completionDays.includes(todayKey) || completionDays.includes(yesterdayKey)) {
+      const latestDay = completionDays.includes(todayKey) ? Math.floor(new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime() / dayMs) : Math.floor(yesterday.getTime() / dayMs);
+      currentStreak = 1;
+      for (let day = latestDay - 1; dayNumbers.includes(day); day--) currentStreak++;
+    }
+    if ($('profileStreakCurrent')) $('profileStreakCurrent').textContent = `${currentStreak} ${currentStreak === 1 ? 'день' : currentStreak >= 2 && currentStreak <= 4 ? 'дні' : 'днів'}`;
+    if ($('profileStreakBest')) $('profileStreakBest').textContent = `Рекорд: ${bestStreak} ${bestStreak === 1 ? 'день' : bestStreak >= 2 && bestStreak <= 4 ? 'дні' : 'днів'}`;
+    const xp = (completed.length * 50) + ((p.perfect || []).length * 20) + Object.values(p.lessonResults || {}).filter(r => Number(r.bestScore ?? r.score ?? 0) >= 70).length * 10;
+    const level = Math.floor(xp / 150) + 1;
+    const levelNames = ['Новачок', 'Дослідник', 'Практик', 'Майстер', 'Експерт', 'Легенда'];
+    if ($('profileXp')) $('profileXp').textContent = `${xp} XP`;
+    if ($('profileLevel')) $('profileLevel').textContent = `Рівень ${level} · ${levelNames[Math.min(level - 1, levelNames.length - 1)]}`;
     if ($('profileProgressPercent')) $('profileProgressPercent').textContent = `${percent}%`;
     if ($('profileProgressBar')) $('profileProgressBar').style.width = `${percent}%`;
     if ($('profileCompletedLabel')) $('profileCompletedLabel').textContent = `${doneCount} ${doneCount === 1 ? 'урок' : doneCount >= 2 && doneCount <= 4 ? 'уроки' : 'уроків'}`;
     if ($('profileTotalLabel')) $('profileTotalLabel').textContent = catalog.length ? `із ${catalog.length} доступних уроків` : 'доступних уроків';
     if ($('profileProgressText')) $('profileProgressText').textContent = doneCount ? 'Кожен урок наближає тебе до наступного відкриття.' : 'Твоя подорож тільки починається — обери перший урок!';
+    const results = p.lessonResults || {};
+    const nextLesson = catalog.find(item => !(completed || []).includes(item.id)) || catalog.find(item => Number(results[item.id]?.bestScore ?? results[item.id]?.score ?? 100) < 80);
+    if ($('profileNextTitle')) $('profileNextTitle').textContent = nextLesson?.title || (doneCount ? 'Чудовий поступ!' : 'Обери перший урок');
+    if ($('profileNextDescription')) $('profileNextDescription').textContent = nextLesson ? (nextLesson.description || 'Продовжуй навчатися крок за кроком.') : 'Спробуй нову тему або повтори те, що вже вивчив.';
+    if ($('profileNextLink')) { $('profileNextLink').href = nextLesson?.url || 'index.html#lessons'; $('profileNextLink').textContent = nextLesson ? 'Перейти до уроку ↗' : 'Переглянути уроки ↗'; }
+    if ($('profileRecommendationNote')) $('profileRecommendationNote').textContent = doneCount ? 'Порада: повертайся до тем, де результат був нижчим за 80%, і спробуй покращити його.' : 'Порада: почни з одного короткого уроку — результат збережеться в твоєму профілі.';
+    renderGoals();
     const activity = $('profileActivityList');
     if (activity) {
       const entries = [...(p.ledger || [])].reverse().slice(0, 3);
@@ -134,6 +197,7 @@
   initAccount();
   window.addEventListener('storage', render);
   window.addEventListener('learningcatalogready', render);
+  fetch('data/lessons.json').then(response => response.ok ? response.json() : Promise.reject()).then(data => { lessons = Array.isArray(data) ? data : (data.lessons || []); render(); }).catch(() => { lessons = []; render(); });
   document.addEventListener('DOMContentLoaded', render);
   render();
 })();

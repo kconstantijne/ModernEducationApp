@@ -37,3 +37,122 @@ img, svg, video, canvas { max-width: 100%; }
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Consistent, high-contrast feedback messages across all interactive lessons.
+   These rules load after each lesson's local stylesheet to prevent theme overrides
+   from making the feedback text blend into its background. */
+.feedback-box,
+.feedback,
+.answer-feedback {
+  display: block;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #d6dbea;
+  border-radius: 12px;
+  background: #f3f5fb;
+  color: #263149 !important;
+  font-size: .92rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  opacity: 1;
+  text-shadow: none !important;
+}
+.feedback-box[hidden],
+.feedback[hidden],
+.answer-feedback[hidden] { display: none !important; }
+.feedback-box.good,
+.feedback.correct,
+.answer-feedback.is-correct,
+.answer-feedback.correct {
+  background: #e8f7ef !important;
+  border-color: #9dd7b7 !important;
+  color: #185c3b !important;
+}
+.feedback-box.bad,
+.feedback.incorrect,
+.answer-feedback.is-incorrect,
+.answer-feedback.incorrect {
+  background: #fff0f0 !important;
+  border-color: #efb3b8 !important;
+  color: #8d2733 !important;
+}
+.feedback-box *,
+.feedback *,
+.answer-feedback * { color: inherit !important; text-shadow: none !important; }
+.feedback-box strong,
+.feedback strong,
+.answer-feedback strong { font-weight: 800; }
+html[data-theme="dark"] .feedback-box,
+html[data-theme="dark"] .feedback,
+html[data-theme="dark"] .answer-feedback {
+  background: #202b40 !important;
+  border-color: #485779 !important;
+  color: #edf2ff !important;
+}
+html[data-theme="dark"] .feedback-box.good,
+html[data-theme="dark"] .feedback.correct,
+html[data-theme="dark"] .answer-feedback.is-correct,
+html[data-theme="dark"] .answer-feedback.correct {
+  background: #173b31 !important;
+  border-color: #34785d !important;
+  color: #baf4d5 !important;
+}
+html[data-theme="dark"] .feedback-box.bad,
+html[data-theme="dark"] .feedback.incorrect,
+html[data-theme="dark"] .answer-feedback.is-incorrect,
+html[data-theme="dark"] .answer-feedback.incorrect {
+  background: #44272f !important;
+  border-color: #8b4652 !important;
+  color: #ffd2d7 !important;
+}
+
+
+/* Light-theme contrast guard for lesson feedback/toast-like answer messages.
+   These rules intentionally use theme + state selectors and !important so
+   lesson-specific styles cannot turn feedback copy white on a pale surface. */
+html[data-theme="light"] .feedback,
+html[data-theme="light"] .feedback-box,
+html[data-theme="light"] .answer-feedback,
+html[data-theme="light"] .stem-feedback,
+html[data-theme="light"] .hint-box {
+  color: #263149 !important;
+  text-shadow: none !important;
+}
+html[data-theme="light"] .feedback.good,
+html[data-theme="light"] .feedback.correct,
+html[data-theme="light"] .feedback.success,
+html[data-theme="light"] .feedback-box.good,
+html[data-theme="light"] .feedback-box.is-correct,
+html[data-theme="light"] .answer-feedback.good,
+html[data-theme="light"] .answer-feedback.correct,
+html[data-theme="light"] .answer-feedback.is-correct,
+html[data-theme="light"] .stem-feedback.good,
+html[data-theme="light"] .stem-feedback.correct {
+  color: #185c3b !important;
+  background-color: #e8f7ef !important;
+  border-color: #9dd7b7 !important;
+}
+html[data-theme="light"] .feedback.bad,
+html[data-theme="light"] .feedback.incorrect,
+html[data-theme="light"] .feedback.error,
+html[data-theme="light"] .feedback-box.bad,
+html[data-theme="light"] .feedback-box.is-wrong,
+html[data-theme="light"] .answer-feedback.bad,
+html[data-theme="light"] .answer-feedback.incorrect,
+html[data-theme="light"] .answer-feedback.is-incorrect,
+html[data-theme="light"] .stem-feedback.bad,
+html[data-theme="light"] .stem-feedback.incorrect {
+  color: #8d2733 !important;
+  background-color: #fff0f0 !important;
+  border-color: #efb3b8 !important;
+}
+html[data-theme="light"] .feedback *,
+html[data-theme="light"] .feedback-box *,
+html[data-theme="light"] .answer-feedback *,
+html[data-theme="light"] .stem-feedback *,
+html[data-theme="light"] .hint-box * {
+  color: inherit !important;
+  text-shadow: none !important;
+}
