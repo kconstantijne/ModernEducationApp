@@ -2164,3 +2164,6 @@ html, body, .app-shell, .sidebar, .main-content, .about-card, .author-card,
 .nav-category > .nav-submenu { padding-left: 12px; margin-left: 12px; }
 .nav-category > .nav-submenu > .nav-dropdown { margin: 2px 0; }
 .nav-category > .nav-submenu > .nav-dropdown > .dropdown-summary { padding-left: 10px; }
+
+/* Кабінет учителя доступний лише після перевірки ролі Firebase. */
+.teacher-nav-item[hidden] { display: none !important; }

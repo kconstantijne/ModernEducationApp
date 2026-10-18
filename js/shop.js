@@ -54,9 +54,11 @@
   grid.addEventListener('click', event => {
     const button = event.target.closest('[data-buy]');
     if (!button) return;
-    const result = window.LearningGamification.purchaseReward(button.dataset.buy);
-    showToast(result.message, result.success);
-    render();
+    button.disabled = true;
+    Promise.resolve(window.LearningGamification.purchaseReward(button.dataset.buy)).then(result => {
+      showToast(result.message || (result.success ? 'Готово!' : 'Не вдалося виконати покупку.'), result.success);
+      render();
+    }).catch(error => { showToast(error.message || 'Не вдалося виконати покупку.', false); }).finally(() => { button.disabled = false; });
   });
   window.addEventListener('storage', render);
   document.addEventListener('DOMContentLoaded', render);

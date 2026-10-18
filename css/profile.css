@@ -149,3 +149,50 @@
   .profile-learning-grid { grid-template-columns: 1fr; }
   .profile-learning-grid > .section-block { height: auto; }
 }
+
+/* Profile account actions */
+.profile-account-actions .profile-login-button { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+.profile-reset-button { margin-top: 14px; padding: 10px 14px; border: 1px solid #d97777; border-radius: 12px; color: #b42332; background: transparent; font: inherit; font-weight: 600; cursor: pointer; }
+.profile-reset-button:hover { background: rgba(220, 70, 85, .08); }
+.profile-reset-button:disabled { opacity: .55; cursor: wait; }
+
+.profile-account-actions .profile-login-button[hidden] { display: none !important; }
+
+
+/* Спливаюче повідомлення після виходу з акаунту. */
+.profile-toast {
+  position: fixed;
+  z-index: 10000;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 14px 18px;
+  border: 1px solid var(--line, rgba(100, 116, 139, .22));
+  border-radius: 14px;
+  color: var(--text, #1f2937);
+  background: var(--surface, #fff);
+  box-shadow: 0 12px 36px rgba(15, 23, 42, .18);
+  font-size: .92rem;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .22s ease, transform .22s ease;
+  pointer-events: none;
+}
+.profile-toast.is-visible { opacity: 1; transform: translateY(0); }
+.profile-toast-icon {
+  display: grid;
+  flex: 0 0 27px;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #16845b;
+  font-weight: 800;
+}
+.profile-toast-error .profile-toast-icon { background: #c0394b; }
+@media (prefers-reduced-motion: reduce) { .profile-toast { transition: none; } }

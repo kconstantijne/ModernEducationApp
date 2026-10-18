@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+    function myProfile() { return get(/databases/$(database)/documents/users/$(request.auth.uid)); }
+    function isTeacher() { return signedIn() && myProfile().data.role == 'teacher'; }
+
+    match /users/{uid} {
+      allow create: if isSelf(uid)
+        && request.resource.data.uid == uid
+        && request.resource.data.role == 'student'
+        && request.resource.data.keys().hasOnly(['uid','displayName','email','role','grade','createdAt','updatedAt']);
+      allow read: if isSelf(uid) || isTeacher();
+      // Users cannot promote themselves or modify role/teacher-controlled fields.
+      allow update: if isSelf(uid)
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.uid == resource.data.uid;
+      allow delete: if false;
+
+      match /privateData/{documentId} {
+        allow read: if isSelf(uid) || isTeacher();
+        // Безкоштовний варіант: клієнт записує власний профіль і баланс. Це не захищає від підроблення даних самим користувачем.
+        allow create, update, delete: if isSelf(uid) && documentId == 'progress';
+      }
+      match /progress/{lessonId} {
+        allow read, write: if isSelf(uid);
+      }
+      match /transactions/{transactionId} {
+        allow read: if isSelf(uid) || isTeacher();
+        allow write: if false; // нагороди слід записувати через довірену серверну логіку
+      }
+    }
+    match /lessons/{lessonId} { allow read: if true; allow write: if isTeacher(); }
+    match /classes/{classId} { allow read: if signedIn(); allow write: if isTeacher(); }
+    match /assignments/{assignmentId} { allow read: if signedIn(); allow write: if isTeacher(); }
+    match /submissions/{submissionId} { allow read, write: if signedIn() && request.resource.data.studentUid == request.auth.uid; }
+  }
+}

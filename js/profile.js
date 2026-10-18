@@ -44,7 +44,7 @@
       try {
         localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
         $('profileAccountFeedback').textContent = profile.name ? `Збережено. Вітаємо, ${profile.name}!` : 'Зміни збережено.';
-        $('accountStatus').textContent = 'Гостьовий режим · дані зберігаються на цьому пристрої';
+        
       } catch (_) {
         $('profileAccountFeedback').textContent = 'Не вдалося зберегти зміни. Спробуй фото меншого розміру.';
       }
@@ -64,9 +64,7 @@
       };
       reader.readAsDataURL(file);
     });
-    $('loginPromptButton')?.addEventListener('click', () => $('loginInfoDialog')?.showModal());
-    $('closeLoginInfo')?.addEventListener('click', () => $('loginInfoDialog')?.close());
-    $('loginInfoDialog')?.addEventListener('click', (event) => { if (event.target === $('loginInfoDialog')) $('loginInfoDialog').close(); });
+
   }
   function setAvatar(src) {
     const img = $('accountAvatarPreview'), fallback = $('accountAvatarFallback');
@@ -193,6 +191,39 @@
   }
   $('profileAchievementPrev')?.addEventListener('click', () => { achievementPage--; renderAchievementCarousel(); });
   $('profileAchievementNext')?.addEventListener('click', () => { achievementPage++; renderAchievementCarousel(); });
+
+  const RESET_KEYS = ['learning-lab-profile-v2', 'learning-lab-completed', 'learning-lab-weekly-goals-v1', 'learningLabLocalProfile'];
+  $('resetProgressButton')?.addEventListener('click', async () => {
+    const confirmed = window.confirm('Скинути весь навчальний прогрес цього акаунта? Буде видалено комп’юшки, завершені уроки, результати, досягнення, покупки та навчальні цілі. Цю дію неможливо скасувати.');
+    if (!confirmed) return;
+    const button = $('resetProgressButton');
+    button.disabled = true;
+    const feedback = $('profileAccountFeedback');
+    try {
+      if (window.FIREBASE_ENABLED) {
+        const [{ auth, db }, authApi, store] = await Promise.all([
+          import('./firebase-client.js'),
+          import('https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js'),
+          import('https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js')
+        ]);
+        const user = authApi.getAuth ? auth.currentUser : null;
+        if (user) {
+          await store.setDoc(store.doc(db, 'users', user.uid, 'privateData', 'progress'), {
+            profile: { coins: 0, completed: [], perfect: [], achievements: [], lessonRewards: {}, lessonResults: {}, purchases: [], ledger: [] },
+            updatedAt: store.serverTimestamp()
+          });
+        }
+      }
+      RESET_KEYS.forEach(key => localStorage.removeItem(key));
+      window.dispatchEvent(new Event('storage'));
+      if (feedback) feedback.textContent = 'Навчальний прогрес скинуто.';
+      window.location.reload();
+    } catch (error) {
+      console.error('Не вдалося скинути прогрес:', error);
+      if (feedback) feedback.textContent = 'Не вдалося скинути хмарний прогрес. Перевір підключення та правила Firestore і спробуй ще раз.';
+      button.disabled = false;
+    }
+  });
   showFreshTip();
   initAccount();
   window.addEventListener('storage', render);

@@ -100,9 +100,9 @@ $id("finalCorrect").textContent = `${state.correct}/${total}`; $id("finalPercent
     $id("claimReward").disabled = false; $id("claimReward").innerHTML = 'Отримати зірочки <span aria-hidden="true">✦</span>'; $id("rewardNote").textContent = "Зірочки нараховуються один раз за завершену спробу.";
   
     // Єдине нарахування комп’юшок: результат обробляється після відображення підсумку.
-    Promise.resolve().then(() => {
+    Promise.resolve().then(async () => {
       const scorePercent = typeof percent !== 'undefined' ? percent : (typeof pct !== 'undefined' ? pct : 0);
-      const rewardResult = window.LearningGamification?.awardTestResult("automatic-plant-watering-system", scorePercent, state.level);
+      const rewardResult = await window.LearningGamification?.awardTestResult("automatic-plant-watering-system", scorePercent, state.level);
       const claimButton = document.getElementById('claimReward');
       if (claimButton) claimButton.hidden = true;
       const starLabel = document.getElementById('earnedStars');

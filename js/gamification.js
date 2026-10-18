@@ -65,6 +65,17 @@
   }
   function awardTestResult(id, scorePercent, difficulty = 'medium') {
     if (!id || !Number.isFinite(Number(scorePercent))) return { success: false, reason: 'invalid-result', coinsAwarded: 0 };
+    // Для Firebase нагорода обчислюється на клієнті та записується у Firestore транзакцією.
+    if (window.FIREBASE_ENABLED) {
+      const sourceScript = Array.from(document.scripts).find(item => /(?:^|\/)gamification\.js(?:[?#].*)?$/.test(item.src));
+      const moduleUrl = sourceScript ? new URL('cloud-rewards.js', sourceScript.src).href : new URL('js/cloud-rewards.js', document.baseURI).href;
+      return import(moduleUrl)
+        .then(({ awardTestResultCloud }) => awardTestResultCloud(id, scorePercent, difficulty))
+        .catch(error => {
+          console.error('Не вдалося отримати хмарну винагороду:', error);
+          return { success: false, passed: false, coinsAwarded: 0, message: 'Не вдалося зберегти нагороду в хмарі. Перевір інтернет і спробуй ще раз.' };
+        });
+    }
     const score = Math.max(0, Math.min(100, Math.round(Number(scorePercent))));
     const level = normalizeDifficulty(difficulty);
     const levelRank = { simple: 1, medium: 2, hard: 3 };
@@ -154,6 +165,11 @@
     rewardNoticeTimer = setTimeout(() => { node.style.opacity = '0'; node.style.transform = 'translateY(8px)'; setTimeout(() => { node.hidden = true; }, 220); }, 3200);
   }
   function purchaseReward(itemId) {
+    if (window.FIREBASE_ENABLED) {
+      const sourceScript = Array.from(document.scripts).find(item => /(?:^|\/)gamification\.js(?:[?#].*)?$/.test(item.src));
+      const moduleUrl = sourceScript ? new URL('cloud-rewards.js', sourceScript.src).href : new URL('js/cloud-rewards.js', document.baseURI).href;
+      return import(moduleUrl).then(({ purchaseRewardCloud }) => purchaseRewardCloud(itemId)).catch(error => { console.error('Не вдалося списати комп’юшки:', error); return { success: false, message: error.message || 'Не вдалося зберегти покупку. Перевір інтернет і спробуй ще раз.' }; });
+    }
     const item = SHOP_ITEMS.find(x => x.id === itemId);
     if (!item) return { success: false, reason: 'not-found', message: 'Такої винагороди немає.' };
     const p = ensureProfile(read());

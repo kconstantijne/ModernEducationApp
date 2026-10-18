@@ -641,9 +641,9 @@ $("#finalCorrect").textContent = `${state.correct}/${total}`;
       "Зірочки нараховуються один раз за завершену спробу.";
   
     // Єдине нарахування комп’юшок: результат обробляється після відображення підсумку.
-    Promise.resolve().then(() => {
+    Promise.resolve().then(async () => {
       const scorePercent = typeof percent !== 'undefined' ? percent : (typeof pct !== 'undefined' ? pct : 0);
-      const rewardResult = window.LearningGamification?.awardTestResult("percentage", scorePercent, state.level);
+      const rewardResult = await window.LearningGamification?.awardTestResult("percentage", scorePercent, state.level);
       const claimButton = document.getElementById('claimReward');
       if (claimButton) claimButton.hidden = true;
       const starLabel = document.getElementById('earnedStars');

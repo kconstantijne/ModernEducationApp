@@ -1,0 +1,6 @@
+import { auth, db } from './firebase-client.js';
+import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
+const host=document.querySelector('[data-account-status]');
+if(host){onAuthStateChanged(auth,async user=>{if(!user){host.innerHTML='<a class="account-chip" href="pages/login.html">Зайти або зареєструватись</a>';return;}let role='student',name=user.displayName||'Учень';try{const snap=await getDoc(doc(db,'users',user.uid));if(snap.exists()){role=snap.data().role||role;name=snap.data().displayName||name;}}catch(e){console.warn('Не вдалося завантажити профіль',e);}host.innerHTML=`<span class="account-greeting">${escapeHtml(name)}</span>${role==='teacher'?'<a class="account-chip" href="pages/teacher-dashboard.html">Кабінет учителя</a>':''}<button class="account-chip" type="button" data-logout>Вийти</button>`;host.querySelector('[data-logout]')?.addEventListener('click',async()=>{await signOut(auth);location.reload();});});}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
