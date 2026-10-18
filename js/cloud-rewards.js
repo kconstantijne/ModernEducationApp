@@ -76,7 +76,7 @@ export async function awardTestResultCloud(lessonId, scorePercent, difficulty = 
     p.lessonRewards[lessonId] = Math.max(Number(p.lessonRewards[lessonId]) || 0, Number(previous.baseReward) || 0);
     p.coins += baseAward + improvementBonus;
     if (score === 100 && !p.perfect.includes(lessonId)) p.perfect.push(lessonId);
-    tx.set(profileRef, { profile: p, updatedAt: serverTimestamp(), rewardSource: 'client' });
+    tx.set(profileRef, { profile: p, updatedAt: serverTimestamp(), rewardSource: 'client' }, { merge: true });
     return { success: true, passed: true, coinsAwarded: baseAward + improvementBonus, baseAward, improvementBonus, score, bestScore: previous.bestScore, highestRewardedLevel: highest, profile: p };
   });
   if (result.profile) localize(result.profile);
@@ -97,7 +97,7 @@ export async function purchaseRewardCloud(itemId) {
     const purchase = { itemId, title: item.title, price: item.price, type: item.type, purchasedAt: new Date().toISOString(), status: 'owned' };
     p.purchases.push(purchase);
     ledger(p, { type: 'shop-purchase', itemId, amount: -item.price, description: `Відкрито нагороду: ${item.title}` });
-    tx.set(profileRef, { profile: p, updatedAt: serverTimestamp(), rewardSource: 'client' });
+    tx.set(profileRef, { profile: p, updatedAt: serverTimestamp(), rewardSource: 'client' }, { merge: true });
     return { success: true, purchase, profile: p, message: `Нагороду відкрито: ${item.title}.` };
   });
   if (result.profile) localize(result.profile);

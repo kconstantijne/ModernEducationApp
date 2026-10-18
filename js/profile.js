@@ -7,7 +7,7 @@
   const GOALS_KEY = 'learning-lab-weekly-goals-v1';
   let lessons = [];
   const readGoals = () => { try { const value = JSON.parse(localStorage.getItem(GOALS_KEY) || '[]'); return Array.isArray(value) ? value : []; } catch (_) { return []; } };
-  const writeGoals = goals => { try { localStorage.setItem(GOALS_KEY, JSON.stringify(goals)); return true; } catch (_) { return false; } };
+  const writeGoals = goals => { try { localStorage.setItem(GOALS_KEY, JSON.stringify(goals)); window.dispatchEvent(new Event('learninglab:progress-changed')); return true; } catch (_) { return false; } };
   const plural = n => n === 1 ? 'ціль' : n >= 2 && n <= 4 ? 'цілі' : 'цілей';
   const tips = [
     ['Твій крок має значення', 'Навіть маленький крок сьогодні наближає до великої мети.'],
@@ -43,6 +43,7 @@
       profile.name = ($('accountNameInput')?.value || '').trim().slice(0, 48);
       try {
         localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+        window.dispatchEvent(new Event('learninglab:progress-changed'));
         $('profileAccountFeedback').textContent = profile.name ? `Збережено. Вітаємо, ${profile.name}!` : 'Зміни збережено.';
         
       } catch (_) {
@@ -56,11 +57,22 @@
       if (file.size > 2 * 1024 * 1024) { $('profileAccountFeedback').textContent = 'Фото має бути до 2 МБ.'; event.target.value = ''; return; }
       const reader = new FileReader();
       reader.onload = () => {
-        const profile = readLocalProfile(); profile.photo = String(reader.result || '');
-        try {
-          localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); setAvatar(profile.photo);
-          $('profileAccountFeedback').textContent = 'Фото профілю збережено на цьому пристрої.';
-        } catch (_) { $('profileAccountFeedback').textContent = 'Не вдалося зберегти фото. Спробуй зображення меншого розміру.'; }
+        const image = new Image();
+        image.onload = () => {
+          const scale = Math.min(1, 512 / Math.max(image.width, image.height));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(image.width * scale));
+          canvas.height = Math.max(1, Math.round(image.height * scale));
+          canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+          const photo = canvas.toDataURL('image/jpeg', 0.72);
+          const profile = readLocalProfile(); profile.photo = photo;
+          try {
+            localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); window.dispatchEvent(new Event('learninglab:progress-changed')); setAvatar(photo);
+            $('profileAccountFeedback').textContent = 'Фото профілю збережено та підготовлено для синхронізації.';
+          } catch (_) { $('profileAccountFeedback').textContent = 'Не вдалося зберегти фото. Спробуй інше зображення.'; }
+        };
+        image.onerror = () => { $('profileAccountFeedback').textContent = 'Не вдалося обробити це зображення.'; };
+        image.src = String(reader.result || '');
       };
       reader.readAsDataURL(file);
     });
@@ -210,8 +222,8 @@
         if (user) {
           await store.setDoc(store.doc(db, 'users', user.uid, 'privateData', 'progress'), {
             profile: { coins: 0, completed: [], perfect: [], achievements: [], lessonRewards: {}, lessonResults: {}, purchases: [], ledger: [] },
-            updatedAt: store.serverTimestamp()
-          });
+            weeklyGoals: [], updatedAt: store.serverTimestamp()
+          }, { merge: true });
         }
       }
       RESET_KEYS.forEach(key => localStorage.removeItem(key));

@@ -4,7 +4,7 @@
   const legacyKey = 'learning-lab-completed';
   const defaults = { coins: 0, completed: [], perfect: [], achievements: [], lessonRewards: {}, lessonResults: {}, purchases: [], ledger: [] };
   function read() { try { const p = JSON.parse(localStorage.getItem(KEY) || 'null'); if (p && typeof p === 'object') return { ...defaults, ...p }; } catch (e) { }; let old = []; try { old = JSON.parse(localStorage.getItem(legacyKey) || '[]') } catch (e) { }; return { ...defaults, completed: Array.isArray(old) ? old : [] }; }
-  function save(p) { try { localStorage.setItem(KEY, JSON.stringify(p)); localStorage.setItem(legacyKey, JSON.stringify(p.completed)); } catch (e) { console.warn('Не вдалося зберегти прогрес', e) } }
+  function save(p) { try { localStorage.setItem(KEY, JSON.stringify(p)); localStorage.setItem(legacyKey, JSON.stringify(p.completed)); window.dispatchEvent(new Event('learninglab:progress-changed')); } catch (e) { console.warn('Не вдалося зберегти прогрес', e) } }
   const achievements = [
     { id: 'first-lesson', title: 'Перший крок', description: 'Заверши свій перший урок', icon: '🌱', test: p => p.completed.length >= 1 },
     { id: 'three-lessons', title: 'Дослідник', description: 'Заверши 3 різні уроки', icon: '🧭', test: p => p.completed.length >= 3 },

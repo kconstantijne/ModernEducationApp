@@ -102,6 +102,7 @@ saveButton?.addEventListener('click', async () => {
     } else {
       const local = localProfile(); local.name = name;
       localStorage.setItem('learningLabLocalProfile', JSON.stringify(local));
+      window.dispatchEvent(new Event('learninglab:progress-changed'));
       if (feedback) feedback.textContent = `Збережено. Вітаємо, ${name}!`;
     }
   } catch (error) {
@@ -117,12 +118,24 @@ photoInput?.addEventListener('change', event => {
   if (file.size > 2 * 1024 * 1024) { if (feedback) feedback.textContent = 'Фото має бути до 2 МБ.'; event.target.value = ''; return; }
   const reader = new FileReader();
   reader.onload = () => {
-    const local = localProfile(); local.photo = String(reader.result || '');
-    try {
-      localStorage.setItem('learningLabLocalProfile', JSON.stringify(local));
-      showPhoto(local.photo);
-      if (feedback) feedback.textContent = currentUser ? 'Фото оновлено на цьому пристрої. Фото облікового запису Google залишається без змін.' : 'Фото профілю збережено на цьому пристрої.';
-    } catch { if (feedback) feedback.textContent = 'Не вдалося зберегти фото. Спробуй зображення меншого розміру.'; }
+    const image = new Image();
+    image.onload = () => {
+      const scale = Math.min(1, 512 / Math.max(image.width, image.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+      canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+      const photo = canvas.toDataURL('image/jpeg', 0.72);
+      const local = localProfile(); local.photo = photo;
+      try {
+        localStorage.setItem('learningLabLocalProfile', JSON.stringify(local));
+        window.dispatchEvent(new Event('learninglab:progress-changed'));
+        showPhoto(photo);
+        if (feedback) feedback.textContent = 'Фото профілю стиснуто та підготовлено для синхронізації.';
+      } catch { if (feedback) feedback.textContent = 'Не вдалося зберегти фото. Спробуй інше зображення.'; }
+    };
+    image.onerror = () => { if (feedback) feedback.textContent = 'Не вдалося обробити це зображення.'; };
+    image.src = String(reader.result || '');
   };
   reader.readAsDataURL(file);
 });
