@@ -8,43 +8,114 @@
     <link rel="stylesheet" href="../css/design-system.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/teacher-dashboard.css">
     <script src="../js/firebase-config.js"></script>
     <script type="module" src="../js/teacher-dashboard.js"></script>
 </head>
 
-<body class="auth-page">
-    <main class="auth-card" style="width:min(100%,1000px)"><a class="auth-brand" href="../index.html"
-            style="color:inherit;text-decoration:none"><span class="brand-mark"><svg aria-hidden="true"
-                    viewbox="0 0 40 40">
+<body class="auth-page teacher-page">
+    <main class="auth-card teacher-card">
+        <a class="auth-brand" href="../index.html" style="color:inherit;text-decoration:none"><span
+                class="brand-mark"><svg aria-hidden="true" viewBox="0 0 40 40">
                     <rect fill="currentColor" height="32" opacity=".13" rx="11" width="32" x="4" y="4"></rect>
                     <path d="M12 24 20 10l8 14M15 20h10M13 29h14" fill="none" stroke="currentColor"
                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></path>
                 </svg></span><span>Навчальна лабораторія</span></a>
-        <h1>Кабінет учителя</h1>
-        <p class="auth-intro">Огляд навчальних профілів і прогресу. Доступ до списку учнів відкриється лише для акаунта
-            з роллю teacher.</p>
-        <div class="account-actions"><a class="account-chip" href="../index.html">← На головну</a><button
-                class="account-chip" id="refreshStudents" type="button">Оновити</button><button class="account-chip"
-                id="exportCsv" type="button" disabled>Експорт CSV</button></div>
-        <p class="auth-feedback" id="teacherFeedback" aria-live="polite">Перевіряємо авторизацію…</p>
-        <div class="teacher-table-wrap">
-            <table class="teacher-table">
-                <thead>
-                    <tr>
-                        <th>Учень</th>
-                        <th>Клас</th>
-                        <th>Завершено уроків</th>
-                        <th>Комп’юшки</th>
-                        <th>Оновлено</th>
-                    </tr>
-                </thead>
-                <tbody id="studentRows">
-                    <tr>
-                        <td colspan="5">Завантаження…</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="teacher-heading">
+            <div><span class="eyebrow">ПРОСТІР ВИКЛАДАННЯ</span>
+                <h1>Кабінет учителя</h1>
+                <p class="auth-intro">Стежте за навчанням класу та індивідуальним прогресом учнів.</p>
+            </div>
+            <div class="account-actions"><a class="account-chip" href="../index.html">← На головну</a><button
+                    class="account-chip" id="refreshStudents" type="button">↻ Оновити</button><button
+                    class="account-chip teacher-export" id="exportCsv" type="button" disabled>↓ Експорт CSV</button>
+            </div>
         </div>
+        <p class="auth-feedback" id="teacherFeedback" aria-live="polite">Перевіряємо авторизацію…</p>
+        <section class="teacher-stats" aria-label="Загальна статистика">
+            <article class="teacher-stat"><span class="stat-icon">♙</span>
+                <div>
+                    <p>Усього учнів</p><strong id="totalStudents">—</strong><small>учнівських профілів</small>
+                </div>
+            </article>
+            <article class="teacher-stat"><span class="stat-icon stat-purple">✓</span>
+                <div>
+                    <p>Завершено уроків</p><strong id="totalCompleted">—</strong><small>усі учні разом</small>
+                </div>
+            </article>
+            <article class="teacher-stat"><span class="stat-icon stat-blue">↗</span>
+                <div>
+                    <p>Середній прогрес</p><strong id="averageProgress">—</strong><small>від доступних уроків</small>
+                </div>
+            </article>
+        </section>
+        <section class="teacher-progress-section">
+            <div class="section-heading">
+                <div><span class="eyebrow">НАВЧАЛЬНА АНАЛІТИКА</span>
+                    <h2>Динаміка прогресу</h2>
+                </div><span class="section-note">За останнім збереженим станом</span>
+            </div>
+            <div class="progress-summary">
+                <div><strong id="progressHeadline">—</strong>
+                    <p>середній відсоток проходження уроків</p>
+                </div>
+                <div class="progress-track"><span id="progressBar"></span></div>
+            </div>
+            <p class="progress-footnote" id="progressFootnote">Показники оновлюються після завантаження даних.</p>
+        </section>
+        <section class="teacher-roster">
+            <div class="section-heading">
+                <div><span class="eyebrow">ЖУРНАЛ КЛАСУ</span>
+                    <h2>Учні</h2>
+                </div><span class="section-note" id="visibleCount">0 учнів</span>
+            </div>
+            <div class="teacher-filters"><label class="teacher-search"><span aria-hidden="true">⌕</span><input
+                        id="studentSearch" type="search" placeholder="Пошук за ім’ям…" autocomplete="off"
+                        aria-label="Пошук учнів"></label><label class="filter-label">Клас<select id="gradeFilter">
+                        <option value="">Усі класи</option>
+                    </select></label><label class="filter-label">Прогрес<select id="progressFilter">
+                        <option value="">Усі учні</option>
+                        <option value="started">Є прогрес</option>
+                        <option value="none">Ще не починали</option>
+                        <option value="complete">Усі уроки завершено</option>
+                    </select></label></div>
+            <div class="teacher-table-wrap">
+                <table class="teacher-table">
+                    <thead>
+                        <tr>
+                            <th>Учень</th>
+                            <th>Клас</th>
+                            <th>Завершено уроків</th>
+                            <th>Прогрес</th>
+                            <th>Комп’юшки</th>
+                            <th>Оновлено</th>
+                            <th><span class="sr-only">Деталі</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentRows">
+                        <tr>
+                            <td colspan="7">Завантаження…</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="teacher-mobile-list" id="studentCards"></div>
+        </section>
+        <dialog class="student-dialog" id="studentDialog" aria-labelledby="detailName"><button class="dialog-close"
+                id="closeStudentDialog" aria-label="Закрити">×</button><span class="eyebrow">ПРОФІЛЬ УЧНЯ</span>
+            <h2 id="detailName">Учень</h2>
+            <p id="detailGrade" class="detail-subtitle"></p>
+            <div class="detail-stats">
+                <div><span>Завершено уроків</span><strong id="detailCompleted">0</strong></div>
+                <div><span>Прогрес</span><strong id="detailProgress">0%</strong></div>
+                <div><span>Комп’юшки</span><strong id="detailCoins">0</strong></div>
+            </div>
+            <div class="detail-progress">
+                <div><span>Проходження уроків</span><strong id="detailPercent">0%</strong></div>
+                <div class="progress-track"><span id="detailBar"></span></div>
+            </div>
+            <p class="detail-updated" id="detailUpdated"></p>
+        </dialog>
     </main>
 </body>
 
