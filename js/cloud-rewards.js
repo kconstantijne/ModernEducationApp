@@ -8,10 +8,12 @@ const EMPTY = { coins: 0, completed: [], perfect: [], achievements: [], lessonRe
 const REWARDS = { simple: 5, medium: 10, hard: 20 };
 const RANK = { simple: 1, medium: 2, hard: 3 };
 const SHOP = {
-  'avatar-neon': { title: 'Неоновий аватар', price: 30, type: 'cosmetic' },
-  'profile-frame': { title: 'Рамка дослідника', price: 45, type: 'cosmetic' },
-  'hint-token': { title: 'Жетон підказки', price: 20, type: 'utility' },
-  'title-inventor': { title: 'Звання «Винахідник»', price: 60, type: 'cosmetic' }
+  'course-focus': { title: 'Мінікурс «Фокус і пам’ять»', price: 45, type: 'course' },
+  'course-stem': { title: 'Мінікурс «STEM-мислення»', price: 60, type: 'course' },
+  'course-digital': { title: 'Мінікурс «Цифрова грамотність»', price: 50, type: 'course' },
+  'resource-planner': { title: 'Планер навчання', price: 25, type: 'resource' },
+  'resource-notes': { title: 'Шаблон розумного конспекту', price: 20, type: 'resource' },
+  'resource-flashcards': { title: 'Інтерактивні картки для повторення', price: 30, type: 'resource' }
 };
 function normalizeDifficulty(value) {
   const v = String(value || '').toLowerCase();
@@ -91,7 +93,7 @@ export async function purchaseRewardCloud(itemId) {
   const result = await runTransaction(db, async tx => {
     const snap = await tx.get(profileRef);
     const p = normalizeProfile(snap.exists() ? snap.data().profile : null);
-    if (item.type === 'cosmetic' && p.purchases.some(x => x.itemId === itemId && x.status !== 'consumed')) return { success: false, message: 'Цю нагороду вже відкрито.' };
+    if (p.purchases.some(x => x.itemId === itemId && x.status !== 'consumed')) return { success: false, message: 'Цю нагороду вже відкрито.' };
     if (p.coins < item.price) return { success: false, message: 'Поки бракує комп’юшок для цієї нагороди.' };
     p.coins -= item.price;
     const purchase = { itemId, title: item.title, price: item.price, type: item.type, purchasedAt: new Date().toISOString(), status: 'owned' };

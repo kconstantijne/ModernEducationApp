@@ -281,3 +281,156 @@ html[data-theme="dark"] .reward-toast {
 @media (max-width: 620px) {
   .owned-rewards-list { grid-template-columns: minmax(0, 1fr); }
 }
+
+
+/* Reward shop refresh: clear balance, illustrated digital rewards and purchase states. */
+.reward-balance-panel {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  overflow: hidden; margin: 20px 0 18px; padding: clamp(22px, 4vw, 34px);
+  border: 1px solid rgba(255,255,255,.52); border-radius: 26px;
+  background: linear-gradient(115deg, #273d8d 0%, #5367ce 52%, #9275e8 100%);
+  color: #fff; box-shadow: 0 16px 36px rgba(70, 80, 170, .2);
+}
+.reward-balance-copy { position: relative; z-index: 1; }
+.reward-balance-kicker { display:block; margin-bottom: 8px; font-size:.72rem; font-weight:850; letter-spacing:.14em; opacity:.82; }
+.reward-balance-copy > strong { display:block; font-size:clamp(2.15rem, 5vw, 3.35rem); letter-spacing:-.055em; line-height:1.1; font-variant-numeric:tabular-nums; }
+.reward-balance-copy > strong small { font-size: .34em; letter-spacing:0; font-weight:750; }
+.reward-balance-copy p { margin:10px 0 0; color:rgba(255,255,255,.86); }
+.reward-balance-art { position:relative; display:grid; place-items:center; flex:0 0 130px; height:120px; }
+.reward-balance-art span:first-child { font-size:5rem; filter:drop-shadow(0 8px 8px #151d4a55); transform:rotate(-12deg); }
+.reward-balance-art span:nth-child(2) { position:absolute; top:4px; right:7px; font-size:2rem; }
+.reward-balance-art span:nth-child(3) { position:absolute; left:5px; bottom:7px; font-size:1.8rem; }
+.reward-categories { display:flex; flex-wrap:wrap; gap:9px; margin:22px 0 16px; }
+.reward-filter { border:1px solid var(--line); border-radius:999px; padding:10px 16px; background:var(--surface); color:var(--text); font:inherit; font-size:.88rem; font-weight:750; cursor:pointer; transition:background .18s ease, transform .18s ease, border-color .18s ease; }
+.reward-filter:hover { transform:translateY(-1px); }
+.reward-filter.is-active { background:var(--text); color:var(--surface); border-color:var(--text); }
+.reward-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; align-items:stretch; }
+.reward-grid .reward-card { display:flex; flex-direction:column; min-width:0; overflow:hidden; border:1px solid var(--line); border-radius:23px; background:var(--surface); box-shadow:0 9px 28px rgba(35,48,90,.07); transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease; }
+.reward-grid .reward-card:hover { transform:translateY(-4px); box-shadow:0 16px 34px rgba(35,48,90,.12); border-color:rgba(104,126,220,.48); }
+.reward-grid .reward-card.is-owned { border-color:rgba(67,164,119,.45); }
+.reward-art { position:relative; display:grid; place-items:center; min-height:174px; overflow:hidden; isolation:isolate; }
+.reward-art:before,.reward-art:after { content:""; position:absolute; z-index:-1; border-radius:50%; background:#ffffff45; }
+.reward-art:before { width:150px;height:150px;right:-22px;top:-56px; }
+.reward-art:after { width:90px;height:90px;left:-18px;bottom:-42px; }
+.reward-art-icon { display:grid;place-items:center;width:106px;height:106px;border:1px solid #ffffff9c;border-radius:30px;background:#ffffff70;font-size:4.3rem;box-shadow:0 12px 28px #28355b20;transform:rotate(-5deg); }
+.reward-art-spark { position:absolute;color:#fff;font-size:1.7rem; }
+.spark-one { top:18px;left:22px; }.spark-two { right:24px;bottom:18px; }
+.reward-art-brain { background:linear-gradient(135deg,#ffd9a5,#ff9cba); }
+.reward-art-stem { background:linear-gradient(135deg,#b9f0dc,#73c9d6); }
+.reward-art-digital { background:linear-gradient(135deg,#c8d4ff,#9f9df4); }
+.reward-art-planner { background:linear-gradient(135deg,#ffe6a8,#ffc77d); }
+.reward-art-notes { background:linear-gradient(135deg,#d9d0ff,#b4b0f7); }
+.reward-art-cards { background:linear-gradient(135deg,#b9e3ff,#8eb8f4); }
+.reward-card-body { display:flex;flex:1;flex-direction:column;align-items:stretch;padding:18px; }
+.reward-category-label { color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.025em; }
+.reward-card-body h3 { margin:9px 0 7px;font-size:1.08rem;line-height:1.35;letter-spacing:-.02em; }
+.reward-card-body > p { flex:1;margin:0;color:var(--muted);font-size:.86rem;line-height:1.55; }
+.reward-card-footer { display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-top:18px; }
+.reward-price { color:var(--text);font-size:1.15rem;white-space:nowrap; }
+.reward-price small { font-size:.72rem;font-weight:650; }
+.reward-available { color:#27805d;font-size:.72rem;font-weight:800; }
+:root[data-theme="dark"] .reward-available { color:#8ce0b8; }
+.reward-grid .reward-open-button { width:100%;margin:14px 0 0;padding:12px 14px;border:0;border-radius:13px;background:linear-gradient(100deg,#5367ce,#8270df);color:#fff;font:inherit;font-weight:800;font-size:.86rem;cursor:pointer;transition:filter .18s ease,transform .18s ease; }
+.reward-grid .reward-open-button:not(:disabled):hover { filter:brightness(1.08);transform:translateY(-1px); }
+.reward-grid .reward-open-button:disabled { background:rgba(66,160,116,.15);color:#27805d;cursor:default;opacity:1; }
+.owned-rewards-block { margin-top:38px;padding-top:26px;border-top:1px solid var(--line); }
+.owned-reward-card { position:relative;align-items:flex-start;min-height:100px;padding:16px;border-radius:18px; }
+.owned-reward-icon { display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border-radius:15px;background:var(--surface-2);font-size:1.8rem; }
+.owned-reward-card > div { flex:1;min-width:0; }
+.owned-reward-card .owned-price { display:inline-block;margin-top:7px;color:var(--muted);font-size:.76rem;font-weight:700; }
+.owned-check { display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:rgba(67,164,119,.15);color:#27805d;font-weight:900; }
+/* Empty state fills the same responsive content area as the 'Мої покупки' section. */
+.owned-rewards-block,
+.owned-rewards-carousel,
+.owned-rewards-list { min-width:0; width:100%; max-width:none; box-sizing:border-box; }
+/* Make the empty-state panel span the full available width of 'Мої покупки'. */
+.owned-rewards-carousel { display:block; }
+.owned-rewards-list { grid-template-columns:minmax(0, 1fr); }
+.owned-empty { justify-self:stretch; }
+.owned-empty {
+  grid-column:1 / -1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-width:0;
+  min-height:clamp(150px, 18vw, 210px);
+  box-sizing:border-box;
+  padding:clamp(20px, 3vw, 34px) clamp(14px, 3vw, 28px);
+  border:1px dashed rgba(143,157,222,.45);
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--surface),rgba(143,166,255,.055));
+  text-align:center;
+  overflow-wrap:anywhere;
+}
+.owned-empty > span { display:grid; place-items:center; width:58px; height:58px; margin-bottom:12px; border-radius:19px; background:linear-gradient(145deg,rgba(143,166,255,.2),rgba(142,218,190,.2)); font-size:2rem; }
+.owned-empty strong { max-width:100%; font-size:clamp(.95rem, 1.6vw, 1.08rem); line-height:1.35; }
+.owned-empty p { width:min(100%, 420px); margin:7px 0 0; color:var(--muted); font-size:.87rem; line-height:1.55; overflow-wrap:anywhere; }
+@media(max-width:620px) {
+  .owned-rewards-block { padding:16px; border-radius:21px; }
+  .owned-rewards-block .section-heading { align-items:flex-start; gap:10px; flex-wrap:wrap; }
+  .owned-rewards-block .section-heading > div { min-width:0; flex:1 1 180px; }
+  .owned-rewards-block .lesson-count { max-width:100%; white-space:normal; }
+  .owned-empty { min-height:145px; padding:22px 14px; border-radius:17px; }
+  .owned-empty > span { width:50px; height:50px; border-radius:16px; font-size:1.8rem; }
+}
+.reward-toast { z-index:10000; }
+.reward-toast.reward-error { border-color:rgba(210,82,82,.6);background:#fff4f2;color:#8d2727; }
+.reward-toast.reward-success { border-color:rgba(70,170,120,.5);background:#effbf4;color:#17633f; }
+:root[data-theme="dark"] .reward-toast.reward-error { background:#382426;color:#ffd6d2; }
+:root[data-theme="dark"] .reward-toast.reward-success { background:#1d342b;color:#c4f6d9; }
+@media(max-width:1000px) { .reward-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:620px) {
+  .reward-balance-panel { padding:21px 18px;gap:8px;border-radius:20px; }
+  .reward-balance-art { flex-basis:78px;height:90px; }.reward-balance-art span:first-child {font-size:3.4rem;}
+  .reward-balance-art span:nth-child(2) {font-size:1.4rem;right:0;}.reward-balance-art span:nth-child(3) {font-size:1.2rem;left:0;}
+  .reward-grid { grid-template-columns:1fr;gap:14px; }
+  .reward-art { min-height:145px; }.reward-art-icon { width:88px;height:88px;font-size:3.6rem; }
+  .reward-card-body { padding:16px; }
+  .reward-filter { padding:9px 12px;font-size:.8rem; }
+}
+@media(prefers-reduced-motion:reduce) { .reward-grid .reward-card,.reward-filter,.reward-grid .reward-open-button {transition:none;} .reward-grid .reward-card:hover,.reward-filter:hover {transform:none;} }
+
+
+/* ── Signature polish: achievements & rewards ────────────────────────── */
+.achievements-hero { position:relative; isolation:isolate; overflow:hidden; padding:clamp(26px,4vw,44px); border:1px solid rgba(150,165,238,.34); border-radius:30px; background:radial-gradient(circle at 83% 12%,rgba(255,255,255,.75),transparent 23%),radial-gradient(circle at 76% 100%,rgba(155,224,203,.25),transparent 34%),linear-gradient(120deg,rgba(226,232,255,.96),rgba(246,239,255,.94) 56%,rgba(228,248,243,.94)); box-shadow:0 20px 55px rgba(77,91,164,.09),inset 0 1px 0 rgba(255,255,255,.8); }
+.achievements-hero .welcome-copy h1 { letter-spacing:-.055em; }
+.achievements-hero .welcome-copy h1 em { color:#6574cf; text-shadow:0 8px 26px rgba(101,116,207,.13); }
+.achievements-hero .hero-glass-card { border:1px solid rgba(255,255,255,.82); background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(219,226,255,.60)); box-shadow:0 20px 45px rgba(79,91,160,.15),inset 0 1px 0 rgba(255,255,255,.9); }
+.achievement-summary { gap:15px; }
+.achievement-summary .summary-card { position:relative; overflow:hidden; min-height:110px; padding:20px; border-radius:23px; background:linear-gradient(145deg,var(--surface),rgba(151,169,231,.075)); box-shadow:0 10px 28px rgba(30,43,80,.045); transition:transform .2s ease,border-color .2s ease; }
+.achievement-summary .summary-card:after { content:""; position:absolute; width:72px;height:72px;right:-30px;bottom:-36px;border-radius:50%;background:rgba(145,160,235,.09); }
+.achievement-summary .summary-card:hover { transform:translateY(-3px); border-color:rgba(130,145,225,.42); }
+.achievement-summary .summary-icon { flex-basis:49px;width:49px;height:49px;border-radius:17px;background:linear-gradient(145deg,rgba(143,166,255,.28),rgba(190,157,255,.20));box-shadow:inset 0 1px 0 rgba(255,255,255,.7); }
+.achievement-summary .summary-card strong { font-size:clamp(1.4rem,2vw,1.8rem); }
+.achievements-section { padding:clamp(18px,2.5vw,26px); border:1px solid rgba(143,157,222,.2); border-radius:27px; background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(143,166,255,.025)); }
+.achievements-section .section-heading { margin-bottom:20px; }
+.achievements-section .section-heading h2, .owned-rewards-block .section-heading h3 { letter-spacing:-.035em; }
+.achievements-section .lesson-count { padding:8px 13px; border:1px solid rgba(113,145,220,.24); border-radius:999px; background:rgba(143,166,255,.12); font-weight:800; }
+.achievements-section .achievement { border-radius:22px; box-shadow:0 10px 26px rgba(30,43,80,.045); }
+.achievements-section .achievement.earned { box-shadow:0 10px 26px rgba(65,155,115,.08); }
+.reward-balance-panel { position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.72); border-radius:27px; background:radial-gradient(circle at 84% 20%,rgba(255,255,255,.5),transparent 23%),linear-gradient(115deg,#7e8fe7 0%,#9388df 52%,#7acbb4 120%); box-shadow:0 18px 42px rgba(111,125,210,.20),inset 0 1px 0 rgba(255,255,255,.38); }
+.reward-balance-panel:after { content:""; position:absolute; right:14%;bottom:-115px;width:250px;height:250px;border:1px solid rgba(255,255,255,.24);border-radius:50%;box-shadow:0 0 0 22px rgba(255,255,255,.07),0 0 0 46px rgba(255,255,255,.05);pointer-events:none; }
+.reward-balance-copy strong { font-size:clamp(2rem,4vw,3rem); letter-spacing:-.055em; }
+.reward-balance-copy p { max-width:460px; }
+.reward-balance-art { filter:drop-shadow(0 12px 15px rgba(43,52,112,.18)); }
+.reward-balance-art span:first-child { animation:coinFloat 4.5s ease-in-out infinite; }
+@keyframes coinFloat { 0%,100%{transform:translateY(0) rotate(-7deg)}50%{transform:translateY(-7px) rotate(5deg)} }
+.reward-info-note { border-radius:18px; border:1px solid rgba(143,157,222,.24); background:linear-gradient(135deg,var(--surface),rgba(143,166,255,.07)); }
+.reward-categories { gap:9px; }
+.reward-filter { border-radius:999px; border:1px solid var(--line); padding:10px 16px; font-weight:700; transition:transform .18s ease,background .18s ease,border-color .18s ease; }
+.reward-filter.is-active { border-color:transparent; background:linear-gradient(120deg,#7889e3,#9281d7); color:#fff; box-shadow:0 7px 18px rgba(108,119,210,.22); }
+.reward-filter:hover { transform:translateY(-1px); }
+.reward-grid .reward-card { overflow:hidden; border-radius:24px; border:1px solid rgba(143,157,222,.26); box-shadow:0 12px 30px rgba(30,43,80,.065); transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease; }
+.reward-grid .reward-card:hover { transform:translateY(-4px); border-color:rgba(130,145,225,.45); box-shadow:0 18px 36px rgba(70,81,145,.12); }
+.reward-art { background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.8),transparent 40%),linear-gradient(145deg,rgba(223,230,255,.92),rgba(237,228,255,.82) 56%,rgba(222,247,239,.82)); }
+.reward-art-icon { filter:drop-shadow(0 10px 10px rgba(67,76,130,.14)); }
+.reward-card-body { padding:20px; }
+.reward-price { border-radius:999px; background:rgba(143,166,255,.14); padding:7px 11px; font-weight:800; }
+.reward-grid .reward-open-button { border-radius:13px; background:linear-gradient(120deg,#7889e3,#9281d7); box-shadow:0 7px 16px rgba(108,119,210,.18); }
+.owned-rewards-block { margin-top:28px; padding:clamp(17px,2.4vw,25px); border:1px solid rgba(143,157,222,.24); border-radius:25px; background:linear-gradient(135deg,var(--surface),rgba(142,218,190,.055)); }
+.owned-rewards-list { gap:13px; }
+.owned-reward-card { border-radius:19px; border-color:rgba(143,157,222,.24); box-shadow:0 8px 22px rgba(30,43,80,.04); }
+@media(max-width:620px) { .achievements-hero { border-radius:24px; } .achievements-section { padding:16px; border-radius:22px; } .reward-balance-panel { border-radius:22px; } .reward-card-body { padding:17px; } }
+@media(prefers-reduced-motion:reduce) { .reward-balance-art span:first-child { animation:none; } .achievement-summary .summary-card,.reward-grid .reward-card,.reward-filter { transition:none; } }

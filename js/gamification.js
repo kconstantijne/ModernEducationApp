@@ -37,10 +37,12 @@
   // Підвищення складності видає лише різницю; покращення найкращого результату має окремий бонус.
   const BASE_REWARDS = { simple: 5, medium: 10, hard: 20 };
   const SHOP_ITEMS = [
-    { id: 'avatar-neon', title: 'Неоновий аватар', description: 'Косметичне оформлення профілю', price: 30, type: 'cosmetic' },
-    { id: 'profile-frame', title: 'Рамка дослідника', description: 'Особлива рамка профілю', price: 45, type: 'cosmetic' },
-    { id: 'hint-token', title: 'Жетон підказки', description: 'Жетон для майбутніх інтерактивних уроків', price: 20, type: 'utility' },
-    { id: 'title-inventor', title: 'Звання «Винахідник»', description: 'Декоративне звання учня', price: 60, type: 'cosmetic' }
+    { id: 'course-focus', title: 'Мінікурс «Фокус і пам’ять»', description: 'Техніки концентрації та запам’ятовування для щоденного навчання.', price: 45, type: 'course', category: 'course', icon: '🧠', art: 'brain' },
+    { id: 'course-stem', title: 'Мінікурс «STEM-мислення»', description: 'Навчайся досліджувати, ставити запитання й знаходити рішення.', price: 60, type: 'course', category: 'course', icon: '🔬', art: 'stem' },
+    { id: 'course-digital', title: 'Мінікурс «Цифрова грамотність»', description: 'Практичні навички безпечної та впевненої роботи онлайн.', price: 50, type: 'course', category: 'course', icon: '💻', art: 'digital' },
+    { id: 'resource-planner', title: 'Планер навчання', description: 'Цифровий шаблон для цілей, розкладу й відстеження прогресу.', price: 25, type: 'resource', category: 'resource', icon: '🗓️', art: 'planner' },
+    { id: 'resource-notes', title: 'Шаблон розумного конспекту', description: 'Структура цифрового конспекту для ключових ідей та висновків.', price: 20, type: 'resource', category: 'resource', icon: '📝', art: 'notes' },
+    { id: 'resource-flashcards', title: 'Інтерактивні картки для повторення', description: 'Цифровий набір карток, що допомагає повторювати й закріплювати теми.', price: 30, type: 'resource', category: 'resource', icon: '🧩', art: 'cards' }
   ];
   function normalizeDifficulty(value) {
     const v = String(value || '').toLowerCase();
@@ -173,7 +175,7 @@
     const item = SHOP_ITEMS.find(x => x.id === itemId);
     if (!item) return { success: false, reason: 'not-found', message: 'Такої винагороди немає.' };
     const p = ensureProfile(read());
-    if (p.purchases.some(x => x.itemId === itemId && x.status !== 'consumed' && item.type === 'cosmetic')) return { success: false, reason: 'already-owned', message: 'Цю нагороду вже відкрито.' };
+    if (p.purchases.some(x => x.itemId === itemId && x.status !== 'consumed')) return { success: false, reason: 'already-owned', message: 'Цю нагороду вже відкрито.' };
     if (p.coins < item.price) return { success: false, reason: 'insufficient-funds', message: 'Поки бракує комп’юшок для цієї нагороди.' };
     p.coins -= item.price;
     const purchase = { itemId, title: item.title, price: item.price, type: item.type, purchasedAt: new Date().toISOString(), status: 'owned' };
@@ -182,7 +184,7 @@
     save(p); renderProfile(window.lessonCatalog || []);
     return { success: true, item, purchase, profile: p, message: `Нагороду відкрито: ${item.title}.` };
   }
-  function getShopItems() { const p = profile(); return SHOP_ITEMS.map(item => { const quantity = p.purchases.filter(x => x.itemId === item.id && x.status !== 'consumed').length; return { ...item, quantity, owned: item.type === 'cosmetic' && quantity > 0 }; }); }
+  function getShopItems() { const p = profile(); return SHOP_ITEMS.map(item => { const quantity = p.purchases.filter(x => x.itemId === item.id && x.status !== 'consumed').length; return { ...item, quantity, owned: quantity > 0 }; }); }
   // Зворотна сумісність для старих викликів. Старі окремі бонуси за 100% більше не нараховуються.
   function awardLesson(id, score, maxScore, all, difficulty = 'medium') {
     const pct = Number(maxScore) > 0 ? Math.round(Number(score) / Number(maxScore) * 100) : 0;
