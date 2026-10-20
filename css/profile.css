@@ -248,3 +248,142 @@
 .profile-collection-group { padding:18px; border:1px solid var(--line); border-radius:21px; background:linear-gradient(135deg,var(--surface),rgba(151,169,231,.045)); }
 @media(max-width:760px) { .profile-account-card { grid-template-columns:1fr; gap:18px; padding:20px; } .profile-hero { border-radius:24px; } .profile-hero-art { min-height:150px; } .profile-avatar-large { width:104px;height:104px;border-radius:30px;font-size:3rem; } .profile-avatar-orbit { width:135px;height:135px; } .profile-avatar-orbit.orbit-two { width:158px;height:158px; } }
 @media(prefers-reduced-motion:reduce) { .profile-avatar-large { animation:none; } .profile-overview .summary-card,.profile-activity-item,.profile-save-button { transition:none; } }
+
+/* Оновлений особистий простір учня */
+.profile-hero { position: relative; overflow: hidden; }
+.profile-hero .welcome-copy { position: relative; z-index: 2; }
+.profile-hero-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.profile-hero-pills span { padding:7px 11px; border:1px solid rgba(255,255,255,.42); border-radius:999px; background:rgba(255,255,255,.28); color:var(--text); font-size:.76rem; font-weight:750; backdrop-filter:blur(8px); }
+.profile-hero-floating { position:absolute; z-index:2; display:flex; align-items:center; gap:7px; padding:10px 12px; border:1px solid rgba(255,255,255,.75); border-radius:14px; background:var(--surface); box-shadow:0 12px 30px rgba(50,60,110,.13); color:var(--text); font-size:1.05rem; }
+.profile-hero-floating span { font-size:.72rem; font-weight:750; white-space:nowrap; }
+.profile-floating-top { top:16px; right:-5px; transform:rotate(4deg); }
+.profile-floating-bottom { bottom:15px; left:-5px; transform:rotate(-4deg); }
+.profile-account-section .section-heading { margin-bottom:14px; }
+.profile-account-card { align-items:flex-start; position:relative; overflow:hidden; background:linear-gradient(120deg,var(--surface) 0%,var(--surface) 68%,rgba(132,145,220,.09) 100%); }
+.profile-account-card:before { content:""; position:absolute; width:210px; height:210px; right:-95px; top:-110px; border:1px solid rgba(132,145,220,.2); border-radius:50%; pointer-events:none; }
+.profile-account-avatar-wrap { position:relative; z-index:1; padding-top:10px; }
+.profile-account-avatar { width:112px; height:112px; border-radius:34px; box-shadow:0 10px 28px rgba(40,50,100,.12); }
+.profile-photo-button { transition:transform .2s ease,background .2s ease; }
+.profile-photo-button:hover { transform:translateY(-1px); background:var(--surface); }
+.profile-account-details { position:relative; z-index:1; }
+.profile-account-title-row { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 15px; }
+.profile-account-title-row .eyebrow { font-size:.65rem; }
+.profile-account-title-row h3 { margin:4px 0 0; font-size:1.15rem; letter-spacing:-.03em; }
+.profile-account-badge { padding:7px 10px; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--accent,#667bd4); font-size:.72rem; font-weight:800; white-space:nowrap; }
+.profile-grade-setting { display:flex; align-items:center; justify-content:space-between; gap:18px; width:min(100%,560px); margin-top:16px; padding:14px 15px; border:1px solid var(--line); border-radius:15px; background:var(--surface); }
+.profile-grade-setting label { display:block; margin:0 0 4px; font-size:.84rem; font-weight:800; }
+.profile-grade-setting p { margin:0; color:var(--muted); font-size:.76rem; line-height:1.45; }
+.profile-grade-select { min-width:118px; min-height:42px; padding:8px 30px 8px 12px; border:1px solid var(--line); border-radius:11px; background:var(--surface-2); color:var(--text); font:inherit; font-size:.84rem; font-weight:750; cursor:pointer; }
+.profile-grade-select:focus-visible { outline:3px solid rgba(113,135,229,.28); outline-offset:2px; }
+.profile-grade-help { max-width:560px; margin:8px 0 0; color:var(--muted); font-size:.72rem; line-height:1.5; }
+.profile-account-actions { margin-top:15px; }
+.profile-save-button { box-shadow:0 5px 14px rgba(102,123,212,.2); transition:transform .2s ease,box-shadow .2s ease; }
+.profile-save-button:hover { transform:translateY(-1px); box-shadow:0 8px 18px rgba(102,123,212,.25); }
+@media(max-width:650px) { .profile-account-card { align-items:center; flex-direction:column; text-align:center; padding:19px; } .profile-account-details { width:100%; } .profile-account-title-row { text-align:left; } .profile-grade-setting { text-align:left; } .profile-account-actions { justify-content:center; } .profile-hero-floating { padding:8px 9px; } .profile-floating-top { right:-8px; } .profile-floating-bottom { left:-8px; } }
+@media(prefers-reduced-motion:reduce) { .profile-photo-button,.profile-save-button { transition:none; } }
+
+/* Оновлення профілю: більша типографіка та збалансований простір картки. */
+.profile-account-card {
+  display: grid;
+  grid-template-columns: minmax(190px, 230px) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(24px, 3vw, 48px);
+  padding: clamp(24px, 3vw, 42px);
+  overflow: hidden;
+  background: linear-gradient(120deg, var(--surface) 0%, color-mix(in srgb, var(--surface) 92%, #8798f5) 100%);
+}
+.profile-account-avatar-wrap {
+  position: relative;
+  align-self: stretch;
+  justify-content: center;
+  flex-basis: auto;
+  gap: 18px;
+  min-height: 280px;
+  padding: 24px 16px;
+  border: 1px solid color-mix(in srgb, var(--line) 75%, #8b9af1);
+  border-radius: 24px;
+  background: linear-gradient(155deg, color-mix(in srgb, var(--surface) 85%, #aab8ff), var(--surface));
+}
+.profile-account-avatar-wrap::before {
+  content: "✦";
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  color: var(--accent, #7187e5);
+  font-size: 1.5rem;
+}
+.profile-account-avatar-wrap::after {
+  content: "ТВІЙ ПРОФІЛЬ";
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 850;
+  letter-spacing: .12em;
+}
+.profile-account-avatar { width: clamp(120px, 10vw, 158px); height: clamp(120px, 10vw, 158px); border-radius: 38px; box-shadow: 0 14px 34px rgba(58, 70, 130, .14); }
+.profile-account-avatar-fallback { font-size: 3.5rem; }
+.profile-photo-button { padding: 11px 16px; border-radius: 13px; font-size: .95rem; }
+.profile-account-details { display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.profile-account-title-row { margin-bottom: 10px; }
+.profile-account-title-row .eyebrow { font-size: .9rem; letter-spacing: .12em; }
+.profile-account-title-row h3 { margin-top: 8px; font-size: clamp(1.45rem, 2vw, 1.9rem); line-height: 1.25; }
+.profile-account-badge { padding: 10px 14px; font-size: .95rem; }
+.profile-account-details > label,
+.profile-grade-setting label { font-size: 1.05rem; }
+.profile-name-input { width: 100%; max-width: 760px; min-height: 56px; padding: 14px 17px; border-radius: 15px; font-size: 1.12rem; }
+.profile-grade-setting { gap: 20px; padding: 18px 20px; border-radius: 17px; }
+.profile-grade-setting p,
+.profile-grade-help { font-size: 1rem; line-height: 1.6; }
+.profile-grade-select { min-height: 52px; padding: 10px 16px; font-size: 1.05rem; }
+.profile-account-status,
+.profile-account-feedback { font-size: .98rem; line-height: 1.65; }
+.profile-account-actions { gap: 12px; margin-top: 8px; }
+.profile-save-button,
+.profile-login-button { min-height: 50px; padding: 12px 19px; border-radius: 14px; font-size: 1rem; }
+@media (max-width: 800px) {
+  .profile-account-card { grid-template-columns: 165px minmax(0, 1fr); gap: 20px; padding: 20px; }
+  .profile-account-avatar-wrap { min-height: 240px; padding: 18px 10px; }
+  .profile-account-avatar { width: 112px; height: 112px; border-radius: 28px; }
+  .profile-account-title-row { align-items: flex-start; }
+}
+@media (max-width: 620px) {
+  .profile-account-card { display: flex; align-items: stretch; flex-direction: column; gap: 20px; padding: 16px; }
+  .profile-account-avatar-wrap { min-height: 0; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; padding: 18px; }
+  .profile-account-avatar-wrap::after { flex-basis: 100%; }
+  .profile-account-avatar { width: 92px; height: 92px; border-radius: 24px; }
+  .profile-account-details { gap: 9px; }
+  .profile-name-input { max-width: none; font-size: 1rem; }
+  .profile-grade-setting { align-items: stretch; flex-direction: column; }
+  .profile-grade-select { width: 100%; }
+  .profile-account-actions > button,
+  .profile-account-actions > a { flex: 1 1 100%; text-align: center; }
+}
+
+/* Моя ціль на сьогодні — компактна картка в палітрі світлої теми */
+.profile-account-card { grid-template-columns: minmax(150px, 190px) minmax(0, 1.35fr) minmax(225px, .78fr); gap: clamp(18px, 2vw, 28px); }
+.profile-daily-goal { box-sizing:border-box; min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:12px; padding:22px; border:1px solid #dedcf8; border-radius:22px; background:linear-gradient(155deg,#fbfaff 0%,#f1efff 100%); color:#252746; box-shadow:0 8px 22px rgba(76,66,150,.07); }
+.daily-goal-topline { display:flex; align-items:center; gap:9px; }
+.daily-goal-icon { display:grid; place-items:center; width:38px; height:38px; border-radius:13px; background:#e5e1ff; font-size:1.2rem; }
+.daily-goal-label { color:#6658bd; font-size:.72rem; font-weight:850; letter-spacing:.09em; }
+.profile-daily-goal h3 { margin:0; color:#29264e; font-size:clamp(1.15rem,1.3vw,1.4rem); line-height:1.3; }
+.daily-goal-category { display:inline-flex; align-items:center; padding:5px 10px; border-radius:999px; background:#e4e0ff; color:#5143a8; font-size:.76rem; font-weight:750; }
+.daily-goal-title { margin:0; color:#252746; font-size:1.02rem; line-height:1.5; font-weight:800; }
+.daily-goal-description { margin:0; color:#525878; font-size:.9rem; line-height:1.55; }
+.daily-goal-progress { width:100%; height:7px; overflow:hidden; border-radius:999px; background:#deddf0; }
+.daily-goal-progress span { display:block; width:0; height:100%; border-radius:inherit; background:#6d5bd0; transition:width .25s ease; }
+.daily-goal-status { margin:0; color:#525878; font-size:.82rem; line-height:1.45; }
+.daily-goal-actions { display:flex; flex-wrap:wrap; gap:8px; width:100%; margin-top:auto; }
+.daily-goal-primary,.daily-goal-complete { display:inline-flex; justify-content:center; align-items:center; min-height:40px; padding:9px 12px; border:1px solid transparent; border-radius:12px; font:700 .86rem/1.25 inherit; text-decoration:none; cursor:pointer; transition:transform .18s ease,background .18s ease; }
+.daily-goal-primary { flex:1 1 100%; background:#6658c7; color:#fff !important; }
+.daily-goal-primary:hover { background:#5143ac; transform:translateY(-1px); }
+.daily-goal-complete { flex:1 1 100%; border-color:#c9c4f0; background:#fff; color:#5143a8; }
+.daily-goal-complete:hover { background:#e9e6ff; }
+.daily-goal-next { align-self:flex-start; padding:3px 0; border:0; background:transparent; color:#5143a8; font:750 .85rem/1.4 inherit; cursor:pointer; }
+.daily-goal-next:hover { text-decoration:underline; }
+.profile-daily-goal.is-complete { border-color:#b9e5c9; background:linear-gradient(155deg,#f7fff9,#eaf8ef); }
+.profile-daily-goal.is-complete .daily-goal-icon { background:#d8f3e1; }
+.profile-daily-goal.is-complete .daily-goal-progress span { width:100%; background:#248451; }
+.profile-daily-goal.is-complete .daily-goal-category { background:#d8f3e1; color:#17683d; }
+@media(max-width:900px) { .profile-account-card { grid-template-columns:150px minmax(0,1fr); } .profile-daily-goal { grid-column:1 / -1; } .daily-goal-actions { flex-direction:row; } .daily-goal-primary,.daily-goal-complete { flex:1 1 auto; } }
+@media(max-width:620px) { .profile-account-card { display:flex; flex-direction:column; } .profile-daily-goal { width:100%; padding:18px; } }
+@media(prefers-color-scheme:dark) { html:not([data-theme="light"]) .profile-daily-goal { background:linear-gradient(155deg,#252842,#202338); border-color:#42466d; color:#f0efff; } html:not([data-theme="light"]) .profile-daily-goal h3,html:not([data-theme="light"]) .daily-goal-title { color:#f4f2ff; } html:not([data-theme="light"]) .daily-goal-description,html:not([data-theme="light"]) .daily-goal-status { color:#d0d2e8; } html:not([data-theme="light"]) .daily-goal-complete { background:#303452; color:#e4dfff; border-color:#595c89; } }
+@media(prefers-reduced-motion:reduce) { .daily-goal-progress span,.daily-goal-primary,.daily-goal-complete { transition:none; } }

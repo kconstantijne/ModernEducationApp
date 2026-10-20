@@ -25,6 +25,10 @@
     }
     async function init() { try { const response = await fetch(new URL('data/lessons.json', siteRoot)); if (!response.ok) throw new Error('Не вдалося завантажити data/lessons.json'); const data = await response.json(); allLessons = Array.isArray(data) ? data : (data.lessons || []);
         featuredIds = pickRandom(allLessons.filter(l => l.category), 3).map(l => l.id);
-        render(); document.getElementById('searchInput')?.addEventListener('input', render); document.getElementById('gradeFilter')?.addEventListener('change', render); document.dispatchEvent(new CustomEvent('learning:catalog-ready', { detail: { lessons: allLessons } })); } catch (err) { const grid = document.getElementById('lessonGrid'); if (grid) grid.innerHTML = '<p class="empty-state">Не вдалося завантажити каталог. Перевір файл data/lessons.json та адресу GitHub Pages.</p>'; console.error(err) } }
+        const gradeControl = document.getElementById('gradeFilter');
+        let savedGrade = '5'; try { const saved = JSON.parse(localStorage.getItem('learningLabLocalProfile') || '{}'); if (Number(saved.grade) >= 1 && Number(saved.grade) <= 11) savedGrade = String(saved.grade); } catch (_) {}
+        if (gradeControl) gradeControl.value = savedGrade;
+        render(); document.getElementById('searchInput')?.addEventListener('input', render); gradeControl?.addEventListener('change', () => { try { const profile = JSON.parse(localStorage.getItem('learningLabLocalProfile') || '{}'); if (gradeControl.value !== 'all') { profile.grade = Number(gradeControl.value); localStorage.setItem('learningLabLocalProfile', JSON.stringify(profile)); } } catch (_) {} render(); });
+        document.addEventListener('learninglab:grade-changed', event => { if (gradeControl && event.detail?.grade) { gradeControl.value = String(event.detail.grade); render(); } }); document.dispatchEvent(new CustomEvent('learning:catalog-ready', { detail: { lessons: allLessons } })); } catch (err) { const grid = document.getElementById('lessonGrid'); if (grid) grid.innerHTML = '<p class="empty-state">Не вдалося завантажити каталог. Перевір файл data/lessons.json та адресу GitHub Pages.</p>'; console.error(err) } }
     document.addEventListener('DOMContentLoaded', init);
 })();

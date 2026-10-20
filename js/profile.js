@@ -21,6 +21,72 @@
     ['Дозволь собі цікавитися', 'Найкращі ідеї часто починаються зі слова «чому?».'],
     ['Почни з одного кроку', 'Не потрібно зробити все одразу — почни з першого завдання.']
   ];
+  const DAILY_GOALS_KEY = 'learning-lab-daily-goal-v1';
+  const dailyGoals = [
+    {icon:'📖',category:'Навчання',title:'Пройди один новий урок.',description:'Кожен урок — це ще одне відкриття.',button:'Відкрити урок',href:'index.html#lessons',status:'Обери тему, яка тебе цікавить.'},
+    {icon:'🧠',category:'Мислення',title:'Розв’яжи 3 завдання на логіку.',description:'Тренуй уважність і знаходь нестандартні рішення.',button:'До навчання',href:'index.html#lessons',status:'Крок за кроком — і рішення знайдеться.'},
+    {icon:'⚡',category:'Мінічелендж',title:'Виконай коротке завдання за 5 хвилин.',description:'Невеликий виклик — чудовий початок.',button:'Обрати завдання',href:'index.html#lessons',status:'Спробуй зосередитися лише на одному завданні.'},
+    {icon:'🏆',category:'Досягнення',title:'Зароби 3 зірочки за виконані завдання.',description:'Кожна спроба допомагає рухатися вперед.',button:'Мій прогрес',href:'#profileProgress',status:'Перевір свої результати й обери наступний крок.'},
+    {icon:'🔁',category:'Закріплення',title:'Повтори 4 поняття з вивченої теми.',description:'Повторення допомагає знанням залишатися з тобою.',button:'Повторити тему',href:'index.html#lessons',status:'Повернися до теми, яку хочеш закріпити.'},
+    {icon:'🎯',category:'Точність',title:'Дай правильні відповіді на 5 запитань поспіль.',description:'Уважно читай запитання та перевіряй себе.',button:'Пройти тест',href:'index.html#lessons',status:'Не поспішай: точність важливіша за швидкість.'},
+    {icon:'🧭',category:'Дослідження',title:'Відкрий предмет, який сьогодні ще не вивчав.',description:'Нові теми відкривають нові можливості.',button:'Дослідити предмети',href:'subjects/mathematics.html',status:'Зазирни до бібліотеки предметів.'},
+    {icon:'💡',category:'Відкриття',title:'Дізнайся один новий факт із навчальної теми.',description:'Цікаве запитання може привести до великого відкриття.',button:'Знайти урок',href:'index.html#lessons',status:'Обери тему й знайди в ній щось несподіване.'},
+    {icon:'🧩',category:'Кмітливість',title:'Розгадай одну головоломку або ребус.',description:'Дай мозку цікаве завдання.',button:'До завдань',href:'index.html#lessons',status:'Спробуй кілька підходів, якщо не вийшло одразу.'},
+    {icon:'🧪',category:'Практика',title:'Виконай одне інтерактивне практичне завдання.',description:'Навчайся через дію та експерименти.',button:'До лабораторії',href:'index.html#lessons',status:'Перевір, як знання працюють на практиці.'},
+    {icon:'📅',category:'Регулярність',title:'Знайди сьогодні 10 хвилин для навчання.',description:'Коротка практика теж має значення.',button:'Почати навчання',href:'index.html#lessons',status:'Обери зручний час і зроби маленький крок.'},
+    {icon:'🎓',category:'Самоперевірка',title:'Пройди невеликий тест із вивченої теми.',description:'Перевір, що вже добре запам’яталося.',button:'Переглянути уроки',href:'index.html#lessons',status:'Результат підкаже, що варто повторити.'},
+    {icon:'📈',category:'Особистий виклик',title:'Покращ свій попередній результат на одну правильну відповідь.',description:'Змагайся із собою, а не з іншими.',button:'Мій навчальний шлях',href:'#profileProgress',status:'Навіть маленьке покращення — це прогрес.'},
+    {icon:'🌍',category:'Практичне мислення',title:'Знайди приклад, як шкільні знання допомагають у житті.',description:'Математика, наука й мова поруч із нами щодня.',button:'Дослідити теми',href:'index.html#lessons',status:'Подивися на звичні речі очима дослідника.'},
+    {icon:'🔖',category:'Мої відкриття',title:'Збережи важливе правило або корисну підказку в нотатках.',description:'Створи власну маленьку шпаргалку.',button:'До моїх цілей',href:'#profileGoalForm',status:'Запиши коротко те, що хочеш пам’ятати.'},
+    {icon:'🚀',category:'Ускладнення',title:'Спробуй завдання трохи складніше за звичні.',description:'Новий рівень починається з готовності спробувати.',button:'Обрати завдання',href:'index.html#lessons',status:'Обирай виклик, який здається цікавим.'},
+    {icon:'✅',category:'Наполегливість',title:'Повернися до уроку, який ще не завершив.',description:'Продовжити розпочате — теж досягнення.',button:'Продовжити навчання',href:'#profileProgress',status:'Заверши один маленький етап.'},
+    {icon:'✨',category:'Позитивний результат',title:'Виконай будь-яке одне навчальне завдання.',description:'Помічай власні успіхи — навіть невеликі.',button:'Обрати завдання',href:'index.html#lessons',status:'Сьогоднішня спроба — твій маленький тріумф.'}
+  ];
+  function initDailyGoal() {
+    const card = document.querySelector('.profile-daily-goal');
+    if (!card) return;
+    const today = new Date();
+    const dateKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    let state = {};
+    try { state = JSON.parse(localStorage.getItem(DAILY_GOALS_KEY) || '{}') || {}; } catch (_) {}
+    if (state.date !== dateKey) {
+      const previousIndex = Number.isInteger(state.index) ? state.index : -1;
+      let index = Math.floor(Math.random() * dailyGoals.length);
+      if (dailyGoals.length > 1 && index === previousIndex) index = (index + 1 + Math.floor(Math.random() * (dailyGoals.length - 1))) % dailyGoals.length;
+      state = { date: dateKey, index, completed: false };
+      saveDailyGoalState();
+    } else if (!Number.isInteger(state.index) || state.index < 0 || state.index >= dailyGoals.length) {
+      state.index = Math.floor(Math.random() * dailyGoals.length); state.completed = false; saveDailyGoalState();
+    }
+    function saveDailyGoalState() { try { localStorage.setItem(DAILY_GOALS_KEY, JSON.stringify(state)); } catch (_) {} }
+    function renderDailyGoal() {
+      const goal = dailyGoals[state.index];
+      const icon = card.querySelector('.daily-goal-icon');
+      if (icon) icon.textContent = goal.icon;
+      $('dailyGoalCategory').textContent = goal.category;
+      $('dailyGoalTitle').textContent = goal.title;
+      $('dailyGoalDescription').textContent = goal.description;
+      $('dailyGoalAction').textContent = goal.button;
+      $('dailyGoalAction').setAttribute('href', goal.href);
+      $('dailyGoalStatus').textContent = state.completed ? 'Чудово! Ти позначив ціль як виконану. Так тримати!' : goal.status;
+      $('dailyGoalComplete').textContent = state.completed ? '✓ Виконано' : '✓ Виконано';
+      $('dailyGoalComplete').disabled = Boolean(state.completed);
+      $('dailyGoalComplete').setAttribute('aria-pressed', String(Boolean(state.completed)));
+      $('dailyGoalProgressBar').style.width = state.completed ? '100%' : '0%';
+      card.classList.toggle('is-complete', Boolean(state.completed));
+      card.setAttribute('data-goal-index', String(state.index));
+    }
+    $('dailyGoalComplete')?.addEventListener('click', () => {
+      if (state.completed) return;
+      state.completed = true; saveDailyGoalState(); renderDailyGoal();
+    });
+    $('dailyGoalNext')?.addEventListener('click', () => {
+      state.index = (state.index + 1 + Math.floor(Math.random() * (dailyGoals.length - 1))) % dailyGoals.length;
+      state.completed = false; saveDailyGoalState(); renderDailyGoal();
+    });
+    renderDailyGoal();
+  }
+
   function showFreshTip() {
     if (!$('sidebarTipTitle') || !$('sidebarTipText')) return;
     let previous = -1;
@@ -37,14 +103,17 @@
   function initAccount() {
     const data = readLocalProfile();
     if ($('accountNameInput')) $('accountNameInput').value = data.name || '';
+    if ($('accountGradeSelect')) $('accountGradeSelect').value = String(Number(data.grade) >= 1 && Number(data.grade) <= 11 ? Number(data.grade) : 5);
     if (data.photo) setAvatar(data.photo);
     $('saveProfileButton')?.addEventListener('click', () => {
       const profile = readLocalProfile();
       profile.name = ($('accountNameInput')?.value || '').trim().slice(0, 48);
+      profile.grade = Number($('accountGradeSelect')?.value || profile.grade || 5);
       try {
         localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
         window.dispatchEvent(new Event('learninglab:progress-changed'));
-        $('profileAccountFeedback').textContent = profile.name ? `Збережено. Вітаємо, ${profile.name}!` : 'Зміни збережено.';
+        $('profileAccountFeedback').textContent = `Зміни збережено. Твій навчальний маршрут налаштовано для ${profile.grade} класу.`;
+        window.dispatchEvent(new CustomEvent('learninglab:grade-changed', { detail: { grade: profile.grade } }));
         
       } catch (_) {
         $('profileAccountFeedback').textContent = 'Не вдалося зберегти зміни. Спробуй фото меншого розміру.';
@@ -124,7 +193,9 @@
     const api = window.LearningGamification;
     if (!api) return;
     const p = api.profile();
-    const catalog = lessons;
+    const localProfile = readLocalProfile();
+    const selectedGrade = Number(localProfile.grade || 5);
+    const catalog = lessons.filter(item => !Array.isArray(item.grades) || item.grades.includes(selectedGrade));
     const completed = p.completed || [];
     const doneCount = catalog.length ? completed.filter(id => catalog.some(l => l.id === id)).length : completed.length;
     const percent = catalog.length ? Math.min(100, Math.round(doneCount / catalog.length * 100)) : 0;
@@ -162,7 +233,8 @@
     if ($('profileProgressPercent')) $('profileProgressPercent').textContent = `${percent}%`;
     if ($('profileProgressBar')) $('profileProgressBar').style.width = `${percent}%`;
     if ($('profileCompletedLabel')) $('profileCompletedLabel').textContent = `${doneCount} ${doneCount === 1 ? 'урок' : doneCount >= 2 && doneCount <= 4 ? 'уроки' : 'уроків'}`;
-    if ($('profileTotalLabel')) $('profileTotalLabel').textContent = catalog.length ? `із ${catalog.length} доступних уроків` : 'доступних уроків';
+    if ($('profileTotalLabel')) $('profileTotalLabel').textContent = catalog.length ? `із ${catalog.length} уроків для ${selectedGrade} класу` : `уроків для ${selectedGrade} класу`;
+    if ($('profileProgressText') && catalog.length) $('profileProgressText').textContent = doneCount ? `Для ${selectedGrade} класу ти вже зробив важливі кроки. Продовжуй!` : `Твій маршрут для ${selectedGrade} класу готовий — обери перший урок!`;
     if ($('profileProgressText')) $('profileProgressText').textContent = doneCount ? 'Кожен урок наближає тебе до наступного відкриття.' : 'Твоя подорож тільки починається — обери перший урок!';
     const results = p.lessonResults || {};
     const nextLesson = catalog.find(item => !(completed || []).includes(item.id)) || catalog.find(item => Number(results[item.id]?.bestScore ?? results[item.id]?.score ?? 100) < 80);
@@ -237,6 +309,7 @@
     }
   });
   showFreshTip();
+  initDailyGoal();
   initAccount();
   window.addEventListener('storage', render);
   window.addEventListener('learningcatalogready', render);
