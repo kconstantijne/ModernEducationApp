@@ -22,8 +22,10 @@
 <script defer="" src="js/catalog.js"></script>
 <link href="css/banner-system.css" rel="stylesheet"/>
 <link href="css/home-shop.css" rel="stylesheet"/>
+<link href="css/home-dashboard.css" rel="stylesheet"/>
+<script defer src="js/home-dashboard.js"></script>
 <script defer="" src="js/home-shop.js"></script>
-<script src="js/firebase-config.js"></script><script type="module">if(window.FIREBASE_ENABLED){import("./js/cloud-sync.js").catch(e=>console.warn(e));}</script><script src="js/firebase-config.js"></script><script type="module" src="js/navigation-role.js"></script></head>
+<script src="js/firebase-config.js"></script><script type="module">if(window.FIREBASE_ENABLED){import("./js/cloud-sync.js").catch(e=>console.warn(e));}</script><script type="module" src="js/navigation-role.js"></script></head>
 <body>
 <div class="app-shell">
 <aside class="sidebar glass-panel" id="sidebar">
@@ -41,7 +43,7 @@
 <a class="nav-item" href="subjects/informatics.html"><span>⌘</span> Інформатика</a>
 <a class="nav-item" href="subjects/stem.html"><span>⚙︎</span> STEM</a>
 </div>
-</details></div></details><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>✧</span><span class="dropdown-title">Мій результат</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item profile-nav-item" href="profile.html"><span>◉</span> Мій профіль</a><a class="nav-item achievements-nav-item" href="achievements.html"><span>✧</span> Досягнення й нагороди</a></div></details><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>ⓘ</span><span class="dropdown-title">Довідка</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item faq-nav-item" href="faq.html"><span>?</span> Часті питання</a><a class="nav-item about-nav-item" href="about.html"><span>ⓘ</span> Про застосунок</a></div></details><a class="nav-item teacher-nav-item" href="pages/teacher-dashboard.html"><span>▤</span> Кабінет учителя</a></nav>
+</details></div></details><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>✧</span><span class="dropdown-title">Мій результат</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item profile-nav-item" href="profile.html"><span>◉</span> Мій профіль</a><a class="nav-item achievements-nav-item" href="achievements.html"><span>✧</span> Досягнення й нагороди</a><a class="nav-item teacher-nav-item" href="pages/teacher-dashboard.html"><span>▤</span> Кабінет учителя</a></div></details><details class="nav-dropdown nav-category"><summary class="nav-item dropdown-summary"><span>ⓘ</span><span class="dropdown-title">Довідка</span><span aria-hidden="true" class="dropdown-chevron">⌄</span></summary><div class="nav-submenu"><a class="nav-item faq-nav-item" href="faq.html"><span>?</span> Часті питання</a><a class="nav-item about-nav-item" href="about.html"><span>ⓘ</span> Про застосунок</a></div></details></nav>
 <div class="sidebar-bottom">
 <button aria-label="Перемкнути тему" class="theme-toggle" data-theme-toggle="" type="button"><span aria-hidden="true" class="theme-icon">☾</span><span>Змінити тему</span><span aria-hidden="true" class="toggle-track theme-switch-track"><i></i></span></button>
 <div class="mini-tip"><span class="tip-icon">✦</span><strong>Цікавість — це суперсила</strong><p>Досліджуй, пробуй і відкривай нове щодня.</p></div>
@@ -72,6 +74,36 @@
 <div class="hero-glass-card"><span class="hero-card-icon">✳</span><strong>Ідеї стають<br/>відкриттями</strong><small>Крок за кроком</small></div>
 <div class="floating-shape shape-spark">✦</div><div class="floating-shape shape-ring"></div>
 </div>
+</section>
+<section class="learning-dashboard section-block" id="learningDashboard" aria-labelledby="learningDashboardTitle">
+  <div class="dashboard-heading">
+    <div><span class="eyebrow">ТВІЙ НАСТУПНИЙ КРОК</span><h2 id="learningDashboardTitle">Твій навчальний маршрут</h2><p>Продовжуй із того місця, де зупинився, або відкрий для себе нову тему.</p></div>
+    <a class="dashboard-text-link" href="profile.html">Мій результат <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="dashboard-grid">
+    <article class="continue-card" id="continueLearningCard">
+      <div class="continue-card-top"><span class="dashboard-icon">▶</span><span class="dashboard-pill">Рекомендовано далі</span></div>
+      <div class="continue-card-copy"><span class="eyebrow" id="continueSubject">ТВОЯ НАСТУПНА ТЕМА</span><h3 id="continueTitle">Завантажуємо навчальний маршрут…</h3><p id="continueDescription">Знайдемо урок, який допоможе рухатися далі.</p></div>
+      <div class="continue-progress"><div><span>Загальний прогрес</span><strong id="dashboardProgressText">0%</strong></div><div class="dashboard-progress-track"><span id="dashboardProgressBar"></span></div></div>
+      <a class="button button-primary" id="continueLessonLink" href="#lessons">Почати навчання <span aria-hidden="true">→</span></a>
+    </article>
+    <div class="dashboard-side">
+      <article class="dashboard-mini-card"><span class="mini-card-icon">🎯</span><div><h3>Моя ціль</h3><p id="dashboardGoal">Заверши перший урок і зроби крок до нових знань.</p></div><span class="mini-card-stat" id="dashboardGoalStat">0 уроків</span></article>
+      <article class="dashboard-mini-card"><span class="mini-card-icon">🧠</span><div><h3>Час закріпити знання</h3><p id="dashboardReview">Обери урок і виконай кілька завдань для практики.</p></div><a href="#lessons" class="mini-card-link" aria-label="Перейти до уроків">→</a></article>
+      <article class="dashboard-mini-card route-card"><span class="mini-card-icon">🧭</span><div><h3>Твій маршрут</h3><p id="dashboardRoute">Кожен завершений урок відкриває шлях до наступних відкриттів.</p></div><a href="achievements.html" class="mini-card-link" aria-label="Переглянути досягнення">→</a></article>
+    </div>
+  </div>
+  <div class="guest-dashboard-overlay" id="guestDashboardOverlay" hidden aria-live="polite">
+    <div class="guest-dashboard-prompt" role="group" aria-labelledby="guestDashboardTitle">
+      <span class="guest-dashboard-lock" aria-hidden="true">🔒</span>
+      <h3 id="guestDashboardTitle">Твій маршрут чекає на тебе</h3>
+      <p>Увійди або створи акаунт, щоб користуватися персональними рекомендаціями, відстежувати прогрес і повертатися до своїх уроків.</p>
+      <div class="guest-dashboard-actions">
+        <a class="button button-primary" href="pages/login.html">Увійти або зареєструватися <span aria-hidden="true">→</span></a>
+        <a class="guest-dashboard-secondary" href="#subjects">Поки що переглянути уроки</a>
+      </div>
+    </div>
+  </div>
 </section>
 <section class="section-block" id="subjects">
 <div class="section-heading"><div><span class="eyebrow">ОБИРАЙ СВІЙ НАПРЯМ</span><h2>Досліджуй предмети</h2></div><span class="section-note">Знання без нудьги ✦</span></div>
