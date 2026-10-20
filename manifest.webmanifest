@@ -1,0 +1,13 @@
+{
+  "name": "Навчальна лабораторія",
+  "short_name": "Навчальна лабораторія",
+  "description": "Інтерактивні уроки з математики та інформатики",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f6fb",
+  "theme_color": "#6380df",
+  "icons": [
+    { "src": "assets/app-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

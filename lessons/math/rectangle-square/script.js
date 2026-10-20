@@ -453,8 +453,10 @@
 
   function renderQuestion() {
     const list = questions[state.level];
-    const resultPanel = $("#quiz-result, [data-quiz-result]");
-    const quizPanel = $("#quiz-panel, [data-quiz-panel]");
+    const levelLabel = $("#quizLevelLabel");
+    if (levelLabel) levelLabel.textContent = state.level === "easy" ? "Простий рівень" : state.level === "medium" ? "Середній рівень" : "Складний рівень";
+    const resultPanel = $("#quizResult, #quiz-result, [data-quiz-result]");
+    const quizPanel = $("#quizActive, #quiz-panel, [data-quiz-panel]");
 
     if (state.questionIndex >= list.length) {
       showResults();
@@ -467,29 +469,34 @@
     state.answered = false;
 
     const question = list[state.questionIndex];
-    const qText = $("#question-text, [data-question-text]");
+    const qText = $("#questionText, #question-text, [data-question-text]");
 
     if (qText) qText.textContent = question.q;
 
-    const count = $("#question-count, [data-question-count]");
+    const count = $("#questionCounter, #question-count, [data-question-count]");
     if (count) {
       count.textContent = `Запитання ${state.questionIndex + 1} із ${list.length}`;
     }
 
-    const progress = $("#quiz-progress, [data-quiz-progress]");
+    const progress = $("#progressFill, #quiz-progress, [data-quiz-progress]");
     if (progress) {
-      progress.max = list.length;
-      progress.value = state.questionIndex;
-      progress.setAttribute(
-        "aria-valuetext",
-        `${state.questionIndex} із ${list.length}`
-      );
+      if (progress.tagName === "DIV") {
+        progress.style.width = `${(state.questionIndex / list.length) * 100}%`;
+        progress.setAttribute("role", "progressbar");
+        progress.setAttribute("aria-valuemin", "0");
+        progress.setAttribute("aria-valuemax", String(list.length));
+        progress.setAttribute("aria-valuenow", String(state.questionIndex));
+        progress.setAttribute("aria-valuetext", `${state.questionIndex} із ${list.length}`);
+      } else {
+        progress.max = list.length;
+        progress.value = state.questionIndex;
+      }
     }
 
-    const correctCount = $("#correct-count, [data-correct-count]");
+    const correctCount = $("#correctCounter, #correct-count, [data-correct-count]");
     if (correctCount) correctCount.textContent = String(state.correct);
 
-    const options = $("#answer-options, [data-answer-options]");
+    const options = $("#answerList, #answer-options, [data-answer-options]");
 
     if (options) {
       options.replaceChildren();
@@ -517,7 +524,7 @@
       });
     }
 
-    const feedback = $("#answer-feedback, [data-answer-feedback]");
+    const feedback = $("#feedbackBox, #answer-feedback, [data-answer-feedback]");
 
     if (feedback) {
       feedback.hidden = true;
@@ -525,7 +532,7 @@
       feedback.className = "answer-feedback";
     }
 
-    const next = $("#next-question, [data-next-question]");
+    const next = $("#nextQuestion, #next-question, [data-next-question]");
     if (next) next.hidden = true;
   }
 
@@ -560,7 +567,7 @@
       }
     });
 
-    const feedback = $("#answer-feedback, [data-answer-feedback]");
+    const feedback = $("#feedbackBox, #answer-feedback, [data-answer-feedback]");
 
     if (feedback) {
       feedback.hidden = false;
@@ -570,10 +577,10 @@
         `${isCorrect ? "Правильно! " : "Не зовсім. "}${question.explanation}`;
     }
 
-    const correctCount = $("#correct-count, [data-correct-count]");
+    const correctCount = $("#correctCounter, #correct-count, [data-correct-count]");
     if (correctCount) correctCount.textContent = String(state.correct);
 
-    const next = $("#next-question, [data-next-question]");
+    const next = $("#nextQuestion, #next-question, [data-next-question]");
 
     if (next) {
       next.hidden = false;
@@ -584,8 +591,14 @@
       next.focus({ preventScroll: true });
     }
 
-    const progress = $("#quiz-progress, [data-quiz-progress]");
-    if (progress) progress.value = state.questionIndex + 1;
+    const progress = $("#progressFill, #quiz-progress, [data-quiz-progress]");
+    if (progress) {
+      if (progress.tagName === "DIV") {
+        const total = questions[state.level].length;
+        progress.style.width = `${((state.questionIndex + 1) / total) * 100}%`;
+        progress.setAttribute("aria-valuenow", String(state.questionIndex + 1));
+      } else progress.value = state.questionIndex + 1;
+    }
 
     announce(
       isCorrect
@@ -603,25 +616,25 @@ state.stars = percent >= 90 ? 3
       : percent >= 50 ? 1
       : 0;
 
-    const quizPanel = $("#quiz-panel, [data-quiz-panel]");
-    const resultPanel = $("#quiz-result, [data-quiz-result]");
+    const quizPanel = $("#quizActive, #quiz-panel, [data-quiz-panel]");
+    const resultPanel = $("#quizResult, #quiz-result, [data-quiz-result]");
 
     if (quizPanel) quizPanel.hidden = true;
     if (resultPanel) resultPanel.hidden = false;
 
-    const score = $("#result-score, [data-result-score]");
+    const score = $("#finalCorrect, #result-score, [data-result-score]");
     if (score) score.textContent = `${state.correct} / ${total}`;
 
-    const percentEl = $("#result-percent, [data-result-percent]");
+    const percentEl = $("#finalPercent, #result-percent, [data-result-percent]");
     if (percentEl) percentEl.textContent = `${percent}%`;
 
-    const stars = $("#result-stars, [data-result-stars]");
+    const stars = $("#earnedStars, #result-stars, [data-result-stars]");
     if (stars) {
       stars.textContent = "★".repeat(state.stars) +
         "☆".repeat(3 - state.stars);
     }
 
-    const message = $("#result-message, [data-result-message]");
+    const message = $("#resultMessage, #result-message, [data-result-message]");
 
     if (message) {
       message.textContent = percent >= 90
@@ -636,7 +649,7 @@ state.stars = percent >= 90 ? 3
     const earned = $("#earned-stars, [data-earned-stars]");
     if (earned) earned.textContent = String(state.stars);
 
-    const totalStars = $("#total-stars, [data-total-stars]");
+    const totalStars = $("#starBalance, #total-stars, [data-total-stars]");
 
     if (totalStars) {
       state.totalStars += state.stars;
@@ -708,14 +721,14 @@ function restartQuiz() {
 
     bind("#reset-model, [data-reset-model]", "click", resetModel);
 
-    bind("#next-question, [data-next-question]", "click", () => {
+    bind("#nextQuestion, #next-question, [data-next-question]", "click", () => {
       if (!state.answered) return;
 
       state.questionIndex++;
       renderQuestion();
     });
 
-    bind("#restart-quiz, [data-restart-quiz]", "click", restartQuiz);
+    bind("#retryQuiz, #restart-quiz, [data-restart-quiz]", "click", restartQuiz);
 
     bind(".level-card, [data-level]", "click", (event) => {
       const card = event.currentTarget;
